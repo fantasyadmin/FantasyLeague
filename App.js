@@ -15,7 +15,7 @@ export default function App() {
 
       </ImageBackground >
     </View >
-  );
+  ); 
 }
 
 const styles = StyleSheet.create({
