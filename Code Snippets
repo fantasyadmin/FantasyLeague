@@ -1,0 +1,17 @@
+navigation between pages:
+
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
+
+<NavigationContainer>
+  <Stack.Navigator initialRouteName="FirstPage">
+    <Stack.Screen name="FirstPage" component={LoginPage} />
+  </Stack.Navigator>
+</NavigationContainer>
+
+
+
+=====================================================================================
