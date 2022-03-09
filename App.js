@@ -1,24 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, } from 'react-native';
+import { Text, View, Button, StyleSheet, ImageBackground } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginPage from './Components/Login_Process/LoginPage';
 import WellcomeScreen from './Components/Login_Process/WellcomeScreen';
 import BottomMenu from './Components/MenuComponents/BottomMenu';
 
-const image = { uri: "http://proj.ruppin.ac.il/bgroup89/Fantasy_league_proj/%D7%9C%D7%95%D7%92%D7%95.PNG" };
+
+const Stack = createNativeStackNavigator();
+
+const topBar = {
+  headerStyle: {
+    backgroundColor: '#4472c4',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+  headerTitleAlign: 'center'
+};
+
 
 export default function App() {
   return (
-    <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-      <WellcomeScreen />
-      <BottomMenu />
-      <StatusBar style="auto" />
-    </ImageBackground>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={topBar}>
+        <Stack.Screen name="Login" component={LoginPage} />
+        <Stack.Screen name="Wellcome To The  צ'כונה" component={WellcomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  image: {
+  container: {
     flex: 1,
-    justifyContent: "center",
-    resizeMode: 'cover'
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  Button: {
+    flexDirection: 'row',
+    marginTop: 0,
+    marginBottom: 50,
   },
 });
+
