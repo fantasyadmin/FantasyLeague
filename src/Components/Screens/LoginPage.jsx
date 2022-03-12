@@ -1,9 +1,5 @@
 import { TextInput, Text, View, StyleSheet, TouchableOpacity, } from 'react-native'
 
-
-
-
-
 const LoginPage = () => {
     return (
         <View style={styles.container}>
@@ -14,7 +10,7 @@ const LoginPage = () => {
                     <TextInput
                         onChangeText={(val) => this.setState({ username: val })}
                         keyboardType='email-address'
-                        placeholder='User Name'
+                        placeholder='שם משתמש'
                         placeholderTextColor='rgba(225,225,225,255)'
                         underlineColorAndroid='black'
                     />
@@ -25,7 +21,7 @@ const LoginPage = () => {
                     <Text>סיסמא:             </Text>
                     <TextInput
                         onChangeText={(val) => this.setState({ password: val })}
-                        placeholder='Password'
+                        placeholder='סיסמה'
                         placeholderTextColor='rgba(225,225,225,255)'
                         underlineColorAndroid='black'
                         secureTextEntry

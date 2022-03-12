@@ -1,48 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, StyleSheet, ImageBackground } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginPage from './Components/Login_Process/LoginPage';
-import WellcomeScreen from './Components/Login_Process/WellcomeScreen';
-import BottomMenu from './Components/MenuComponents/BottomMenu';
-
-
-const Stack = createNativeStackNavigator();
-
-const topBar = {
-  headerStyle: {
-    backgroundColor: '#4472c4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-  headerTitleAlign: 'center'
-};
-
+import WellcomeScreen from './src/Components/Screens/WellcomeScreen.jsx';
+import SignInScreen from './src/Components/Screens/SignInScreen.jsx';
+import SignUpScreen from './src/Components/Screens/SignUpScreen.jsx';
+import Bottom from './src/Components/MenuComponents/Bottom_Menu.jsx';
+import MailConfirm from './src/Components/Screens/ConfirnEmail.jsx';
+import ForgotPassword from './src/Components/Screens/ForgotPassword.jsx';
+import ResetPassword from './src/Components/Screens/ResetPassword.jsx';
+import Navigation from './src/Components/Navigation/Navigation.jsx';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={topBar}>
-        <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="Wellcome To The  צ'כונה" component={WellcomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Navigation />
+    //<WellcomeScreen />
+    //<SignInScreen/>
+    //<SignUpScreen/>
+    //<Bottom />
+    //<MailConfirm/>
+    //<ForgotPassword/>
+    //<ResetPassword/>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  Button: {
-    flexDirection: 'row',
-    marginTop: 0,
-    marginBottom: 50,
-  },
-});
 
+// רשימת מסכים לבדיקה
+
+//<WellcomeScreen />
+//<SignInScreen/>
+//<SignUpScreen/>
+//<Bottom />
+//<MailConfirm/>
+//<forgotPassword/>
+//<ResetPassword/>
+//<Navigation />
+
+
+
+// ניווט בין עמודים
+
+//<NavigationContainer>
+  //<Stack.Navigator screenOptions={topBar}>
+   // <Stack.Screen name="Wellcome To The  צ'כונה" component={WellcomeScreen} />
+ // </Stack.Navigator>
+//</NavigationContainer>
