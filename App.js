@@ -6,6 +6,8 @@ import MailConfirm from './src/Components/Screens/ConfirnEmail.jsx';
 import ForgotPassword from './src/Components/Screens/ForgotPassword.jsx';
 import ResetPassword from './src/Components/Screens/ResetPassword.jsx';
 import Navigation from './src/Components/Navigation/Navigation.jsx';
+import Home from './src/Components/Screens/Home.jsx';
+
 
 export default function App() {
   return (
@@ -17,6 +19,7 @@ export default function App() {
     //<MailConfirm/>
     //<ForgotPassword/>
     //<ResetPassword/>
+    //<Home />
   );
 }
 

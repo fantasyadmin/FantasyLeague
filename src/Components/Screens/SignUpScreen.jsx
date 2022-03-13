@@ -3,7 +3,7 @@ import React from 'react';
 import { image } from '../../../assets/exports';
 import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function SignUpScreen() {
@@ -11,17 +11,22 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
+    const navigation = useNavigation();
+
 
     const onSignUpPress = () => {
         console.warn('רישום פרטי משתמש ואישור מייל')
+        //רישום משתמש
+        navigation.navigate('Mail Confirmation');
     }
 
     const onClickTermsOfUse = () => {
+        //תנאי שימוש
         console.warn('Terms of use redirect')
     }
 
     const onExistingAcount = () => {
-        console.warn('ניווט למסך כניסה לחשבון')
+        navigation.navigate('Sign In');
     }
 
 

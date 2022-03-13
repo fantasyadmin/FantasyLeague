@@ -3,17 +3,38 @@ import React from 'react';
 import { image } from '../../../assets/exports';
 import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 
-const onSignInPress = () => { }
+
 
 export default function SignInScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigation = useNavigation();
+
+    const onSignInPress = () => {
+        console.warn('Sign In');
+        //validate user
+        navigation.navigate('Home');
+    }
+
+    const onForgotPasswordPress = () => {
+        console.warn('forgot password');
+        navigation.navigate('Forgot Password');
+    }
+
+    const onCreateNewAccountPress = () => {
+        console.warn('create new account');
+        navigation.navigate('Sign Up');
+    }
+
+
     return (
         <View style={styles.root}>
             <Image source={image} style={styles.pic} />
+
             <TextInput
                 value={username}
                 onChangeText={setUsername}
@@ -28,9 +49,9 @@ export default function SignInScreen() {
                 secureTextEntry
             />
             <CustomButton text="כניסה" onPress={onSignInPress} />
-            <CustomButton text="שכחתי סיסמה" onPress={onSignInPress} />
+            <CustomButton text="שכחתי סיסמה" onPress={onForgotPasswordPress} />
             <Text>            </Text>
-            <CustomButton text="צור חשבון חדש" onPress={onSignInPress} />
+            <CustomButton text="צור חשבון חדש" onPress={onCreateNewAccountPress} />
         </View>
     )
 }

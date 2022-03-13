@@ -3,20 +3,24 @@ import React from 'react';
 import { image } from '../../../assets/exports';
 import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
-const onSubmitPressed = () => {
-    console.warn('שליחת סיסמה למייל')
-}
-
-const onSignInPress = () => {
-    console.warn('חזרה לרישום')
-}
 
 export default function ResetPassword() {
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
+    const navigation = useNavigation();
 
+    const onSubmitPressed = () => {
+        console.warn('שליחת סיסמה למייל')
+        navigation.navigate('Sign Up');
+    }
+
+    const onSignInPress = () => {
+        console.warn('חזרה לרישום')
+        navigation.navigate('Sign Up');
+    }
 
     return (
         <View style={styles.root}>
