@@ -58,10 +58,10 @@ export default function Bottom() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={topBar}>
-        <Tab.Screen name="משחק חדש" component={CreateNewGame} />
+        <Tab.Screen name="תפריט ראשי" component={MainMenu} />
         <Tab.Screen name="טבלת הליגה" component={Tables} />
         <Tab.Screen name="ניהול קבוצה" component={TeamManagement} />
-        <Tab.Screen name="תפריט ראשי" component={MainMenu} />
+        <Tab.Screen name="משחק חדש" component={CreateNewGame} />
       </Tab.Navigator>
     </NavigationContainer>
   );

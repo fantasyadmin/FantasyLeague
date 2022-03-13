@@ -8,14 +8,13 @@ import ResetPassword from './src/Components/Screens/ResetPassword.jsx';
 import Navigation from './src/Components/Navigation/Navigation.jsx';
 import Home from './src/Components/Screens/Home.jsx';
 
-
 export default function App() {
   return (
-    <Navigation />
+    //<Navigation />
     //<WellcomeScreen />
     //<SignInScreen/>
     //<SignUpScreen/>
-    //<Bottom />
+    <Bottom />
     //<MailConfirm/>
     //<ForgotPassword/>
     //<ResetPassword/>
@@ -34,7 +33,7 @@ export default function App() {
 //<forgotPassword/>
 //<ResetPassword/>
 //<Navigation />
-
+//<Home />
 
 
 // ניווט בין עמודים

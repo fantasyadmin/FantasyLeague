@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function ForgotPassword() {
     const [username, setUsername] = useState('');
-
+    
     const navigation = useNavigation();
 
 
