@@ -9,11 +9,15 @@ import ResetPassword from '../Screens/ResetPassword';
 import WellcomeScreen from '../Screens/WellcomeScreen';
 import Bottom from '../MenuComponents/Bottom_Menu';
 import Home from '../Screens/Home';
+import LeagueTable from '../Screens/FantasyLeagueComps/LeagueTable';
+import Profile from '../Screens/Profile';
+import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam';
+import NewGame from '../Screens/shchunaComps/NewGame';
 
 const Stack = createNativeStackNavigator();
 
-
 const Navigation = () => {
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -25,9 +29,15 @@ const Navigation = () => {
                 <Stack.Screen name="Reset Password" component={ResetPassword} />
                 <Stack.Screen name="Bottom" component={Bottom} />
                 <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="New Game" component={NewGame} />
+                <Stack.Screen name="League Table" component={LeagueTable} />
+                <Stack.Screen name="Manage Team" component={ManageTeam} />
+                <Stack.Screen name="Profile" component={Profile} />
             </Stack.Navigator>
         </NavigationContainer>
     )
 }
 
 export default Navigation
+
+

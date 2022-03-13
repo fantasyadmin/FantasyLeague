@@ -2,7 +2,11 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import WellcomeScreen from '../Screens/WellcomeScreen.jsx';
+import Home from '../Screens/Home.jsx';
+import LeagueTable from '../Screens/FantasyLeagueComps/LeagueTable.jsx';
+import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam.jsx';
+import Profile from '../Screens/Profile.jsx';
+import NewGame from '../Screens/shchunaComps/NewGame.jsx';
 
 
 const topBar = {
@@ -16,18 +20,18 @@ const topBar = {
   headerTitleAlign: 'center'
 };
 
-function HomeScreen() {
+function CreateNewGame() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <WellcomeScreen />
+      <NewGame />
     </View>
   );
 }
 
-function LeagueTable() {
+function Tables() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>League Table</Text>
+      <LeagueTable />
     </View>
   );
 }
@@ -35,7 +39,7 @@ function LeagueTable() {
 function TeamManagement() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>Team Management</Text>
+      <ManageTeam />
     </View>
   );
 }
@@ -43,20 +47,19 @@ function TeamManagement() {
 function MainMenu() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>Main Menu</Text>
+      <Home/>
     </View>
   );
 }
 
 
 const Tab = createBottomTabNavigator();
-
 export default function Bottom() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={topBar}>
-        <Tab.Screen name="משחק חדש" component={HomeScreen} />
-        <Tab.Screen name="טבלת הליגה" component={LeagueTable} />
+        <Tab.Screen name="משחק חדש" component={CreateNewGame} />
+        <Tab.Screen name="טבלת הליגה" component={Tables} />
         <Tab.Screen name="ניהול קבוצה" component={TeamManagement} />
         <Tab.Screen name="תפריט ראשי" component={MainMenu} />
       </Tab.Navigator>

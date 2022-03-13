@@ -5,9 +5,6 @@ import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
-
-
-
 export default function MailConfirm() {
     const [code, setCode] = useState('');
     const navigation = useNavigation();
