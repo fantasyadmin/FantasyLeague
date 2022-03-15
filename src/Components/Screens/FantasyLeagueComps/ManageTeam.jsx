@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const ManageTeam = () => {
+export default function ManageTeam() {
   return (
     <View>
       <Text>ManageTeam</Text>
@@ -9,4 +9,4 @@ const ManageTeam = () => {
   )
 }
 
-export default ManageTeam
+const styles = StyleSheet.create({})

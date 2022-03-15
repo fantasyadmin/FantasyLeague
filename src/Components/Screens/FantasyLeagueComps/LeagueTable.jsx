@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const LeagueTable = () => {
+export default function LeagueTable() {
   return (
     <View>
       <Text>LeagueTable</Text>
@@ -9,4 +9,4 @@ const LeagueTable = () => {
   )
 }
 
-export default LeagueTable
+const styles = StyleSheet.create({})
