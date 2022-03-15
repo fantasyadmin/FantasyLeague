@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import React from 'react';
 import { image } from '../../../assets/exports';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-
-
+import Bottom from '../MenuComponents/Bottom_Menu';
 
 
 export default function SignInScreen() {
@@ -17,7 +16,7 @@ export default function SignInScreen() {
     const onSignInPress = () => {
         console.warn('Sign In');
         //validate user
-        navigation.navigate('Home');
+        navigation.navigate('Bottom');
     }
 
     const onForgotPasswordPress = () => {
@@ -34,7 +33,6 @@ export default function SignInScreen() {
     return (
         <View style={styles.root}>
             <Image source={image} style={styles.pic} />
-
             <TextInput
                 value={username}
                 onChangeText={setUsername}
@@ -65,6 +63,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 10,
         marginVertical: 5,
+        textAlign: 'right'
     },
     root: {
         width: '100%',

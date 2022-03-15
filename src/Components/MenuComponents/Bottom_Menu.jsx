@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Home from '../Screens/Home.jsx';
 import LeagueTable from '../Screens/FantasyLeagueComps/LeagueTable.jsx';
 import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam.jsx';
@@ -17,7 +18,7 @@ const topBar = {
   headerTitleStyle: {
     fontWeight: 'bold',
   },
-  headerTitleAlign: 'center'
+  headerTitleAlign: 'center',
 };
 
 function CreateNewGame() {
@@ -47,7 +48,7 @@ function TeamManagement() {
 function MainMenu() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Home/>
+      <Home />
     </View>
   );
 }
@@ -58,10 +59,29 @@ export default function Bottom() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={topBar}>
-        <Tab.Screen name="תפריט ראשי" component={MainMenu} />
-        <Tab.Screen name="טבלת הליגה" component={Tables} />
-        <Tab.Screen name="ניהול קבוצה" component={TeamManagement} />
-        <Tab.Screen name="משחק חדש" component={CreateNewGame} />
+        <Tab.Screen name="תפריט ראשי"
+          component={MainMenu}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="home" size={size} color={color} />)
+          }} />
+        <Tab.Screen name="טבלת הליגה"
+          component={Tables}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="Trophy" size={size} color={color} />)
+          }}
+        />
+        <Tab.Screen name="ניהול קבוצה"
+          component={TeamManagement}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="team" size={size} color={color} />)
+          }}
+        />
+        <Tab.Screen name="משחק חדש"
+          component={CreateNewGame}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="pluscircleo" size={size} color={color} />)
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

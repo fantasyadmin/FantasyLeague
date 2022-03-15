@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 10,
         marginVertical: 5,
+        textAlign: 'right'
     },
     root: {
         width: '100%',

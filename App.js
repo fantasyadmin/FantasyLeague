@@ -7,39 +7,24 @@ import ForgotPassword from './src/Components/Screens/ForgotPassword.jsx';
 import ResetPassword from './src/Components/Screens/ResetPassword.jsx';
 import Navigation from './src/Components/Navigation/Navigation.jsx';
 import Home from './src/Components/Screens/Home.jsx';
+import CreateLeague from './src/Components/Screens/FantasyLeagueComps/CreateLeague.jsx';
+
 
 export default function App() {
   return (
     //<Navigation />
     //<WellcomeScreen />
     //<SignInScreen/>
-    //<SignUpScreen/>
-    <Bottom />
+    //<SignUpScreen />
+    //<Bottom />
     //<MailConfirm/>
-    //<ForgotPassword/>
+    //<forgotPassword/>
     //<ResetPassword/>
     //<Home />
+    <CreateLeague/>
   );
 }
 
 
 // רשימת מסכים לבדיקה
 
-//<WellcomeScreen />
-//<SignInScreen/>
-//<SignUpScreen/>
-//<Bottom />
-//<MailConfirm/>
-//<forgotPassword/>
-//<ResetPassword/>
-//<Navigation />
-//<Home />
-
-
-// ניווט בין עמודים
-
-//<NavigationContainer>
-  //<Stack.Navigator screenOptions={topBar}>
-   // <Stack.Screen name="Wellcome To The  צ'כונה" component={WellcomeScreen} />
- // </Stack.Navigator>
-//</NavigationContainer>
