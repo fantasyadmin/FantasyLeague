@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React from 'react';
 import { image } from '../../../assets/exports';
 import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import Bottom from '../MenuComponents/Bottom_Menu';
 
 
 export default function SignInScreen() {

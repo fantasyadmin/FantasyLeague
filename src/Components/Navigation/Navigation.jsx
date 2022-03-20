@@ -16,11 +16,12 @@ import NewGame from '../Screens/shchunaComps/NewGame';
 
 const Stack = createNativeStackNavigator();
 
+
 const Navigation = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{ headerShown: false }} >
                 <Stack.Screen name="Wellcome" component={WellcomeScreen} />
                 <Stack.Screen name="Sign In" component={SignInScreen} />
                 <Stack.Screen name="Sign Up" component={SignUpScreen} />

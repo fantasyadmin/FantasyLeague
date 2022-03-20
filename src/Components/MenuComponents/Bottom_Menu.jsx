@@ -11,14 +11,7 @@ import NewGame from '../Screens/shchunaComps/NewGame.jsx';
 
 
 const topBar = {
-  headerStyle: {
-    backgroundColor: '#4472c4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-  headerTitleAlign: 'center',
+  headerShown: false,
 };
 
 function CreateNewGame() {
@@ -55,9 +48,11 @@ function MainMenu() {
 
 
 const Tab = createBottomTabNavigator();
+
+
 export default function Bottom() {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={topBar}>
         <Tab.Screen name="תפריט ראשי"
           component={MainMenu}

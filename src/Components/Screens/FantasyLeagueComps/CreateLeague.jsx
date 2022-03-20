@@ -16,6 +16,7 @@ export default function CreateLeague() {
 
     const onCreateLeaguePress = () => {
         console.warn('create league');
+        
         //submit to DB and navigate to Home
     }
 
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         backgroundColor: '#4472c4',
-
     },
     container: {
         flex: 1,

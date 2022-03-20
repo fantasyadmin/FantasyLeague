@@ -12,7 +12,7 @@ import CreateLeague from './src/Components/Screens/FantasyLeagueComps/CreateLeag
 
 export default function App() {
   return (
-    //<Navigation />
+    <Navigation />
     //<WellcomeScreen />
     //<SignInScreen/>
     //<SignUpScreen />
@@ -21,7 +21,7 @@ export default function App() {
     //<forgotPassword/>
     //<ResetPassword/>
     //<Home />
-    <CreateLeague/>
+    //<CreateLeague/>
   );
 }
 

@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import LeagueTable from './FantasyLeagueComps/LeagueTable';
 import NewGame from './shchunaComps/NewGame';
-
+import TopProfileBar from '../MenuComponents/TopProfileBar';
 
 const Home = () => {
-    
+
     const onPressFantasy = () => {
         console.warn('ניווט לטבלת הפנטזי')
     }
@@ -33,15 +33,16 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <Text>שלום שחקן=======</Text>
+            <TopProfileBar />
             <Text></Text>
             <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
             <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
             <Text></Text>
             <Text></Text>
-            <Text>ניהול ליגה</Text>
-            <Text></Text>
+
+            
+            <Text style={styles.text}>ניהול ליגה</Text>
             <CustomButton text="הזמן שחקן חדש" onPress={onPressInvitePlayer} />
             <CustomButton text="נהל שחקנים" onPress={onPressManagePlayers} />
             <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
@@ -61,16 +62,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#4472c4',
     },
-    Button: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 500,
-        width: 200
-    },
-    image: {
-        flex: 1,
-        justifyContent: "center",
-        resizeMode: 'cover'
+    text: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20
     },
 });
