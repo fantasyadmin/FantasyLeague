@@ -2,7 +2,31 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { profilePic, image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
-import { getInfo2 } from '../../../APIActions/apiRequests';
+
+const onPressDB = () => {
+    console.log('show data from DB');
+    fetch('https://192.168.1.1:44355/api/Register', {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+        })
+    })
+        .then(res => {
+            console.log('res=', res);
+            console.log('res.status', res.status);
+            console.log('res.ok', res.ok);
+            return res.json()
+        })
+        .then(
+            (result) => {
+                console.log("fetch btnFetchGetStudents= ", result);
+                result.map(st => console.log(st.FullName));
+                console.log('result[0].FullName=', result);
+            },
+            (error) => {
+                console.log("err post=", error);
+            });
+}
 
 export default function TopProfileBar(props) {
     return (
@@ -15,7 +39,7 @@ export default function TopProfileBar(props) {
                 <Text style={styles.text}>  שחקן:</Text>
                 <Text style={styles.text}>  מספר משחקים:</Text>
                 <Text style={styles.text}>  ציון שחקן:</Text>
-                <CustomButton onPress={''} text={'חיבור DB'} />
+                <CustomButton onPress={onPressDB} text={'חיבור DB'} />
             </View>
         </View>
     )

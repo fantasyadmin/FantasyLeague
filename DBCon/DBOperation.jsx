@@ -11,9 +11,10 @@ const getData = async () => {
         return data;
     }
     catch (error) {
-        console.log("ooppsie");
+        console.log("ooppsie, can't get data");
     }
 }
+
 
 module.exports = {
     getData

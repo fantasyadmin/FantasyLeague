@@ -61,7 +61,7 @@ fetch('https://localhost:44355/api/Register')
 
 
 
-        fetch('https://localhost:44355/api/Register', {
+fetch('https://localhost:44355/api/Register', {
     method: 'GET',
     headers: {
         Accept: 'application/json',
