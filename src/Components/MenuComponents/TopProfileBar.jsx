@@ -5,10 +5,11 @@ import CustomButton from '../CustomComps/CustomButton';
 
 const onPressDB = () => {
     console.log('show data from DB');
-    fetch('https://192.168.1.1:44355/api/Register', {
+    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Register', {
         method: 'GET',
         headers: new Headers({
             'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8',
         })
     })
         .then(res => {
@@ -19,9 +20,9 @@ const onPressDB = () => {
         })
         .then(
             (result) => {
-                console.log("fetch btnFetchGetStudents= ", result);
-                result.map(st => console.log(st.FullName));
-                console.log('result[0].FullName=', result);
+                console.log("fetch info= ", result);
+                result.map(st => console.log(st));
+                console.log('result.email=', result.email);
             },
             (error) => {
                 console.log("err post=", error);
@@ -30,7 +31,6 @@ const onPressDB = () => {
 
 export default function TopProfileBar(props) {
     return (
-
         <View style={styles.root}>
             <Image source={profilePic} style={styles.pic} />
             <View>
@@ -68,31 +68,3 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 })
-
-
-
-//// Retch attempts
-
-export const getInfo = () => {
-    return fetch('https://localhost:44355/api/Register', {
-        method: 'GET',
-        headers: new Headers({
-            'Content-Type': 'application/json; charset=UTF-8',
-        })
-    })
-        .then(res => {
-            console.log('res=', res);
-            console.log('res.status', res.status);
-            console.log('res.ok', res.ok);
-            return res.json()
-        })
-        .then(
-            (result) => {
-                console.log("fetch btnFetchGetStudents= ", result);
-                result.map(st => console.log(st));
-                console.log('result[0].FullName=', result);
-            },
-            (error) => {
-                console.log("err post=", error);
-            });
-};

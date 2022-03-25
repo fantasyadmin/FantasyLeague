@@ -1,98 +1,95 @@
-const API_URL = 'https://localhost:44355/api/Register';
+const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
+const API_SIGIN = 'https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5';
+const API_CREATE_LEAGUE = 'https://proj.ruppin.ac.il/bgroup89/prod/api/CreateNewLeague';
+//const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
+//const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
+//const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
+//const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
 
-export const getInfo = () => {
-    try {
-        return async dispatch => {
-            const result = await fetch(API_URL,
-                {
-                    method: 'GET',
-                    headers: {
-                        'content-type': 'application/json',
-                    }
-                });
-            const json = await result.json();
-            if (json) {
-                dispatch({
-                    type: GET_INFO,
-                    payload: json
-                });
-            }
-            else {
-                console.log('unable to fetch!')
-            }
-        }
-    } catch (error) {
-        console.log(error);
-    }
+const league_pic = 'https://cdn.bleacherreport.net/images_root/slides/photos/000/607/604/funny_cat_soccer_problem_original.jpg?1294007705';
+
+
+// GET METHOD - login, send email and password, return "good connection"
+export const getMeth = () => {
+    fetch(API_URI, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8',
+        })
+    })
+        .then(res => {
+            console.log('res=', res);
+            console.log('res.status', res.status);
+            console.log('res.ok', res.ok);
+            return res.json()
+        })
+        .then(
+            (result) => {
+                console.log("fetch btnFetchGetStudents= ", result);
+                result.map(st => console.log(st));
+                console.log('result[0].FullName=', result);
+            },
+            (error) => {
+                console.log("err post=", error);
+            });
 }
 
 
-export const getInfo2 = () => {
-    return fetch('https://localhost:44355/api/Register')
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            return json[0];
+// POST METHOD - SIGN IN - GET USERNAME & PSWD, RETURNS STATUS OK \ WRONG
+
+export const postMethLogin = (s) => {
+    fetch(API_SIGIN, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+        }),
+        body: JSON.stringify({
+            'email': s.email,
+            'password': s.password
         })
-        .catch((error) => {
-            console.error(error);
-        });
-};
-
-
-
-fetch('https://localhost:44355/api/Register')
-    .then(res => {
-        console.log('res=', res);
-        console.log('res.status', res.status);
-        console.log('res.ok', res.ok);
-        return res.json()
     })
-    .then(
-        (result) => {
-            console.log("fetch btn=", result);
-            result.map(st => console.log(st));
-            console.log(st);
-        },
-        (error) => {
-            console.log("err post=", error);
-        });
+        .then(res => {
+            console.log('res=', res);
+            return res.json()
+        })
+        .then(
+            (result) => {
+                console.log("fetch POST= ", result);
+                console.log(result.Avg);
+            },
+            (error) => {
+                console.log("err post=", error);
+            });
+}
 
 
+// POST METHOD - CREATE LEAGUE - SEND LEAGUE NAME, PICTURE (URL) AND RULES, RETURNS LEAGUE ID, NAME, PICTURE, GAMES PLAYED, RULES, INVITE_URL
 
-
-fetch('https://localhost:44355/api/Register', {
-    method: 'GET',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        firstParam: 'yourValue',
-        secondParam: 'yourOtherValue'
+export const postCreateLeague = (s) => {
+    fetch(API_CREATE_LEAGUE, {
+        method: 'POST',
+        headers: new Headers({
+            'Content-type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+        }),
+        body: JSON.stringify({
+            "league_name": s.league_name,
+            "league_picture": league_pic,
+            "league_rules": s.league_rules
+        })
     })
-});
-
-
-
-fetch('https://localhost:44355/api/Register', {
-    method: 'GET',
-    headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
-    })
-})
-    .then(res => {
-        console.log('res=', res);
-        console.log('res.status', res.status);
-        console.log('res.ok', res.ok);
-        return res.json()
-    })
-    .then(
-        (result) => {
-            console.log("fetch btnFetchGetStudents= ", result);
-            result.map(st => console.log(st.FullName));
-            console.log('result[0].FullName=', result);
-        },
-        (error) => {
-            console.log("err post=", error);
-        });
+        .then(res => {
+            console.log('res=', res);
+            return res.json()
+        })
+        .then(
+            (result) => {
+                console.log("fetch POST= ", result);
+                console.log(result.Avg);
+            },
+            (error) => {
+                console.log("err post=", error);
+            });
+}

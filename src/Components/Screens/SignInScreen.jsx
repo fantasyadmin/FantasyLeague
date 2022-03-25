@@ -3,6 +3,7 @@ import { image } from '../../../assets/exports';
 import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+//import { postMethLogin } from '../../../APIActions/apiRequests';
 
 
 export default function SignInScreen() {
@@ -12,9 +13,36 @@ export default function SignInScreen() {
     const navigation = useNavigation();
 
     const onSignInPress = () => {
-        console.warn('Sign In');
-        //validate user
-        navigation.navigate('Bottom');
+        //postMethLogin(username, password);
+        const msg = JSON.stringify({
+            "email": username,
+            "password": password
+        })
+
+        fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5?email=${username}&password=${password}", {
+            method: 'GET',
+            headers: new Headers({
+                'Content-type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset=UTF-8'
+            }),
+        })
+            .then(res => {
+                console.log('res=', res);
+                return res.json()
+            })
+            .then(
+                (result) => {
+                    if (result.status.ok) {
+                        console.log("fetch POST= ", result);
+                        console.log(result.username);
+                        setUsername(result.username);
+                        navigation.navigate('Bottom', { username: { username } });
+                    }
+
+                },
+                (error) => {
+                    console.log("err post=", error);
+                });
     }
 
     const onForgotPasswordPress = () => {
@@ -27,19 +55,18 @@ export default function SignInScreen() {
         navigation.navigate('Sign Up');
     }
 
-
     return (
         <View style={styles.root}>
             <Image source={image} style={styles.pic} />
             <TextInput
                 value={username}
-                onChangeText={setUsername}
+                onChangeText={newName => setUsername(newName)}
                 placeholder={'שם משתמש'}
                 style={styles.container}
             />
             <TextInput
                 value={password}
-                onChangeText={setPassword}
+                onChangeText={newPas => setPassword(newPas)}
                 placeholder={'סיסמה'}
                 style={styles.container}
                 secureTextEntry
@@ -71,6 +98,34 @@ const styles = StyleSheet.create({
     },
     pic: {
         width: '100%',
-        height: 450,
+        height: '50%',
     },
 })
+
+
+const postMethLogin = (s) => {
+    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
+        method: 'GET',
+        headers: new Headers({
+            'Content-type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset=UTF-8'
+        }),
+        body: JSON.stringify({
+            'email': s.email,
+            'password': s.password
+        })
+    })
+        .then(res => {
+            console.log('res=', res);
+            return res.json()
+        })
+        .then(
+            (result) => {
+                if (result.status.ok) {
+                    navigation.navigate('Bottom', { username: { username } });
+                }
+            },
+            (error) => {
+                console.log("err post=", error);
+            });
+}

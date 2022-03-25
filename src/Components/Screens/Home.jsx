@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import LeagueTable from './FantasyLeagueComps/LeagueTable';
 import NewGame from './shchunaComps/NewGame';
 import TopProfileBar from '../MenuComponents/TopProfileBar';
+import React, {useState} from 'react';
 
 const Home = () => {
+    const [userID, setuserID] = useState("")
 
     const onPressFantasy = () => {
         console.warn('ניווט לטבלת הפנטזי')
@@ -31,17 +32,22 @@ const Home = () => {
         console.warn('אישור תוצאות משחק')
     }
 
+    const userData = (props) => {
+        setuserID(props.username);
+    }
+
+
     return (
         <View style={styles.container}>
             <TopProfileBar />
-            <Text></Text>
+            <Text>אהלן {userID}</Text>
             <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
             <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
             <Text></Text>
             <Text></Text>
 
-            
+
             <Text style={styles.text}>ניהול ליגה</Text>
             <CustomButton text="הזמן שחקן חדש" onPress={onPressInvitePlayer} />
             <CustomButton text="נהל שחקנים" onPress={onPressManagePlayers} />

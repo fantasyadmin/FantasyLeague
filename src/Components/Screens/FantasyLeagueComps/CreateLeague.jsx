@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
 import { image } from '../../../../assets/exports';
+import { postCreateLeague } from '../../../../APIActions/apiRequests';
+import Bottom from '../../MenuComponents/Bottom_Menu';
 
 
-export default function CreateLeague() {
-    const [legueName, setLeagueName] = useState('');
+export default function CreateLeague(props) {
+    const [leagueName, setLeagueName] = useState('');
     const [leagueRules, setLeagueRules] = useState('');
 
     const onInvitePress = () => {
@@ -16,8 +18,10 @@ export default function CreateLeague() {
 
     const onCreateLeaguePress = () => {
         console.warn('create league');
-        
+        const leagueInfo = postCreateLeague(leagueRules, leagueName);
         //submit to DB and navigate to Home
+        <Bottom props={{leagueInfo , props}}/>
+
     }
 
     return (
@@ -40,10 +44,10 @@ export default function CreateLeague() {
             <View style={styles.container}>
                 <Text style={styles.text}>   שם הליגה:   </Text>
                 <TextInput
-                    value={legueName}
+                    value={leagueName}
                     placeholder={'חוקי הליגה'}
                     onChangeText={setLeagueName}
-                    />
+                />
             </View>
 
             <View style={styles.container}>
