@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React from 'react';
 import { image } from '../../../assets/exports';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { postRegister } from '../../../APIActions/apiRequests';
 
 
 export default function SignUpScreen() {
@@ -11,13 +11,26 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
+
+
     const navigation = useNavigation();
 
+    const registerUser = JSON.stringify({
+        "username": username,
+        "email": email,
+        "password": password
+    });
 
+    //user registration
     const onSignUpPress = () => {
-        console.warn('רישום פרטי משתמש ואישור מייל')
-        //רישום משתמש
-        navigation.navigate('Mail Confirmation');
+        if (password == verifypassword) {
+            postRegister(registerUser)
+            navigation.navigate('Sign In');//skip mail confirmation - phase 2
+        }
+        else {
+            alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
+        }
+
     }
 
     const onClickTermsOfUse = () => {

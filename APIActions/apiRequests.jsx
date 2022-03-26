@@ -9,14 +9,15 @@ const API_CREATE_LEAGUE = 'https://proj.ruppin.ac.il/bgroup89/prod/api/CreateNew
 const league_pic = 'https://cdn.bleacherreport.net/images_root/slides/photos/000/607/604/funny_cat_soccer_problem_original.jpg?1294007705';
 
 
-// GET METHOD - login, send email and password, return "good connection"
-export const getMeth = () => {
+// POST METHOD - register, send nickname, email & password return ALL USER DATA!
+export const postRegister = (registerUser) => {
     fetch(API_URI, {
-        method: 'GET',
+        method: 'POST',
         headers: new Headers({
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept': 'application/json; charset=UTF-8',
-        })
+        }),
+        body: registerUser
     })
         .then(res => {
             console.log('res=', res);
@@ -26,9 +27,9 @@ export const getMeth = () => {
         })
         .then(
             (result) => {
-                console.log("fetch btnFetchGetStudents= ", result);
+                console.log("process= ", result);
                 result.map(st => console.log(st));
-                console.log('result[0].FullName=', result);
+                console.log('username', result, username);
             },
             (error) => {
                 console.log("err post=", error);
@@ -36,28 +37,30 @@ export const getMeth = () => {
 }
 
 
-// POST METHOD - SIGN IN - GET USERNAME & PSWD, RETURNS STATUS OK \ WRONG
-
-export const postMethLogin = (s) => {
+// POST METHOD - SIGN IN - GET USERNAME & PSWD, RETURNS STATUS TRUE/FALSE
+export const onSignInPress = (params) => {
     fetch(API_SIGIN, {
-        method: 'GET',
+        method: 'POST',
         headers: new Headers({
             'Content-type': 'application/json; charset=UTF-8',
             'Accept': 'application/json; charset=UTF-8'
         }),
-        body: JSON.stringify({
-            'email': s.email,
-            'password': s.password
-        })
+        body: params
     })
         .then(res => {
-            console.log('res=', res);
+            //console.log('res=', res);
             return res.json()
         })
         .then(
             (result) => {
-                console.log("fetch POST= ", result);
-                console.log(result.Avg);
+
+                if (result == true) {
+                    console.log(result)
+                    return true;
+                }
+                else {
+                    alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+                }
             },
             (error) => {
                 console.log("err post=", error);
@@ -93,3 +96,5 @@ export const postCreateLeague = (s) => {
                 console.log("err post=", error);
             });
 }
+
+

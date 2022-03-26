@@ -3,47 +3,51 @@ import { image } from '../../../assets/exports';
 import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-//import { postMethLogin } from '../../../APIActions/apiRequests';
+import { userDetails } from '../../../UserInfo/UserInfo';
 
 
 export default function SignInScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+
     const navigation = useNavigation();
 
-    const onSignInPress = () => {
-        //postMethLogin(username, password);
-        const msg = JSON.stringify({
-            "email": username,
-            "password": password
-        })
+    const params = JSON.stringify({
+        'email': username,
+        "password": password
+    });
 
-        fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5?email=${username}&password=${password}", {
-            method: 'GET',
+
+    const onSignInPress = () => {
+        fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
+            method: 'POST',
             headers: new Headers({
                 'Content-type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json; charset=UTF-8'
             }),
+            body: params
         })
             .then(res => {
-                console.log('res=', res);
+                //console.log('res=', res);
                 return res.json()
             })
             .then(
                 (result) => {
-                    if (result.status.ok) {
-                        console.log("fetch POST= ", result);
-                        console.log(result.username);
-                        setUsername(result.username);
-                        navigation.navigate('Bottom', { username: { username } });
+                    if (result == true) {
+                        console.log(result)
+                        navigation.navigate('Bottom', {username})
+                        //navigation.navigate('Bottom', { username: { username } });
                     }
-
+                    else {
+                        alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+                    }
                 },
                 (error) => {
                     console.log("err post=", error);
                 });
     }
+
 
     const onForgotPasswordPress = () => {
         console.warn('forgot password');
@@ -58,15 +62,17 @@ export default function SignInScreen() {
     return (
         <View style={styles.root}>
             <Image source={image} style={styles.pic} />
+            <Text>{username}</Text>
             <TextInput
                 value={username}
-                onChangeText={newName => setUsername(newName)}
+                onChangeText={setUsername}
                 placeholder={'שם משתמש'}
                 style={styles.container}
             />
+            <Text>{password}</Text>
             <TextInput
                 value={password}
-                onChangeText={newPas => setPassword(newPas)}
+                onChangeText={setPassword}
                 placeholder={'סיסמה'}
                 style={styles.container}
                 secureTextEntry
@@ -101,31 +107,3 @@ const styles = StyleSheet.create({
         height: '50%',
     },
 })
-
-
-const postMethLogin = (s) => {
-    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
-        method: 'GET',
-        headers: new Headers({
-            'Content-type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json; charset=UTF-8'
-        }),
-        body: JSON.stringify({
-            'email': s.email,
-            'password': s.password
-        })
-    })
-        .then(res => {
-            console.log('res=', res);
-            return res.json()
-        })
-        .then(
-            (result) => {
-                if (result.status.ok) {
-                    navigation.navigate('Bottom', { username: { username } });
-                }
-            },
-            (error) => {
-                console.log("err post=", error);
-            });
-}

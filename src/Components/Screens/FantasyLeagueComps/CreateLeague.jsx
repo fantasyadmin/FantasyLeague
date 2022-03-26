@@ -21,7 +21,6 @@ export default function CreateLeague(props) {
         const leagueInfo = postCreateLeague(leagueRules, leagueName);
         //submit to DB and navigate to Home
         <Bottom props={{leagueInfo , props}}/>
-
     }
 
     return (
@@ -46,7 +45,7 @@ export default function CreateLeague(props) {
                 <TextInput
                     value={leagueName}
                     placeholder={'חוקי הליגה'}
-                    onChangeText={setLeagueName}
+                    onChangeText={setLeagueName} //{(text) => this.setState({email: text})}
                 />
             </View>
 
