@@ -4,13 +4,14 @@ import { image } from '../../../assets/exports';
 import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
 
 export default function ForgotPassword() {
     const [username, setUsername] = useState('');
-    
+
     const navigation = useNavigation();
 
 
@@ -26,19 +27,33 @@ export default function ForgotPassword() {
 
 
     return (
-        <View style={styles.root}>
-            <Image source={image} style={styles.pic} />
-            <Text>שחזור סיסמה</Text>
-            <TextInput
-                value={username}
-                onChangeText={setUsername}
-                placeholder={'שם משתמש'}
-                style={styles.container}
-            />
-            <CustomButton text="שלח" onPress={onSendPressed} />
-            <Text>            </Text>
-            <CustomButton text="חזור לרישום" onPress={onSignInPress} />
-        </View>
+        <ScrollView>
+            <View style={styles.root}>
+                <Image source={image} style={styles.pic} />
+                <Text style={styles.text}> שחזור סיסמה</Text>
+                <TextInput
+                    value={username}
+                    onChangeText={setUsername}
+                    placeholder={'שם משתמש'}
+                    style={styles.container}
+                />
+                <CustomButton text="שלח" onPress={onSendPressed} />
+                <Text>            </Text>
+                <CustomButton text="חזור לרישום" onPress={onSignInPress} />
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+                <Text>     </Text>
+            </View>
+        </ScrollView>
+
     )
 }
 
@@ -64,5 +79,10 @@ const styles = StyleSheet.create({
     },
     link: {
         color: '#fdb075'
+    },
+    text: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20
     },
 })

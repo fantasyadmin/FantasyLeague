@@ -1,3 +1,7 @@
+import React, { useState } from "react";
+import { userDetails } from "../UserInfo/UserInfo";
+
+
 const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
 const API_SIGIN = 'https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5';
 const API_CREATE_LEAGUE = 'https://proj.ruppin.ac.il/bgroup89/prod/api/CreateNewLeague';
@@ -11,6 +15,7 @@ const league_pic = 'https://cdn.bleacherreport.net/images_root/slides/photos/000
 
 // POST METHOD - register, send nickname, email & password return ALL USER DATA!
 export const postRegister = (registerUser) => {
+    const [userData, setUserData] = useState('')
     fetch(API_URI, {
         method: 'POST',
         headers: new Headers({
@@ -48,12 +53,11 @@ export const onSignInPress = (params) => {
         body: params
     })
         .then(res => {
-            //console.log('res=', res);
+            console.log('res=', res);
             return res.json()
         })
         .then(
             (result) => {
-
                 if (result == true) {
                     console.log(result)
                     return true;

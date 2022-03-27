@@ -31,23 +31,22 @@ const Home = (props) => {
         console.warn('אישור תוצאות משחק')
     }
 
-return (
+    return (
+        <View style={styles.container}>
+            <TopProfileBar />
+            <Text>אהלן {props.username}</Text>
+            <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
+            <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
+            <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
+            <Text></Text>
+            <Text></Text>
 
-    <View style={styles.container}>
-        <TopProfileBar />
-        <Text>אהלן {props.username}</Text>
-        <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
-        <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
-        <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
-        <Text></Text>
-        <Text></Text>
-
-        <Text style={styles.text}>ניהול ליגה</Text>
-        <CustomButton text="הזמן שחקן חדש" onPress={onPressInvitePlayer} />
-        <CustomButton text="נהל שחקנים" onPress={onPressManagePlayers} />
-        <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
-    </View>
-)
+            <Text style={styles.text}>ניהול ליגה</Text>
+            <CustomButton text="הזמן שחקן חדש" onPress={onPressInvitePlayer} />
+            <CustomButton text="נהל שחקנים" onPress={onPressManagePlayers} />
+            <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
+        </View>
+    )
 }
 
 export default Home
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: 50,
         fontWeight: 'bold',
-        marginTop: 30,
         justifyContent: 'center',
         backgroundColor: '#4472c4',
     },
