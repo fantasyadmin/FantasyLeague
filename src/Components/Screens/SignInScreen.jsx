@@ -3,13 +3,13 @@ import { image } from '../../../assets/exports';
 import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { userDetails } from '../../../UserInfo/UserInfo';
+import userInfo from '../../../UserInfo/UserInfo';
 
 
 export default function SignInScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [userData, setUserData] = useState(userDetails)
+    const [userData, setUserData] = useState('')
 
     const navigation = useNavigation();
 
@@ -35,10 +35,13 @@ export default function SignInScreen() {
             .then(
                 (result) => {
                     if (result != false) {
-                        console.log(result)
+                        console.log("data received = ", result);
+                        console.log("==========================");
                         setUserData(result);
-                        console.log(userData);
-                        navigation.navigate('Bottom', { username })
+                        console.log("user data3 = ", result.nickname);
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
+                        userInfo(result);
+                        console.log("props.nickname = ", userInfo.nickname);
                         navigation.navigate('Bottom', { username: { username } });
                     }
                     else {

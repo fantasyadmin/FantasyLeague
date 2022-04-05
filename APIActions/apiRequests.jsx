@@ -15,7 +15,7 @@ const league_pic = 'https://cdn.bleacherreport.net/images_root/slides/photos/000
 
 // POST METHOD - register, send nickname, email & password return ALL USER DATA!
 export const postRegister = (registerUser) => {
-    const [userData, setUserData] = useState('')
+    //const [userData, setUserData] = useState('')
     fetch(API_URI, {
         method: 'POST',
         headers: new Headers({
@@ -58,8 +58,9 @@ export const onSignInPress = (params) => {
         })
         .then(
             (result) => {
-                if (result == true) {
-                    console.log(result)
+                if (result) {
+                    console.log("result = ", result)
+                    console.log("result.active_in = ", result.Active_in);
                     return true;
                 }
                 else {

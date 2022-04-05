@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import CustomButton from '../CustomComps/CustomButton';
-import LeagueTable from './FantasyLeagueComps/LeagueTable';
+import LeagueTable from './FantasyLeagueComps/TableComps/LeagueTable';
 import NewGame from './shchunaComps/NewGame';
 import TopProfileBar from '../MenuComponents/TopProfileBar';
 import React, { useState } from 'react';

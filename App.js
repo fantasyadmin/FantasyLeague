@@ -8,15 +8,18 @@ import ResetPassword from './src/Components/Screens/ResetPassword.jsx';
 import Navigation from './src/Components/Navigation/Navigation.jsx';
 import Home from './src/Components/Screens/Home.jsx';
 import CreateLeague from './src/Components/Screens/FantasyLeagueComps/CreateLeague.jsx';
-
+import TeamInTable from './src/Components/Screens/FantasyLeagueComps/TableComps/TeamInTable.jsx';
+import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
 
 export default function App() {
   return (
-    <Navigation />
+    //<LeagueTable/>
+    //<TeamInTable/>
+    //<Navigation />
     //<WellcomeScreen />
     //<SignInScreen/>
     //<SignUpScreen />
-    //<Bottom />
+    <Bottom />
     //<MailConfirm/>
     //<forgotPassword/>
     //<ResetPassword/>

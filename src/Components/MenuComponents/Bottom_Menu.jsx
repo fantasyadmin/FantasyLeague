@@ -4,12 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Home from '../Screens/Home.jsx';
-import LeagueTable from '../Screens/FantasyLeagueComps/LeagueTable.jsx';
+import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
 import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam.jsx';
 import Profile from '../Screens/Profile.jsx';
 import NewGame from '../Screens/shchunaComps/NewGame.jsx';
 import { useState } from 'react';
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 
 const topBar = {
