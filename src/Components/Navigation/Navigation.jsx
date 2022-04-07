@@ -13,6 +13,7 @@ import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/TeamInTable';
 import Profile from '../Screens/Profile';
 import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam';
 import NewGame from '../Screens/shchunaComps/NewGame';
+import CreateLeague from '../Screens/FantasyLeagueComps/CreateLeague';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,8 +29,9 @@ const Navigation = () => {
                 <Stack.Screen name="Mail Confirmation" component={MailConfirm} />
                 <Stack.Screen name="Forgot Password" component={ForgotPassword} />
                 <Stack.Screen name="Reset Password" component={ResetPassword} />
+                <Stack.Screen name="Create League" component={CreateLeague} />
                 <Stack.Screen name="Bottom" component={Bottom} />
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home" component={Home}/>
                 <Stack.Screen name="New Game" component={NewGame} />
                 <Stack.Screen name="League Table" component={LeagueTable} />
                 <Stack.Screen name="Manage Team" component={ManageTeam} />

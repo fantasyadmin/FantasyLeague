@@ -13,13 +13,13 @@ import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/
 
 export default function App() {
   return (
+    <Navigation />
     //<LeagueTable/>
     //<TeamInTable/>
-    //<Navigation />
     //<WellcomeScreen />
     //<SignInScreen/>
     //<SignUpScreen />
-    <Bottom />
+    //<Bottom />
     //<MailConfirm/>
     //<forgotPassword/>
     //<ResetPassword/>

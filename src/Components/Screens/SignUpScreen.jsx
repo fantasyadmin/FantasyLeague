@@ -11,20 +11,31 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
+    const [league_id, setleagueId] = useState(0);
+    const [userId, setUserId] = useState('');
+
 
     const navigation = useNavigation();
 
     const registerUser = JSON.stringify({
         "nickname": username,
         "email": email,
-        "password": password
+        "password": password,
+        "league_id": league_id
     });
 
     //user registration
     const onSignUpPress = () => {
         if (password == verifypassword) {
-            postRegister(registerUser)
-            navigation.navigate('Sign In');//skip mail confirmation - phase 2
+            setUserId(postRegister(registerUser)) 
+           // if (league_id == 0) {
+                //console.log("data  =", userId);
+                //navigation.navigate('Create League', userId);
+           // }
+            //else {
+                navigation.navigate('Sign In');//skip mail confirmation - phase 2 
+           // }
+
         }
         else {
             alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
@@ -46,6 +57,12 @@ export default function SignUpScreen() {
             <Image source={image} style={styles.pic} />
             <View style={styles.root}>
                 <Text style={styles.text}>רישום משתמש חדש</Text>
+                <TextInput
+                    value={league_id}
+                    onChangeText={setleagueId}
+                    placeholder={'מצטרף לליגה קיימת? הזן מספר ליגה'}
+                    style={styles.container}
+                />
                 <TextInput
                     value={username}
                     onChangeText={setUsername}
@@ -78,8 +95,8 @@ export default function SignUpScreen() {
                     באפליקציית Fantasy League צ'כונה
                 </Text>
                 <Text onPress={onExistingAcount}>כבר יש לי חשבון</Text>
-                <Text>     </Text>
-                <Text>     </Text>
+                <Text></Text>
+                <Text></Text>
             </View>
         </ScrollView>
     )
@@ -104,7 +121,7 @@ const styles = StyleSheet.create({
     },
     pic: {
         width: '100%',
-        height: 450,
+        height: 410,
     },
     link: {
         color: '#fdb075'

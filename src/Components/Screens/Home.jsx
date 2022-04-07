@@ -34,7 +34,7 @@ const Home = (props) => {
     return (
         <View style={styles.container}>
             <TopProfileBar />
-            <Text>אהלן {props.username}</Text>
+            <Text>אהלן </Text>
             <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
             <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />

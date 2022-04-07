@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons";
 
 
-
 const teams = [
   { nickname: "hamed", points: 32 },
   { nickname: "guy", points: 51 },
@@ -18,13 +17,13 @@ const teams = [
 
 const logos = [
 <FontAwesome5 name="crown" size={23} color="#993" />,
-<MaterialCommunityIcons name="weight-lifter" size={27} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
-//<Icon name="rocket" size={23} color="#900" />,
+<MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
+<Icon name="rocket" size={29} color="#900" />,
 ]
 
 

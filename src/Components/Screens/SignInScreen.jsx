@@ -3,19 +3,18 @@ import { image } from '../../../assets/exports';
 import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import userInfo from '../../../UserInfo/UserInfo';
 
 
 export default function SignInScreen() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [userData, setUserData] = useState('')
+
 
     const navigation = useNavigation();
 
     const params = JSON.stringify({
-        'email': username,
-        "password": password
+        "email": username,
+        "password": password,
     });
 
 
@@ -37,12 +36,9 @@ export default function SignInScreen() {
                     if (result != false) {
                         console.log("data received = ", result);
                         console.log("==========================");
-                        setUserData(result);
                         console.log("user data3 = ", result.nickname);
                         console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
-                        userInfo(result);
-                        console.log("props.nickname = ", userInfo.nickname);
-                        navigation.navigate('Bottom', { username: { username } });
+                        navigation.navigate('Bottom');
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
@@ -51,6 +47,7 @@ export default function SignInScreen() {
                 (error) => {
                     console.log("err post=", error);
                 });
+                return(result.user_id)
     }
 
 
