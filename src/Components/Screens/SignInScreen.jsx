@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { image } from '../../../assets/exports';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { UserDataContext } from '../Context/UserContext';
 
 
 export default function SignInScreen() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [userData1, setUserData1] = useState([]);
+    const { userData, setUserData } = useContext(UserDataContext);
 
 
     const navigation = useNavigation();
@@ -19,6 +22,7 @@ export default function SignInScreen() {
 
 
     const onSignInPress = () => {
+
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
             method: 'POST',
             headers: new Headers({
@@ -33,21 +37,27 @@ export default function SignInScreen() {
             })
             .then(
                 (result) => {
-                    if (result != false) {
+                    console.log(result);
+                    if (result.nickname != undefined) {
+                        setUserData({ nickname: result.nickname, user_id: result.user_id, picture: result.picture })
+                        setUserData1([{ nickname: result.nickname, user_id: result.user_id, picture: result.picture }])
                         console.log("data received = ", result);
                         console.log("==========================");
-                        console.log("user data3 = ", result.nickname);
+                        console.log("user data3 = ", result.user_id);
                         console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
-                        navigation.navigate('Bottom');
+                        console.log("##### result = ", userData1);
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+                        navigation.navigate('Sign In');
                     }
                 },
                 (error) => {
                     console.log("err post=", error);
-                });
-                return(result.user_id)
+                    navigation.navigate('Sign In');
+                })
+            .then(navigation.navigate('Bottom', userData1));
+
     }
 
 

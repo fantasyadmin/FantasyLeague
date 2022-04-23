@@ -50,7 +50,6 @@ export default function ForgotPassword() {
                 <Text>     </Text>
                 <Text>     </Text>
                 <Text>     </Text>
-                <Text>     </Text>
             </View>
         </ScrollView>
 

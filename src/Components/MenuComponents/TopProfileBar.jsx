@@ -1,18 +1,21 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { profilePic, image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
+import { UserDataContext } from '../Context/UserContext';
 
 export default function TopProfileBar(props) {
+    const { userData } = useContext(UserDataContext);
+
     return (
         <View style={styles.root}>
             <Image source={profilePic} style={styles.pic} />
             <View>
-                <Text style={styles.text}>  פרופיל משתמש</Text>
+                <Text style={styles.text}>    פרופיל משתמש   </Text>
                 <Text></Text>
-                <Text style={styles.text}>  שחקן:{props.nickname}</Text>
-                <Text style={styles.text}>  מספר משחקים:{props.gamesPlayed}</Text>
-                <Text style={styles.text}>  ציון שחקן:{props.playerScore}</Text>
+                <Text style={styles.text}>            {userData.nickname}</Text>
+                <Text style={styles.text}>  מספר משחקים:  {props.gamesPlayed}</Text>
+                <Text style={styles.text}>  ציון שחקן:    {props.playerScore}</Text>
             </View>
         </View>
     )

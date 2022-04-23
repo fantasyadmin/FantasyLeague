@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { userDetails } from "../UserInfo/UserInfo";
 
 
 const API_URI = 'https://proj.ruppin.ac.il/bgroup89/prod/api/Register';
@@ -15,7 +14,6 @@ const league_pic = 'https://cdn.bleacherreport.net/images_root/slides/photos/000
 
 // POST METHOD - register, send nickname, email & password return ALL USER DATA!
 export const postRegister = (registerUser) => {
-    //const [userData, setUserData] = useState('')
     fetch(API_URI, {
         method: 'POST',
         headers: new Headers({
@@ -33,8 +31,6 @@ export const postRegister = (registerUser) => {
         .then(
             (result) => {
                 console.log("process= ", result);
-                result.map(st => console.log(st));
-                console.log('username', result, username);
             },
             (error) => {
                 console.log("err post=", error);

@@ -11,7 +11,7 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
-    const [league_id, setleagueId] = useState(0);
+    const [league_id, setleagueId] = useState('0');
     const [userId, setUserId] = useState('');
 
 
@@ -28,13 +28,13 @@ export default function SignUpScreen() {
     const onSignUpPress = () => {
         if (password == verifypassword) {
             setUserId(postRegister(registerUser)) 
-           // if (league_id == 0) {
-                //console.log("data  =", userId);
-                //navigation.navigate('Create League', userId);
-           // }
-            //else {
+           if (league_id == '0') {
+                console.log("data  =", userId);
+                navigation.navigate('Create League', userId);
+            }
+            else {
                 navigation.navigate('Sign In');//skip mail confirmation - phase 2 
-           // }
+            }
 
         }
         else {
