@@ -3,21 +3,27 @@ import React from 'react';
 import { image } from '../../../assets/exports';
 import { useState } from 'react/cjs/react.development';
 import CustomButton from '../CustomComps/CustomButton';
-
-const onMailConfirm = () => {
-    console.warn('אישור מייל וכניסה')
- }
-
-const onResendCode = () => {
-    console.warn('שליחת קוד למייל שוב')
-}
-
-const onSignInPress = () => {
-    console.warn('חזרה לרישום')
- }
+import { useNavigation } from '@react-navigation/native';
 
 export default function MailConfirm() {
     const [code, setCode] = useState('');
+    const navigation = useNavigation();
+
+    const onMailConfirm = () => {
+        console.warn('אישור מייל וכניסה')
+        //אישור קוד מהמייל
+        navigation.navigate('Sign In');
+    }
+
+    const onResendCode = () => {
+        console.warn('שליחת קוד למייל שוב')
+
+    }
+
+    const onSignInPress = () => {
+        console.warn('חזרה לרישום')
+        navigation.navigate('Sign Up');
+    }
 
     return (
         <View style={styles.root}>

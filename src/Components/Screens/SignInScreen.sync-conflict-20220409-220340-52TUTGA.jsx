@@ -1,15 +1,13 @@
 import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { image } from '../../../assets/exports';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext } from '../Context/UserContext';
-
+import context, { DataContext } from '../Context/context';
 
 export default function SignInScreen() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const { userData, setUserData } = useContext(UserDataContext);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
 
     const navigation = useNavigation();
@@ -21,7 +19,6 @@ export default function SignInScreen() {
 
 
     const onSignInPress = () => {
-
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
             method: 'POST',
             headers: new Headers({
@@ -36,29 +33,22 @@ export default function SignInScreen() {
             })
             .then(
                 (result) => {
-                    if (result.nickname != undefined) {
-                        setUserData({
-                            nickname: result.nickname,
-                            user_id: result.user_id,
-                            picture: result.picture,
-                            league_name: result.league_name,
-                            league_id: result.league_id
-                        })
+                    if (result != false) {
                         console.log("data received = ", result);
                         console.log("==========================");
-                        console.log("user data3 = ", result.user_id);
+                        console.log("user data3 = ", result.nickname);
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
+                        //context(result);
+                        this.props.navigation.navigate('Bottom');
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
-                        navigation.navigate('Sign In');
                     }
                 },
                 (error) => {
                     console.log("err post=", error);
-                    navigation.navigate('Sign In');
-                })
-            .then(navigation.navigate('Bottom'));
-
+                });
+        return (result.user_id)
     }
 
 
@@ -73,6 +63,7 @@ export default function SignInScreen() {
     }
 
     return (
+
         <ScrollView>
             <View style={styles.root}>
                 <Image source={image} style={styles.pic} />

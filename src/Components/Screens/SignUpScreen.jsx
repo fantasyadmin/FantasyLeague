@@ -1,66 +1,131 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { image } from '../../../assets/exports';
-import { useState } from 'react/cjs/react.development';
+import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
-
+import { useNavigation } from '@react-navigation/native';
+import { UserDataContext } from '../Context/UserContext';
 
 
 export default function SignUpScreen() {
+    const { userData, setUserData } = useContext(UserDataContext);
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
+    const [league_id, setleagueId] = useState(0);
 
+    const navigation = useNavigation();
+
+    const registerUser = JSON.stringify({
+        "nickname": username,
+        "email": email,
+        "password": password,
+        "league_id": league_id
+    });
+
+    //user registration
     const onSignUpPress = () => {
-        console.warn('רישום פרטי משתמש ואישור מייל')
+        if (password == verifypassword) {
+            fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Register', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Accept': 'application/json; charset=UTF-8',
+                }),
+                body: registerUser
+            })
+                .then(res => {
+                    console.log('res=', res);
+                    console.log('res.status', res.status);
+                    console.log('res.ok', res.ok);
+                    return res.json()
+                })
+                .then(
+                    (result) => {
+                        setUserData({
+                            league_id: result.league_id
+                        })
+                        console.log("process= ", result);
+                        result.map(st => console.log(st));
+                        console.log('username', result, username);
+                    },
+                    (error) => {
+                        console.log("err post=", error);
+                    });
+
+            if (!league_id) {
+                setleagueId(userData.league_id)
+                console.log("league id  =", userData.league_id);
+                navigation.navigate('Create League');
+            }
+            else {
+                navigation.navigate('Sign In');//skip mail confirmation - phase 2 
+            }
+        }
+        else {
+            alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
+        }
     }
 
+
     const onClickTermsOfUse = () => {
+        //תנאי שימוש
         console.warn('Terms of use redirect')
     }
 
     const onExistingAcount = () => {
-        console.warn('ניווט למסך כניסה לחשבון')
+        navigation.navigate('Sign In');
     }
 
 
     return (
-        <View style={styles.root}>
+        <ScrollView>
             <Image source={image} style={styles.pic} />
-            <TextInput
-                value={username}
-                onChangeText={setUsername}
-                placeholder={'שם משתמש'}
-                style={styles.container}
-            />
-            <TextInput
-                value={email}
-                onChangeText={setEmail}
-                placeholder={'דוא"ל'}
-                style={styles.container}
-            />
-            <TextInput
-                value={password}
-                onChangeText={setPassword}
-                placeholder={'סיסמה'}
-                style={styles.container}
-                secureTextEntry
-            />
-            <TextInput
-                value={verifypassword}
-                onChangeText={setverifyPassword}
-                placeholder={'אמת'}
-                style={styles.container}
-                secureTextEntry
-            />
-            <CustomButton text="אשר כתובת מייל והיכנס" onPress={onSignUpPress} />
-            <Text>אני מאשר כי קראתי והסכמתי
-                <Text style={styles.link} onPress={onClickTermsOfUse}> לתנאי השימוש ומדיניות הפרטיות </Text>
-                באפליקציית Fantasy League צ'כונה
-            </Text>
-            <Text onPress={onExistingAcount}>כבר יש לי חשבון</Text>
-        </View>
+            <View style={styles.root}>
+                <Text style={styles.text}>רישום משתמש חדש</Text>
+                <TextInput
+                    value={league_id}
+                    onChangeText={setleagueId}
+                    placeholder={'מצטרף לליגה קיימת? הזן מספר ליגה'}
+                    style={styles.container}
+                />
+                <TextInput
+                    value={username}
+                    onChangeText={setUsername}
+                    placeholder={'שם משתמש'}
+                    style={styles.container}
+                />
+                <TextInput
+                    value={email}
+                    onChangeText={setEmail}
+                    placeholder={'דוא"ל'}
+                    style={styles.container}
+                />
+                <TextInput
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholder={'סיסמה'}
+                    style={styles.container}
+                    secureTextEntry
+                />
+                <TextInput
+                    value={verifypassword}
+                    onChangeText={setverifyPassword}
+                    placeholder={'אמת'}
+                    style={styles.container}
+                    secureTextEntry
+                />
+                <CustomButton text="אשר כתובת מייל והיכנס" onPress={onSignUpPress} />
+                <Text>אני מאשר כי קראתי והסכמתי
+                    <Text style={styles.link} onPress={onClickTermsOfUse}> לתנאי השימוש ומדיניות הפרטיות </Text>
+                    באפליקציית Fantasy League צ'כונה
+                </Text>
+                <Text onPress={onExistingAcount}>כבר יש לי חשבון</Text>
+                <Text></Text>
+                <Text></Text>
+            </View>
+        </ScrollView>
     )
 }
 
@@ -73,6 +138,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 10,
         marginVertical: 5,
+        textAlign: 'right'
     },
     root: {
         width: '100%',
@@ -82,9 +148,14 @@ const styles = StyleSheet.create({
     },
     pic: {
         width: '100%',
-        height: 420,
+        height: 410,
     },
     link: {
         color: '#fdb075'
+    },
+    text: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 20
     },
 })

@@ -1,25 +1,29 @@
 import { Text, View, Button, StyleSheet, ImageBackground } from 'react-native';
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
-
-const onSignInPress = () => { 
-    console.warn('כניסת משתמש קיים')
-}
-
-const onSignUpPress = () => { 
-    console.warn('משתמש חדש - מסך רישום')
-}
 
 const WellcomeScreen = () => {
+     
+    const navigation = useNavigation();
+
+    const onSignInPress = () => {
+        navigation.navigate('Sign In');
+    }
+
+    const onSignUpPress = () => {
+        navigation.navigate('Sign Up');
+    }
+
     return (
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <View style={styles.container}>
                 <View style={styles.Button}>
                     <CustomButton text="משתמש חדש" onPress={onSignUpPress} />
                     <Text>      </Text>
-                    <CustomButton text="משתמש קיים" onPress={onSignInPress} />
+                    <CustomButton text="משתמש קיים" onPress={onSignInPress} />     
                 </View>
             </View >
         </ImageBackground>
