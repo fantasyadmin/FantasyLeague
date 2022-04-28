@@ -7,8 +7,14 @@ import { UserDataContext } from '../Context/UserContext';
 
 
 export default function SignInScreen() {
+<<<<<<< HEAD
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+=======
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [userData1, setUserData1] = useState([]);
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
     const { userData, setUserData } = useContext(UserDataContext);
 
 
@@ -36,6 +42,7 @@ export default function SignInScreen() {
             })
             .then(
                 (result) => {
+<<<<<<< HEAD
                     if (result.nickname != undefined) {
                         setUserData({
                             nickname: result.nickname,
@@ -47,6 +54,17 @@ export default function SignInScreen() {
                         console.log("data received = ", result);
                         console.log("==========================");
                         console.log("user data3 = ", result.user_id);
+=======
+                    console.log(result);
+                    if (result.nickname != undefined) {
+                        setUserData({ nickname: result.nickname, user_id: result.user_id, picture: result.picture })
+                        setUserData1([{ nickname: result.nickname, user_id: result.user_id, picture: result.picture }])
+                        console.log("data received = ", result);
+                        console.log("==========================");
+                        console.log("user data3 = ", result.user_id);
+                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
+                        console.log("##### result = ", userData1);
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
@@ -57,7 +75,11 @@ export default function SignInScreen() {
                     console.log("err post=", error);
                     navigation.navigate('Sign In');
                 })
+<<<<<<< HEAD
             .then(navigation.navigate('Bottom'));
+=======
+            .then(navigation.navigate('Bottom', userData1));
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 
     }
 

@@ -1,9 +1,16 @@
 import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { image } from '../../../assets/exports';
+<<<<<<< HEAD
 import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { UserDataContext } from '../Context/UserContext';
+=======
+import React, { useState } from 'react';
+import CustomButton from '../CustomComps/CustomButton';
+import { useNavigation } from '@react-navigation/native';
+import { postRegister } from '../../../APIActions/apiRequests';
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 
 
 export default function SignUpScreen() {
@@ -13,8 +20,15 @@ export default function SignUpScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
+<<<<<<< HEAD
     const [league_id, setleagueId] = useState(0);
 
+=======
+    const [league_id, setleagueId] = useState('0');
+    const [userId, setUserId] = useState('');
+
+
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
     const navigation = useNavigation();
 
     const registerUser = JSON.stringify({
@@ -27,6 +41,7 @@ export default function SignUpScreen() {
     //user registration
     const onSignUpPress = () => {
         if (password == verifypassword) {
+<<<<<<< HEAD
             fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Register', {
                 method: 'POST',
                 headers: new Headers({
@@ -58,10 +73,20 @@ export default function SignUpScreen() {
                 setleagueId(userData.league_id)
                 console.log("league id  =", userData.league_id);
                 navigation.navigate('Create League');
+=======
+            setUserId(postRegister(registerUser)) 
+           if (league_id == '0') {
+                console.log("data  =", userId);
+                navigation.navigate('Create League', userId);
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
             }
             else {
                 navigation.navigate('Sign In');//skip mail confirmation - phase 2 
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
         }
         else {
             alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");

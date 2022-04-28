@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 
 const initialState = {
@@ -31,6 +32,15 @@ const initialState = {
   total_wins: null,
 
   
+=======
+import React, {useState} from 'react'
+
+const initialState = {
+  nickname: null, 
+  picture: null, 
+  user_id: null,
+  
+>>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 };
 
 const UserDataContext = React.createContext(initialState);
