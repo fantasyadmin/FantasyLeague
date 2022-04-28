@@ -1,44 +1,25 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-<<<<<<< HEAD
 import React, { useState, useContext } from 'react';
-=======
-import React, { useState } from 'react';
->>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
 import { image } from '../../../../assets/exports';
-import { postCreateLeague } from '../../../../APIActions/apiRequests';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD
 import { UserDataContext } from '../../Context/UserContext';
 
 
 export default function CreateLeague() {
     const { userData, setUserData } = useContext(UserDataContext);
-=======
-
-
-export default function CreateLeague(props) {
->>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 
     const navigation = useNavigation();
 
     const [leagueName, setLeagueName] = useState('');
     const [leagueRules, setLeagueRules] = useState('');
-<<<<<<< HEAD
-=======
-    //const [userId, setUserId] = useState(props.user_id);
->>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
 
     const data = JSON.stringify({
         "league_name": leagueName,
         "league_picture": '',
         "league_rules": leagueRules,
-<<<<<<< HEAD
         "league_id": userData.league_id
-=======
-        "user_id": props.userId
->>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
     });
 
     const onInvitePress = () => {
@@ -48,7 +29,6 @@ export default function CreateLeague(props) {
 
     const onCreateLeaguePress = () => {
         console.log("create league = ", data);
-<<<<<<< HEAD
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageLeague/5', {
             method: 'PUT',
             headers: new Headers({
@@ -77,11 +57,6 @@ export default function CreateLeague(props) {
 
 
         navigation.navigate('Sign In')
-=======
-        postCreateLeague(data);
-        //submit to DB and navigate to Home
-        navigation.navigate('Bottom')
->>>>>>> 3f1dd4e9e47f1317e4c798c27ab03be8ddfc469d
     }
 
     return (
