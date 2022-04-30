@@ -5,19 +5,29 @@ const initialState = {
   nickname: null,
   picture: null,
   user_id: null,
-  
+
   //league info
   league_name: null,
   league_id: null,
 
   //league_players info
-  player: [],
+  players: [],
 
   //league_players_teams info
-  teams : [],
+  teams: [
+    //{ 'nickname': "ahmed", points: 12 }, 
 
-  
-    //fantasy team info
+  //  [{user_id: 12, 
+  //        [{player1: 11},
+  //         {player2: 16},
+  //         {player3: 1},
+  //         {player4: 43},
+  //  ]},]
+
+  ],
+
+
+  //fantasy team info
   player1: null,
   player2: null,
   player3: null,

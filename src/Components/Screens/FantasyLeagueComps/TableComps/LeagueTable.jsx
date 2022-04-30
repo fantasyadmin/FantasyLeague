@@ -26,9 +26,11 @@ export default function LeagueTable(props) {
   //need to feed the data from props - TBC
 
   //sort teams by score
-  const sortTeams = [].concat(UserDataContext.teams)
+  const sortTeams = [].concat(userData.teams)
     .sort((a, b) => a.points < b.points);
 
+  console.log("context check = ", userData);
+  
   var renderTable = sortTeams.map((x, ind) => {
     return <TeamInTable
       key={ind}

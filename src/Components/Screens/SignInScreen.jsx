@@ -43,7 +43,17 @@ export default function SignInScreen() {
                             picture: result.picture,
                             league_name: result.league_name,
                             league_id: result.league_id,
-                            
+                            teams: result.listing,
+                            players: result.listing, //create an api response with 
+                            player_score: result.player_score, 
+                            team_budget: result.team_budget,
+                            team_id: result.team_id,
+                            team_points: result.team_points,
+                            total_assists: result.total_assists,
+                            total_goals_recieved: result.total_goals_recieved,
+                            total_goals_scored: result.total_goals_scored,
+                            total_pen_missed: result.total_pen_missed,
+                            total_wins: result.total_wins,
                         })
                         console.log("data received = ", result);
                         console.log("==========================");
