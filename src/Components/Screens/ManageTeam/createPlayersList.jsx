@@ -4,10 +4,9 @@ import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-export default function TeamInTable(props) {
-    const onClickTeam = (teamNo) => {
-        
-        //return player / show tplayer
+export default function PlayersInLeague(props) {
+    const onClickTeam = (PlayerNo) => {
+        //return player / show player
     }
 
     return (
@@ -16,7 +15,6 @@ export default function TeamInTable(props) {
             <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={30} color="#100" />{props.logo}</Text>
             <Text style={styles.text2}>{props.points} pt.</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
-            <Text style={styles.text}>{props.place}</Text>
         </View>
     )
 }

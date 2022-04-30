@@ -1,19 +1,21 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import Home from '../Screens/Home.jsx';
 import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
-import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam.jsx';
+import ManageTeam from '../Screens/ManageTeam/ManageTeam.jsx';
+import Profile from '../Screens/Profile.jsx';
 import NewGame from '../Screens/shchunaComps/NewGame.jsx';
-
+import { UserDataContext } from '../Context/UserContext.js';
+import { Route } from 'react-router-dom';
 
 const topBar = {
   headerShown: false,
 };
 
-export function CreateNewGame() {
+function CreateNewGame() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
       <NewGame />
@@ -21,26 +23,26 @@ export function CreateNewGame() {
   );
 }
 
-export function Tables() {
+function Tables() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <LeagueTable userData={''} />
+      <LeagueTable />
     </View>
   );
 }
 
-export function TeamManagement() {
+function TeamManagement() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <ManageTeam userData={''} />
+      <ManageTeam />
     </View>
   );
 }
 
-export function MainMenu(props) {
+function MainMenu(props) {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Home nickname={props.nickname}/>
+      <Home />
     </View>
   );
 }
@@ -49,35 +51,38 @@ export function MainMenu(props) {
 const Tab = createBottomTabNavigator();
 
 
-export default function Bottom() {  
+export default function Bottom() {
+  const { userData, setUserData } = useContext(UserDataContext);
+
   return (
-    <NavigationContainer independent={true}>
-      <Tab.Navigator screenOptions={topBar}>
-        <Tab.Screen name="תפריט ראשי"
-          component={MainMenu}
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="home" size={size} color={color} />)
-          }} />
-        <Tab.Screen name="טבלת הליגה"
-          component={Tables}
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="Trophy" size={size} color={color} />)
-          }}
-        />
-        <Tab.Screen name="ניהול קבוצה"
-          component={TeamManagement}
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="team" size={size} color={color} />)
-          }}
-        />
-        <Tab.Screen name="משחק חדש"
-          component={CreateNewGame}
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (<AntDesign name="pluscircleo" size={size} color={color} />)
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+      <NavigationContainer independent={true}>
+        <Tab.Navigator screenOptions={topBar}>
+          <Tab.Screen name="תפריט ראשי"
+            component={MainMenu}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (<AntDesign name="home" size={size} color={color} />)
+            }} />
+          <Tab.Screen name="טבלת הליגה"
+            component={Tables}
+
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (<AntDesign name="Trophy" size={size} color={color} />)
+            }}
+          />
+          <Tab.Screen name="ניהול קבוצה"
+            component={TeamManagement}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (<AntDesign name="team" size={size} color={color} />)
+            }}
+          />
+          <Tab.Screen name="משחק חדש"
+            component={CreateNewGame}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (<AntDesign name="pluscircleo" size={size} color={color} />)
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
   );
 }
 

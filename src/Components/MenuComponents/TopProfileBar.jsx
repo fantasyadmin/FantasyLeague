@@ -11,11 +11,12 @@ export default function TopProfileBar(props) {
         <View style={styles.root}>
             <Image source={profilePic} style={styles.pic} />
             <View>
-                <Text style={styles.text}>    פרופיל משתמש   </Text>
+                <Text style={styles.text}>  פרופיל משתמש</Text>
                 <Text></Text>
-                <Text style={styles.text}>            {userData.nickname}</Text>
-                <Text style={styles.text}>  מספר משחקים:  {props.gamesPlayed}</Text>
-                <Text style={styles.text}>  ציון שחקן:    {props.playerScore}</Text>
+                <Text style={styles.text}>  שחקן:{userData.nickname}</Text>
+                <Text style={styles.text}> שם הליגה:{userData.league_name}</Text>
+                <Text style={styles.text}>  מספר משחקים:{props.gamesPlayed}</Text>
+                <Text style={styles.text}>  ציון שחקן:{props.playerScore}</Text>
             </View>
         </View>
     )

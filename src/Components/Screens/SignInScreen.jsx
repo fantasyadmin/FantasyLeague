@@ -3,13 +3,13 @@ import { image } from '../../../assets/exports';
 import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext } from '../Context/UserContext';
+import { UserDataContext } from '../Context/UserContext.js';
+
 
 
 export default function SignInScreen() {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
-    const [userData1, setUserData1] = useState([]);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const { userData, setUserData } = useContext(UserDataContext);
 
 
@@ -22,7 +22,6 @@ export default function SignInScreen() {
 
 
     const onSignInPress = () => {
-
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
             method: 'POST',
             headers: new Headers({
@@ -37,15 +36,28 @@ export default function SignInScreen() {
             })
             .then(
                 (result) => {
-                    console.log(result);
                     if (result.nickname != undefined) {
-                        setUserData({ nickname: result.nickname, user_id: result.user_id, picture: result.picture })
-                        setUserData1([{ nickname: result.nickname, user_id: result.user_id, picture: result.picture }])
+                        setUserData({
+                            nickname: result.nickname,
+                            user_id: result.user_id,
+                            picture: result.picture,
+                            league_name: result.league_name,
+                            league_id: result.league_id,
+                            teams: result.listing,
+                            players: result.listing, //create an api response with 
+                            player_score: result.player_score, 
+                            team_budget: result.team_budget,
+                            team_id: result.team_id,
+                            team_points: result.team_points,
+                            total_assists: result.total_assists,
+                            total_goals_recieved: result.total_goals_recieved,
+                            total_goals_scored: result.total_goals_scored,
+                            total_pen_missed: result.total_pen_missed,
+                            total_wins: result.total_wins,
+                        })
                         console.log("data received = ", result);
                         console.log("==========================");
                         console.log("user data3 = ", result.user_id);
-                        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
-                        console.log("##### result = ", userData1);
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
@@ -56,7 +68,7 @@ export default function SignInScreen() {
                     console.log("err post=", error);
                     navigation.navigate('Sign In');
                 })
-            .then(navigation.navigate('Bottom', userData1));
+            .then(navigation.navigate('Bottom', userData));
 
     }
 

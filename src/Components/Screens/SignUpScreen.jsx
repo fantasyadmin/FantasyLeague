@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { image } from '../../../assets/exports';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { postRegister } from '../../../APIActions/apiRequests';
+import { UserDataContext } from '../Context/UserContext';
 
 
 export default function SignUpScreen() {
+    const { userData, setUserData } = useContext(UserDataContext);
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verifypassword, setverifyPassword] = useState('');
-    const [league_id, setleagueId] = useState('0');
-    const [userId, setUserId] = useState('');
-
+    const [league_id, setleagueId] = useState(0);
 
     const navigation = useNavigation();
 
@@ -27,20 +27,47 @@ export default function SignUpScreen() {
     //user registration
     const onSignUpPress = () => {
         if (password == verifypassword) {
-            setUserId(postRegister(registerUser)) 
-           if (league_id == '0') {
-                console.log("data  =", userId);
-                navigation.navigate('Create League', userId);
+            fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Register', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Accept': 'application/json; charset=UTF-8',
+                }),
+                body: registerUser
+            })
+                .then(res => {
+                    console.log('res=', res);
+                    console.log('res.status', res.status);
+                    console.log('res.ok', res.ok);
+                    return res.json()
+                })
+                .then(
+                    (result) => {
+                        setUserData({
+                            league_id: result.league_id
+                        })
+                        console.log("process= ", result);
+                        result.map(st => console.log(st));
+                        console.log('username', result, username);
+                    },
+                    (error) => {
+                        console.log("err post=", error);
+                    });
+
+            if (!league_id) {
+                setleagueId(userData.league_id)
+                console.log("league id  =", userData.league_id);
+                navigation.navigate('Create League');
             }
             else {
                 navigation.navigate('Sign In');//skip mail confirmation - phase 2 
             }
-
         }
         else {
             alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
         }
     }
+
 
     const onClickTermsOfUse = () => {
         //תנאי שימוש

@@ -11,10 +11,9 @@ import Bottom from '../MenuComponents/Bottom_Menu';
 import Home from '../Screens/Home';
 import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/TeamInTable';
 import Profile from '../Screens/Profile';
-import ManageTeam from '../Screens/FantasyLeagueComps/ManageTeam';
 import NewGame from '../Screens/shchunaComps/NewGame';
 import CreateLeague from '../Screens/FantasyLeagueComps/CreateLeague';
-import { UserDataContext } from '../Context/UserContext';
+import ManageTeam from '../Screens/ManageTeam/ManageTeam';
 
 
 const Stack = createNativeStackNavigator();

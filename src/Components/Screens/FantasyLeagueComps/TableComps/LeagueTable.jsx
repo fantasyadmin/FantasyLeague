@@ -1,40 +1,36 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import TeamInTable from './TeamInTable'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { image } from '../../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons";
+import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { UserDataContext } from '../../../Context/UserContext';
 
-
-const teams = [
-  { nickname: "hamed", points: 32 },
-  { nickname: "guy", points: 51 },
-  { nickname: "gal", points: 13 },
-  { nickname: "dor", points: 42 },
-  { nickname: "nir", points: 77 },
-  { nickname: "amit", points: 666 }]
 
 const logos = [
-<FontAwesome5 name="crown" size={23} color="#993" />,
-<MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
-<Icon name="rocket" size={29} color="#900" />,
+  <FontAwesome5 name="crown" size={23} color="#993" />,
+  <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
+  <Icon name="rocket" size={29} color="#900" />,
 ]
 
 
 export default function LeagueTable(props) {
+  const { userData, setUserData } = useContext(UserDataContext);
 
   //need to feed the data from props - TBC
 
   //sort teams by score
-  const sortTeams = [].concat(teams)
+  const sortTeams = [].concat(userData.teams)
     .sort((a, b) => a.points < b.points);
 
+  console.log("context check = ", userData);
+  
   var renderTable = sortTeams.map((x, ind) => {
     return <TeamInTable
       key={ind}

@@ -1,25 +1,26 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
 import { image } from '../../../../assets/exports';
 import { postCreateLeague } from '../../../../APIActions/apiRequests';
 import { useNavigation } from '@react-navigation/native';
+import { UserDataContext } from '../../Context/UserContext';
 
 
-export default function CreateLeague(props) {
+export default function CreateLeague() {
+    const { userData, setUserData } = useContext(UserDataContext);
 
     const navigation = useNavigation();
 
     const [leagueName, setLeagueName] = useState('');
     const [leagueRules, setLeagueRules] = useState('');
-    //const [userId, setUserId] = useState(props.user_id);
 
     const data = JSON.stringify({
         "league_name": leagueName,
         "league_picture": '',
         "league_rules": leagueRules,
-        "user_id": props.userId
+        "league_id": userData.league_id
     });
 
     const onInvitePress = () => {
@@ -29,9 +30,34 @@ export default function CreateLeague(props) {
 
     const onCreateLeaguePress = () => {
         console.log("create league = ", data);
-        postCreateLeague(data);
-        //submit to DB and navigate to Home
-        navigation.navigate('Bottom')
+        fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageLeague/5', {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset=UTF-8'
+            }),
+            body: data
+        })
+            .then(res => {
+                console.log('res=', res);
+                return res.json()
+            })
+            .then(
+                (result) => {
+                    setUserData({
+                        league_id: result.league_id
+                    })
+                    console.log("fetch POST= ", result);
+                },
+                (error) => {
+                    console.log("err post=", error);
+                });
+
+
+
+
+
+        navigation.navigate('Sign In')
     }
 
     return (

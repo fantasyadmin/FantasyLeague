@@ -1,10 +1,51 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 const initialState = {
-  nickname: null, 
-  picture: null, 
+  //user info
+  nickname: null,
+  picture: null,
   user_id: null,
-  
+
+  //league info
+  league_name: null,
+  league_id: null,
+
+  //league_players info
+  players: [],
+
+  //league_players_teams info
+  teams: [
+    //{ 'nickname': "ahmed", points: 12 }, 
+
+  //  [{user_id: 12, 
+  //        [{player1: 11},
+  //         {player2: 16},
+  //         {player3: 1},
+  //         {player4: 43},
+  //  ]},]
+
+  ],
+
+
+  //fantasy team info
+  player1: null,
+  player2: null,
+  player3: null,
+  player4: null,
+  team_budget: null,
+  team_id: null,
+  team_points: null,
+
+  //player info
+  player_score: null,
+  team_budget: null,
+  team_id: null,
+  team_points: null,
+  total_assists: null,
+  total_goals_recieved: null,
+  total_goals_scored: null,
+  total_pen_missed: null,
+  total_wins: null,
 };
 
 const UserDataContext = React.createContext(initialState);
