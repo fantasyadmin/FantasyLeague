@@ -3,7 +3,8 @@ import { image } from '../../../assets/exports';
 import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext } from '../Context/UserContext';
+import { UserDataContext } from '../Context/UserContext.js';
+
 
 
 export default function SignInScreen() {
@@ -21,7 +22,6 @@ export default function SignInScreen() {
 
 
     const onSignInPress = () => {
-
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
             method: 'POST',
             headers: new Headers({
@@ -42,7 +42,8 @@ export default function SignInScreen() {
                             user_id: result.user_id,
                             picture: result.picture,
                             league_name: result.league_name,
-                            league_id: result.league_id
+                            league_id: result.league_id,
+                            
                         })
                         console.log("data received = ", result);
                         console.log("==========================");
@@ -57,7 +58,7 @@ export default function SignInScreen() {
                     console.log("err post=", error);
                     navigation.navigate('Sign In');
                 })
-            .then(navigation.navigate('Bottom'));
+            .then(navigation.navigate('Bottom', userData));
 
     }
 

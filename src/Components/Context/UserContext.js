@@ -9,8 +9,15 @@ const initialState = {
   //league info
   league_name: null,
   league_id: null,
+
+  //league_players info
+  player: [],
+
+  //league_players_teams info
+  teams : [],
+
   
-  //fantasy team info
+    //fantasy team info
   player1: null,
   player2: null,
   player3: null,
@@ -29,8 +36,6 @@ const initialState = {
   total_goals_scored: null,
   total_pen_missed: null,
   total_wins: null,
-
-  
 };
 
 const UserDataContext = React.createContext(initialState);
