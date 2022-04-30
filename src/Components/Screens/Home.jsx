@@ -6,7 +6,7 @@ import TopProfileBar from '../MenuComponents/TopProfileBar';
 import React, { useState, useContext } from 'react';
 import { UserDataContext } from '../Context/UserContext';
 
-const Home = (props) => {
+const Home = () => {
     const { userData, setUserData } = useContext(UserDataContext);
 
     const onPressFantasy = () => {
