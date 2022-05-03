@@ -37,10 +37,8 @@ const initialState = {
   team_points: null,
 
   //player info
+  games_played: null,
   player_score: null,
-  team_budget: null,
-  team_id: null,
-  team_points: null,
   total_assists: null,
   total_goals_recieved: null,
   total_goals_scored: null,

@@ -6,6 +6,15 @@ import { image } from '../../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { UserDataContext } from '../../../Context/UserContext';
+import { ScrollView } from 'react-native-gesture-handler';
+
+
+const players = [
+  { user_id: 12, nickname: "ahmed", points: 88 },
+  { user_id: 45, nickname: "pele", points: 45 },
+  { user_id: 33, nickname: "guy", points: 3 },
+  { user_id: 86, nickname: "dor", points: 34 },
+]
 
 
 const logos = [
@@ -26,11 +35,11 @@ export default function LeagueTable(props) {
   //need to feed the data from props - TBC
 
   //sort teams by score
-  const sortTeams = [].concat(userData.teams)
+  const sortTeams = [].concat(players)
     .sort((a, b) => a.points < b.points);
 
   console.log("context check = ", userData);
-  
+
   var renderTable = sortTeams.map((x, ind) => {
     return <TeamInTable
       key={ind}
@@ -48,9 +57,10 @@ export default function LeagueTable(props) {
       <Image source={image} style={styles.pic} />
       <Text style={styles.text}>מספר משחקים ששוחקו:{props.gamesPlayed}</Text>
       <Text> </Text>
-      <Text>
-        {renderTable}
-      </Text>
+      <Text style={styles.text}>טבלת הקבוצות</Text>
+      <ScrollView>
+          {renderTable}
+      </ScrollView>
     </SafeAreaView>
 
   )

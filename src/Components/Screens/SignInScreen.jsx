@@ -54,6 +54,7 @@ export default function SignInScreen() {
                             total_goals_scored: result.total_goals_scored,
                             total_pen_missed: result.total_pen_missed,
                             total_wins: result.total_wins,
+                            games_played: result.games_played,
                         })
                         console.log("data received = ", result);
                         console.log("==========================");

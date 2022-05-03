@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import SignInScreen from '../Screens/SignInScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 import MailConfirm from '../Screens/ConfirnEmail';
@@ -20,8 +20,7 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     return (
-        
-            <NavigationContainer>
+            <NavigationContainer independent={true}>
                 <Stack.Navigator screenOptions={{ headerShown: false }} >
                     <Stack.Screen name="Wellcome" component={WellcomeScreen} />
                     <Stack.Screen name="Sign In" component={SignInScreen} />
@@ -38,10 +37,8 @@ const Navigation = () => {
                     <Stack.Screen name="Profile" component={Profile} />
                 </Stack.Navigator>
             </NavigationContainer>
-        
     )
 }
 
 export default Navigation
-
 

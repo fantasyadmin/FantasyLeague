@@ -1,17 +1,28 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import React, { useContext } from 'react';
 import { profilePic, image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
 import { UserDataContext } from '../Context/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import Profile from '../Screens/Profile';
+
 
 export default function TopProfileBar(props) {
     const { userData } = useContext(UserDataContext);
+    const navigation = useNavigation();
+
+    const onProfileClick = () => {
+        navigation.navigate('Profile');
+    }
 
     return (
         <View style={styles.root}>
-            <Image source={profilePic} style={styles.pic} />
+            <TouchableHighlight onPress={onProfileClick}>
+                <Image source={profilePic} style={styles.pic} />
+            </TouchableHighlight>
+
             <View>
-                <Text style={styles.text}>  פרופיל משתמש</Text>
+                <Text style={styles.text}> {userData.nickname}</Text>
                 <Text></Text>
                 <Text style={styles.text}>  שחקן:{userData.nickname}</Text>
                 <Text style={styles.text}> שם הליגה:{userData.league_name}</Text>

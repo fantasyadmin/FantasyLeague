@@ -10,6 +10,7 @@ import Home from './src/Components/Screens/Home.jsx';
 import CreateLeague from './src/Components/Screens/FantasyLeagueComps/CreateLeague.jsx';
 import TeamInTable from './src/Components/Screens/FantasyLeagueComps/TableComps/TeamInTable.jsx';
 import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
+import Profile from './src/Components/Screens/Profile.jsx';
 import { UserDatacontextProvider } from './src/Components/Context/UserContext.js';
 
 export default function App() {
@@ -28,6 +29,8 @@ export default function App() {
     //<ResetPassword/>
     //<Home />
     //<CreateLeague/>
+    //<Navigation />
+    //<Profile />
   );
 }
 
