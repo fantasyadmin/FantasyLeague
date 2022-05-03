@@ -43,7 +43,6 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <TopProfileBar />
-            <Text>אהלן {userData.nickname}</Text>
             <CustomButton text="Fantasy ליגת" onPress={() => navigation.navigate('League Table')} />
             <CustomButton text="שחק צ'כונה" onPress={() => navigation.navigate('New Game')} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
