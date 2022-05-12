@@ -18,7 +18,6 @@ export default function App() {
   return (
     <UserDatacontextProvider>
       <ManageExistingGame />
-      
     </UserDatacontextProvider>
     //<LeagueTable/>
     //<TeamInTable/>
