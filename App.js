@@ -12,11 +12,13 @@ import TeamInTable from './src/Components/Screens/FantasyLeagueComps/TableComps/
 import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
 import Profile from './src/Components/Screens/Profile.jsx';
 import { UserDatacontextProvider } from './src/Components/Context/UserContext.js';
+import ManageExistingGame from './src/Components/Screens/shchunaComps/matchComps/ManageGame.jsx';
 
 export default function App() {
   return (
     <UserDatacontextProvider>
-      <Navigation />
+      <ManageExistingGame />
+      
     </UserDatacontextProvider>
     //<LeagueTable/>
     //<TeamInTable/>
@@ -31,6 +33,7 @@ export default function App() {
     //<CreateLeague/>
     //<Navigation />
     //<Profile />
+    //<ManageExistingGame />
   );
 }
 

@@ -44,6 +44,14 @@ const initialState = {
   total_goals_scored: null,
   total_pen_missed: null,
   total_wins: null,
+
+
+  //match
+  match_date: null,
+  match_time: null,
+  match_location: null,
+  team_color1: null,
+  team_color2: null,
 };
 
 const UserDataContext = React.createContext(initialState);

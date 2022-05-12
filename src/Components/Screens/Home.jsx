@@ -15,15 +15,6 @@ const Home = () => {
 
     const navigation = useNavigation();
 
-
-    const onPressFantasy = () => {
-        console.warn('1')
-    }
-
-    const onPressSchoona = () => {
-        console.warn('ניווט למשחק קיים / משחק חדש')
-    }
-
     const onPressChat = () => {
         console.warn('ניווט לצאט')
     }
@@ -32,9 +23,6 @@ const Home = () => {
         console.warn('הזמנת שחקן חדש')
     }
 
-    const onPressManagePlayers = () => {
-        console.warn('ניהול שחקנים בליגה')
-    }
 
     const onPressConfirmResults = () => {
         console.warn('אישור תוצאות משחק')

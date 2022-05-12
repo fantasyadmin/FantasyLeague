@@ -13,7 +13,6 @@ export default function PlayersInLeague(props) {
         <View style={styles.container}>
             <TouchableOpacity onPress={onClickTeam(props.key)}>{props.icon}</TouchableOpacity>
             <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={30} color="#100" />{props.logo}</Text>
-            <Text style={styles.text2}>{props.points} pt.</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>
     )

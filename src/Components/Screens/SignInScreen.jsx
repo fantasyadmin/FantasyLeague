@@ -89,14 +89,14 @@ export default function SignInScreen() {
             <View style={styles.root}>
                 <Image source={image} style={styles.pic} />
                 <Text style={styles.text}>כניסת משתמש קיים</Text>
-                <Text>{username}</Text>
+                
                 <TextInput
                     value={username}
                     onChangeText={setUsername}
                     placeholder={'שם משתמש'}
                     style={styles.container}
                 />
-                <Text>{password}</Text>
+                
                 <TextInput
                     value={password}
                     onChangeText={setPassword}

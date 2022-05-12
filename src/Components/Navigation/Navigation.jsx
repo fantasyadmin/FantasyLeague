@@ -14,7 +14,7 @@ import Profile from '../Screens/Profile';
 import NewGame from '../Screens/shchunaComps/NewGame';
 import CreateLeague from '../Screens/FantasyLeagueComps/CreateLeague';
 import ManageTeam from '../Screens/ManageTeam/ManageTeam';
-
+import ManageExistingGame from '../Screens/shchunaComps/matchComps/ManageGame';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +35,7 @@ const Navigation = () => {
                     <Stack.Screen name="League Table" component={LeagueTable} />
                     <Stack.Screen name="Manage Team" component={ManageTeam} />
                     <Stack.Screen name="Profile" component={Profile} />
+                    <Stack.Screen name="Manage Game" component={ManageExistingGame} />
                 </Stack.Navigator>
             </NavigationContainer>
     )

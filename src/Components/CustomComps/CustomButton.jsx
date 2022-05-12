@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const CustomButton = ({ onPress, text }) => {
+    const [buttonColor, setButtonColor] = useState('#1b91f3')
+
     return (
         <Pressable onPress={onPress} style={styles.container}>
             <Text style={styles.text}>{text}</Text>
