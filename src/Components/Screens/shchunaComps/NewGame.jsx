@@ -8,9 +8,10 @@ import CustomButton from '../../CustomComps/CustomButton';
 import ColorPicking from '../../CustomComps/ColorPicker';
 import Calander from './matchComps/Calander/datePicker';
 import { Button } from 'react-native-paper';
-//import PickDate from './matchComps/Calander/datePicker';
+import PickDate from './matchComps/Calander/datePicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
-import { PickDate } from './matchComps/Calander/datePicker';
+
+
 
 
 export default function NewGame() {
@@ -29,18 +30,18 @@ export default function NewGame() {
     "teamColor2": '',
   });
 
-
-  getDataFromChild = (data) => {
-    console.log('in parent data from child', data);
-    if (data.teamNo == 1) {
-      setTeamColor1(data.selectedColor);
-      console.log("team 1 color", teamColor1);
-    }
-    else{
-      setTeamColor2(data.selectedColor);
-      console.log("team 2 color", teamColor2);
-    }
+getDataFromChild = (data) => {
+  console.log('in parent data from child', data);
+  if (data.teamNo == 1) {
+    setTeamColor1(data.selectedColor);
+    console.log("team 1 color", teamColor1);
   }
+  else {
+    setTeamColor2(data.selectedColor);
+    console.log("team 2 color", teamColor2);
+  }
+}
+
 
 
   function setMatch() {
@@ -90,7 +91,6 @@ export default function NewGame() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
-        {PickDate}
       </View>
       <Text></Text>
       <Text></Text>
@@ -115,14 +115,14 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 1:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={this.getDataFromChild} team={1}/>
+          <ColorPicking tellPapa={getDataFromChild} team={1} />
         </View>
 
       </View>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 2:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={this.getDataFromChild} team={2}/>
+          <ColorPicking tellPapa={getDataFromChild} team={2} />
         </View>
 
       </View>
