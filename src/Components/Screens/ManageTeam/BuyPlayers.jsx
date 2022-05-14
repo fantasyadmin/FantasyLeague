@@ -8,9 +8,6 @@ import { UserDataContext } from '../../Context/UserContext';
 import TopProfileBar from '../../MenuComponents/TopProfileBar';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
-import { useNavigation } from '@react-navigation/native';
-
-
 
 const players = [
   { user_id: 12, nickname: "ahmed", points: 88 },
@@ -32,17 +29,9 @@ const logos = [
 ]
 
 
-export default function ManageTeam() {
+export default function BuyPlayers() {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [action, setAction] = useState(renderTable)
-  const [player, setPlayer] = useState('')
 
-
-  const navigation = useNavigation();
-
-  function managePlayer() {
-
-  }
 
   const sortplayers = [].concat(players).sort();   //userData.listed
 
@@ -54,6 +43,7 @@ export default function ManageTeam() {
       icon={logos[ind]}      // work on different icons
     />
   });
+
 
 
   return (
@@ -135,6 +125,3 @@ const styles = StyleSheet.create({
     width: 250,
   },
 })
-
-
-

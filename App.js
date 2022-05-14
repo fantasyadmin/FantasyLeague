@@ -13,12 +13,20 @@ import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/
 import Profile from './src/Components/Screens/Profile.jsx';
 import { UserDatacontextProvider } from './src/Components/Context/UserContext.js';
 import ManageExistingGame from './src/Components/Screens/shchunaComps/matchComps/ManageGame.jsx';
+import StopWatch from './src/Components/Screens/shchunaComps/matchComps/Timer/StopWatch.js';
+import NewGame from './src/Components/Screens/shchunaComps/NewGame.jsx';
+import ColorPicking from './src/Components/CustomComps/ColorPicker.js';
+import { PickDate } from './src/Components/Screens/shchunaComps/matchComps/Calander/datePicker.js';
+import { PickTime } from './src/Components/Screens/shchunaComps/matchComps/Calander/TimePicker.js';
 
 export default function App() {
   return (
     <UserDatacontextProvider>
-      <ManageExistingGame />
+      <NewGame/>
     </UserDatacontextProvider>
+    //<StopWatch/>
+    //<NewGame/>
+    //<ColorPicking />
     //<LeagueTable/>
     //<TeamInTable/>
     //<WellcomeScreen />
@@ -33,6 +41,8 @@ export default function App() {
     //<Navigation />
     //<Profile />
     //<ManageExistingGame />
+    //<PickDate/>
+    //<PickTime/>
   );
 }
 

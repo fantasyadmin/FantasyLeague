@@ -7,7 +7,6 @@ import React, { useState, useContext } from 'react';
 import { UserDataContext } from '../Context/UserContext';
 import { CreateNewGame } from '../MenuComponents/Bottom_Menu';
 import { useNavigation } from '@react-navigation/native';
-import Navigation from '../Navigation/Navigation';
 
 
 const Home = () => {

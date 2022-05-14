@@ -5,29 +5,68 @@ import { Ionicons as Icon } from "@expo/vector-icons";
 import { UserDataContext } from '../../Context/UserContext';
 import { ColorPicker, StatusColorPicker } from 'react-native-status-color-picker';
 import CustomButton from '../../CustomComps/CustomButton';
+import ColorPicking from '../../CustomComps/ColorPicker';
+import Calander from './matchComps/Calander/datePicker';
+import { Button } from 'react-native-paper';
+import PickDate from './matchComps/Calander/datePicker';
+import { PickTime } from './matchComps/Calander/TimePicker';
 
 
 export default function NewGame() {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [matchDate, setMatchDate] = useState("");
   const [matchTime, setMatchTime] = useState("");
   const [matchLocation, setMatchLocation] = useState("");
   const [teamColor1, setTeamColor1] = useState('#ffff');
   const [teamColor2, setTeamColor2] = useState('#ffff');
-  const [visible, setVisible] = useState(false);
-  const [colors, setColors] = useState(["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"]);
-  const [selectedColor, setSelectedColor] = useState("");
-
 
 
   const params = JSON.stringify({
-    "matchDate": matchDate,
-    "matchTime": matchTime,
-    "matchLocation": matchLocation,
-    "teamColor1": teamColor1,
-    "teamColor2": teamColor2,
+    "matchDate": userData.match_date,
+    "matchTime": '',
+    "matchLocation": '',
+    "teamColor1": '',
+    "teamColor2": '',
   });
 
+
+  function setMatch() {
+    //fetch - update match in DB and set info in context
+    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Match', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8'
+      }),
+      body: params
+    })
+      .then(res => {
+        console.log('res=', res);
+        return res.json()
+      })
+      .then(
+        (result) => {
+          if (result.nickname != undefined) {
+            setUserData({
+              match_date: result.match_date,
+              match_time: result.match_time,
+              location: result.location,
+              teamColor1: result.team_color1,
+              teamColor2: result.team_color2,
+            })
+            console.log("data received = ", result);
+            console.log("==========================");
+            console.log("user data3 = ", result.match_date);
+          }
+          else {
+            alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+          }
+        },
+        (error) => {
+          console.log("err post=", error);
+        })
+      .then(navigation.navigate('Bottom'));
+
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,28 +76,16 @@ export default function NewGame() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
-        <View style={styles.textBarLocation}>
-          <TextInput
-            value={matchDate}
-            onChangeText={setMatchDate}
-            placeholder={'  תאריך'}
-            style={styles.container2}
-          />
-        </View>
-
+        <PickDate />
       </View>
+      <Text></Text>
+      <Text></Text>
+
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר שעה:   </Text>
-        <View style={styles.textBarLocation}>
-          <TextInput
-            value={matchTime}
-            onChangeText={setMatchTime}
-            placeholder={'  שעת משחק'}
-            style={styles.container2}
-          />
-        </View>
-
+        <PickTime />
       </View>
+
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> מיקום:          </Text>
         <View style={styles.textBarLocation}>
@@ -74,22 +101,14 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 1:        </Text>
         <View style={styles.itemsLocation}>
-          <Icon
-            name="shirt"
-            style={{ fontSize: 30, color: teamColor1 }}
-            onPress={() => setVisible(true)}
-          />
+          <ColorPicking />
         </View>
 
       </View>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 2:        </Text>
         <View style={styles.itemsLocation}>
-          <Icon
-            name="shirt"
-            style={{ fontSize: 30, color: teamColor2 }}
-            onPress={() => setVisible(true)}
-          />
+          <ColorPicking />
         </View>
 
       </View>
@@ -99,6 +118,14 @@ export default function NewGame() {
     </SafeAreaView>
   )
 }
+
+
+//<TextInput
+//value={matchDate}
+//onChangeText={setMatchDate}
+//placeholder={'  תאריך'}
+//style={styles.container2}
+///>
 
 const styles = StyleSheet.create({
   container: {

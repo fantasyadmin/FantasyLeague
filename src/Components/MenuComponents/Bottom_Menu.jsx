@@ -29,7 +29,6 @@ function CreateNewGame() {
 }
 
 
-
 function Tables() {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>

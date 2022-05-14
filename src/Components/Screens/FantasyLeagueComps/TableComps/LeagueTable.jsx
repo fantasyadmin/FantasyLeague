@@ -9,14 +9,6 @@ import { UserDataContext } from '../../../Context/UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-const players = [
-  { user_id: 12, nickname: "ahmed", points: 88 },
-  { user_id: 45, nickname: "pele", points: 45 },
-  { user_id: 33, nickname: "guy", points: 3 },
-  { user_id: 86, nickname: "dor", points: 34 },
-]
-
-
 const logos = [
   <FontAwesome5 name="crown" size={23} color="#993" />,
   <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
@@ -35,7 +27,7 @@ export default function LeagueTable(props) {
   //need to feed the data from props - TBC
 
   //sort teams by score
-  const sortTeams = [].concat(players)
+  const sortTeams = [].concat(userData.players)
     .sort((a, b) => a.points < b.points);
 
   console.log("context check = ", userData);

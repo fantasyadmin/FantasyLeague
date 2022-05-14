@@ -1,17 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default function PlayersInLeague(props) {
-    const onClickTeam = (PlayerNo) => {
-        //return player / show player
-    }
-
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onClickTeam(props.key)}>{props.icon}</TouchableOpacity>
+            <TouchableOpacity>{props.icon}</TouchableOpacity>
+            <Text style={styles.text3}>{props.points}</Text>
             <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={30} color="#100" />{props.logo}</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>

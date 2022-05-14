@@ -44,7 +44,7 @@ export default function SignInScreen() {
                             league_name: result.league_name,
                             league_id: result.league_id,
                             teams: result.listing,
-                            players: result.listing, //create an api response with 
+                            players: result.usres_in_league,
                             player_score: result.player_score, 
                             team_budget: result.team_budget,
                             team_id: result.team_id,

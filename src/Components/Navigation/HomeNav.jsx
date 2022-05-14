@@ -7,6 +7,7 @@ import Profile from '../Screens/Profile';
 import NewGame from '../Screens/shchunaComps/NewGame';
 import ManageTeam from '../Screens/ManageTeam/ManageTeam';
 import ManagePlayers from '../Screens/shchunaComps/ManagePlayers';
+import BuyPlayers from '../Screens/ManageTeam/BuyPlayers';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,11 +21,15 @@ const HomeNav = () => {
                 <Stack.Screen name="Manage Team" component={ManageTeam} />
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="Manage Players" component={ManagePlayers} />
+                <Stack.Screen name="Buy Players" component={BuyPlayers} />
             </Stack.Navigator>
         </NavigationContainer>
 
     )
 }
+
+//<Stack.Screen name="League Table" component={LeagueTable} />
+
 
 export default HomeNav;
 
