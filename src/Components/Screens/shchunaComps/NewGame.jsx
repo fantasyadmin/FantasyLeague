@@ -8,8 +8,9 @@ import CustomButton from '../../CustomComps/CustomButton';
 import ColorPicking from '../../CustomComps/ColorPicker';
 import Calander from './matchComps/Calander/datePicker';
 import { Button } from 'react-native-paper';
-import PickDate from './matchComps/Calander/datePicker';
+//import PickDate from './matchComps/Calander/datePicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
+import { PickDate } from './matchComps/Calander/datePicker';
 
 
 export default function NewGame() {
@@ -60,11 +61,11 @@ export default function NewGame() {
         (result) => {
           if (result.nickname != undefined) {
             setUserData({
-              match_date: result.match_date,
-              match_time: result.match_time,
-              location: result.location,
-              teamColor1: result.team_color1,
-              teamColor2: result.team_color2,
+              //match_date: result.match_date,
+              //match_time: result.match_time,
+              //location: result.location,
+              //teamColor1: result.team_color1,
+              //teamColor2: result.team_color2,
             })
             console.log("data received = ", result);
             console.log("==========================");
@@ -89,7 +90,7 @@ export default function NewGame() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
-        <PickDate />
+        {PickDate}
       </View>
       <Text></Text>
       <Text></Text>
