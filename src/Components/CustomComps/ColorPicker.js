@@ -5,22 +5,25 @@ import { StatusColorPicker } from 'react-native-status-color-picker';
 
 
 export default class ColorPicking extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     visible: false,
     colors: ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"],
     selectedColor: '#F44336',
+    teamNo: 1,
+  };
+
+  team = (teamId) => {
+    this.setState({ teamNo: teamId });
   };
 
 
-  handleChange(e) {
-    this.props.onTemperatureChange(e.target.value);
+  btnTellPapa = () => {
+    this.props.tellPapa(this.selectedColor , this.teamNo);
   }
 
   ok = data => {
     this.setState({ selectedColor: data.selectedColor, text: data.text });
+    this.btnTellPapa;
     this.close();
   };
 
@@ -43,7 +46,6 @@ export default class ColorPicking extends Component {
           selectedColor={this.state.selectedColor}
           onOk={this.ok}
           onCancel={this.close}
-          setColor={this.setColor(team)}
         />
       </View>
     );

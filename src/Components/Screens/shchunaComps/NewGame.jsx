@@ -29,6 +29,19 @@ export default function NewGame() {
   });
 
 
+  getDataFromChild = (data) => {
+    console.log('in parent data from child', data);
+    if (data.teamNo == 1) {
+      setTeamColor1(data.selectedColor);
+      console.log("team 1 color", teamColor1);
+    }
+    else{
+      setTeamColor2(data.selectedColor);
+      console.log("team 2 color", teamColor2);
+    }
+  }
+
+
   function setMatch() {
     //fetch - update match in DB and set info in context
     fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Match', {
@@ -101,14 +114,14 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 1:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking />
+          <ColorPicking tellPapa={this.getDataFromChild} team={1}/>
         </View>
 
       </View>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 2:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking />
+          <ColorPicking tellPapa={this.getDataFromChild} team={2}/>
         </View>
 
       </View>
