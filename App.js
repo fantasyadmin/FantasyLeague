@@ -22,7 +22,7 @@ import { PickTime } from './src/Components/Screens/shchunaComps/matchComps/Calan
 export default function App() {
   return (
     <UserDatacontextProvider>
-      <NewGame/>
+      <Navigation />
     </UserDatacontextProvider>
     //<StopWatch/>
     //<NewGame/>

@@ -1,22 +1,17 @@
 import { StyleSheet, Text, View, Image, ScrollView, TextInput } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Ionicons as Icon } from "@expo/vector-icons";
 import { UserDataContext } from '../../Context/UserContext';
-import { ColorPicker, StatusColorPicker } from 'react-native-status-color-picker';
 import CustomButton from '../../CustomComps/CustomButton';
 import ColorPicking from '../../CustomComps/ColorPicker';
-import Calander from './matchComps/Calander/datePicker';
-import { Button } from 'react-native-paper';
-import PickDate from './matchComps/Calander/datePicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
+import { PickDate } from './matchComps/Calander/datePicker';
 
 
 
 
 export default function NewGame() {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [matchTime, setMatchTime] = useState("");
   const [matchLocation, setMatchLocation] = useState("");
   const [teamColor1, setTeamColor1] = useState('#ffff');
   const [teamColor2, setTeamColor2] = useState('#ffff');
@@ -24,24 +19,25 @@ export default function NewGame() {
 
   const params = JSON.stringify({
     "matchDate": userData.match_date,
-    "matchTime": '',
-    "matchLocation": '',
-    "teamColor1": '',
-    "teamColor2": '',
+    "matchTime": userData.match_time,
+    "matchLocation": userData.match_location,
+    "teamColor1": teamColor1,
+    "teamColor2": teamColor2,
+    "league_id": userData.league_id
   });
 
-getDataFromChild = (data) => {
-  console.log('in parent data from child', data);
-  if (data.teamNo == 1) {
-    setTeamColor1(data.selectedColor);
-    console.log("team 1 color", teamColor1);
-  }
-  else {
-    setTeamColor2(data.selectedColor);
-    console.log("team 2 color", teamColor2);
-  }
-}
 
+  getDataFromChild = (data) => {
+    console.log('in parent data from child', data);
+    if (data.teamNo == 1) {
+      setTeamColor1(data.selectedColor);
+      console.log("team 1 color", teamColor1);
+    }
+    else {
+      setTeamColor2(data.selectedColor);
+      console.log("team 2 color", teamColor2);
+    }
+  }
 
 
   function setMatch() {
@@ -52,7 +48,14 @@ getDataFromChild = (data) => {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset=UTF-8'
       }),
-      body: params
+      body:  JSON.stringify({
+        "matchDate": userData.match_date,
+        "matchTime": userData.match_time,
+        "matchLocation": userData.match_location,
+        "teamColor1": teamColor1,
+        "teamColor2": teamColor2,
+        "league_id": userData.league_id
+      })
     })
       .then(res => {
         console.log('res=', res);
@@ -60,26 +63,20 @@ getDataFromChild = (data) => {
       })
       .then(
         (result) => {
-          if (result.nickname != undefined) {
-            setUserData({
-              //match_date: result.match_date,
-              //match_time: result.match_time,
-              //location: result.location,
-              //teamColor1: result.team_color1,
-              //teamColor2: result.team_color2,
-            })
+          if (result.match_date != undefined) {
             console.log("data received = ", result);
             console.log("==========================");
             console.log("user data3 = ", result.match_date);
           }
           else {
+            console.log(params);
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
           }
         },
         (error) => {
           console.log("err post=", error);
         })
-      .then(navigation.navigate('Bottom'));
+    //.then(navigation.navigate('Bottom'));
 
   }
 
@@ -91,6 +88,7 @@ getDataFromChild = (data) => {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
+        <PickDate />
       </View>
       <Text></Text>
       <Text></Text>
@@ -127,19 +125,12 @@ getDataFromChild = (data) => {
 
       </View>
       <View style={styles.buttons}>
-        <CustomButton text="קבע משחק" onPress={''} />
+        <CustomButton text="קבע משחק" onPress={setMatch} />
       </View>
     </SafeAreaView>
   )
 }
 
-
-//<TextInput
-//value={matchDate}
-//onChangeText={setMatchDate}
-//placeholder={'  תאריך'}
-//style={styles.container2}
-///>
 
 const styles = StyleSheet.create({
   container: {

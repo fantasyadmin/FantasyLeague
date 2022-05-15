@@ -20,13 +20,9 @@ export const PickTime = () => {
 
         let hours = (currentDate.getHours() < 10 ? '0' : '') + currentDate.getHours();
         let minutes = (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
-        var timePicked =  hours + ':' + minutes;
-
-        setMatchTime(timePicked);
+        setMatchTime(`${hours}:${minutes}`);
         setUserData({match_time: matchTime})
     };
-
-
 
 
     const showMode = (currentMode) => {
@@ -34,9 +30,6 @@ export const PickTime = () => {
         setMode(currentMode);
     };
 
-    const showDatepicker = () => {
-        showMode('date');
-    };
 
     const showTimepicker = () => {
         showMode('time');
@@ -47,9 +40,7 @@ export const PickTime = () => {
             <View>
                 <Text style={styles.text}>                 {matchTime}                </Text>
             </View>
-
             <View>
-
                 <Icon
                     name="time-outline"
                     style={{ fontSize: 30, color: 'white' }}
