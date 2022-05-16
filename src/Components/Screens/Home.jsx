@@ -7,6 +7,7 @@ import React, { useState, useContext } from 'react';
 import { UserDataContext } from '../Context/UserContext';
 import { CreateNewGame } from '../MenuComponents/Bottom_Menu';
 import { useNavigation } from '@react-navigation/native';
+import { _storeData, _retrieveData } from '../Context/Storage';
 
 
 const Home = () => {
@@ -16,6 +17,22 @@ const Home = () => {
 
     const onPressChat = () => {
         console.warn('ניווט לצאט')
+    }
+
+    const getData = async () => {
+        try {
+            console.log("printing");
+            const jsonValue = await AsyncStorage.getItem('@userData')
+            return jsonValue != null ? console.log(JSON.parse(jsonValue)) : null;
+        } catch (e) {
+            // error reading value
+            e
+        }
+
+    }
+
+    const onPressb = () => {
+        getData()
     }
 
     const onPressInvitePlayer = () => {
@@ -33,6 +50,8 @@ const Home = () => {
             <CustomButton text="Fantasy ליגת" onPress={() => navigation.navigate('League Table')} />
             <CustomButton text="שחק צ'כונה" onPress={() => navigation.navigate('New Game')} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
+            <CustomButton text="data print" onPress={onPressb} />
+
             <Text></Text>
             <Text></Text>
 

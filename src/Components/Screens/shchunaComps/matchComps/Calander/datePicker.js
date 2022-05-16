@@ -4,9 +4,10 @@ import { UserDataContext } from '../../../../Context/UserContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons as Icon } from "@expo/vector-icons";
 
+const monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-export const PickDate = () => {
+export const PickDate = (props) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
@@ -14,20 +15,26 @@ export const PickDate = () => {
     const { userData, setUserData } = useContext(UserDataContext);
 
     const onChange = (event, selectedDate) => {
-
         const year = selectedDate.getFullYear();
-        const  month = selectedDate.getMonth()+1; 
-        const  day= selectedDate.getDate();
-
-        const currentDate = `${day}-${month}-${year}`;
+        const month = selectedDate.getMonth() + 1;
+        let monthName = monthsArr[month - 1];
+        const day = selectedDate.getDate();
         setShow(false);
-        
+
         setDate(selectedDate);
-        setMatchDate(`${day}-${month}-${year}`);
-        setUserData({ match_date: matchDate })
-        console.log(userData.match_date);
-        console.log(matchDate);
+        setUserData({ match_date: `${day} ${monthName} ${year}` });
+        saveData(`${day} ${monthName} ${year}`);
+        console.log("date data = ", `${day} ${monthName} ${year}`);
     };
+
+    const saveData = (data) => {
+        setMatchDate(data);
+        setUserData({ match_date: data });
+        //console.log("date set = ", data);
+        console.log("date picked = ", userData.match_date);
+        console.log("time picked = ", userData.match_time);
+    };
+
 
 
     const showMode = (currentMode) => {
@@ -39,13 +46,16 @@ export const PickDate = () => {
         showMode('date');
     };
 
+    const tellPapa = ({ setMatchDate }) => {
+        console.log(`${day} ${monthName} ${year}`);
+        setMatchDate(`${day} ${monthName} ${year}`)
+    }
 
     return (
         <View style={styles1.container}>
             <View>
                 <Text style={styles.text}>              {matchDate}               </Text>
             </View>
-
             <View >
                 <Icon
                     name="calendar-outline"
@@ -58,7 +68,8 @@ export const PickDate = () => {
                     testID="dateTimePicker"
                     value={date}
                     mode={mode}
-                    //is24Hour={true}
+                    is24Hour={true}
+                    tellPapa={() => tellPapa}
                     onChange={onChange}
                 />
             )}
@@ -98,57 +109,6 @@ const styles1 = StyleSheet.create({
     },
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//const PickDate = () => {
-// const { userData, setUserData } = useContext(UserDataContext);
-//   const [date, setDate] = useState(new Date());
-
-
-//    return (
-//      <View style={styles.container}>
-//        <DatePicker
-//          style={styles.datePickerStyle}
-//        date={date} //initial date from state
-//      mode="date" //The enum of date, datetime and time
-//    placeholder="select date"
-//  format="DD-MM-YYYY"
-//minDate={date}
-//maxDate={date}
-//  confirmBtnText="Confirm"
-//    cancelBtnText="Cancel"
-//      customStyles={{
-//            dateIcon: {
-//                  display: 'none',
-//                    position: 'absolute',
-//                     left: 0,
-//</View>                     top: 4,
-//                        marginLeft: 0,
-//                    },
-//                    dateInput: {
-//                        marginLeft: 36,
-//                    },
-//                }}
-//                onDateChange={(date) => {
-//                    setUserData({ match_date: date })
-//                }}
-//            />
-//        </View>
-//    );
-//};
-
-//export default PickDate;
 
 const styles = StyleSheet.create({
     container: {

@@ -3,15 +3,18 @@ import { image } from '../../../assets/exports';
 import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext } from '../Context/UserContext.js';
-
-
+import { UserDataContext, leagueInfoContext, FantasyTeamInfoContext, LeaguePlayersInfoContext, matchInfoContext, leagueTeamsInfoContext } from '../Context/UserContext.js';
+import { _storeData, _retrieveData } from '../Context/Storage';
 
 export default function SignInScreen() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { userData, setUserData } = useContext(UserDataContext);
-
+    const { leagueData, setLeagueData } = useContext(leagueInfoContext);
+    const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+    const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+    const { matchData, setMatchData } = useContext(matchInfoContext);
+    const { leagueTeamsData, setLeagueTeamsData } = useContext(leagueTeamsInfoContext);
 
     const navigation = useNavigation();
 
@@ -19,6 +22,7 @@ export default function SignInScreen() {
         "email": username,
         "password": password,
     });
+
 
 
     const onSignInPress = () => {
@@ -45,7 +49,7 @@ export default function SignInScreen() {
                             league_id: result.league_id,
                             teams: result.listing,
                             players: result.usres_in_league,
-                            player_score: result.player_score, 
+                            player_score: result.player_score,
                             team_budget: result.team_budget,
                             team_id: result.team_id,
                             team_points: result.team_points,
@@ -55,10 +59,12 @@ export default function SignInScreen() {
                             total_pen_missed: result.total_pen_missed,
                             total_wins: result.total_wins,
                             games_played: result.games_played,
+                            league_rules: result.league_rules
                         })
                         console.log("data received = ", result);
                         console.log("==========================");
-                        console.log("user data3 = ", result.user_id);
+                        //console.log("user data3 = ", result.user_id);
+                        console.log("context = ", userData);
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
@@ -89,14 +95,14 @@ export default function SignInScreen() {
             <View style={styles.root}>
                 <Image source={image} style={styles.pic} />
                 <Text style={styles.text}>כניסת משתמש קיים</Text>
-                
+
                 <TextInput
                     value={username}
                     onChangeText={setUsername}
                     placeholder={'שם משתמש'}
                     style={styles.container}
                 />
-                
+
                 <TextInput
                     value={password}
                     onChangeText={setPassword}

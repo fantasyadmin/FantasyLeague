@@ -8,11 +8,11 @@ import { PickTime } from './matchComps/Calander/TimePicker';
 import { PickDate } from './matchComps/Calander/datePicker';
 
 
-
-
 export default function NewGame() {
   const { userData, setUserData } = useContext(UserDataContext);
   const [matchLocation, setMatchLocation] = useState("");
+  const [matchDate, setMatchDate] = useState('');
+  const [matchTime, setMatchTime] = useState('');
   const [teamColor1, setTeamColor1] = useState('#ffff');
   const [teamColor2, setTeamColor2] = useState('#ffff');
 
@@ -21,13 +21,13 @@ export default function NewGame() {
     "matchDate": userData.match_date,
     "matchTime": userData.match_time,
     "matchLocation": userData.match_location,
-    "teamColor1": teamColor1,
-    "teamColor2": teamColor2,
+    "teamColor1": userData.teamColor1,
+    "teamColor2": userData.teamColor2,
     "league_id": userData.league_id
   });
 
 
-  getDataFromChild = (data) => {
+  const getColorFromChild = (data) => {
     console.log('in parent data from child', data);
     if (data.teamNo == 1) {
       setTeamColor1(data.selectedColor);
@@ -39,8 +39,12 @@ export default function NewGame() {
     }
   }
 
+  const getTimeFromChild = (data) => {
+    setMatchTime(data);
+  }
 
   function setMatch() {
+    //console.log(params);
     //fetch - update match in DB and set info in context
     fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Match', {
       method: 'POST',
@@ -48,14 +52,7 @@ export default function NewGame() {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset=UTF-8'
       }),
-      body:  JSON.stringify({
-        "matchDate": userData.match_date,
-        "matchTime": userData.match_time,
-        "matchLocation": userData.match_location,
-        "teamColor1": teamColor1,
-        "teamColor2": teamColor2,
-        "league_id": userData.league_id
-      })
+      body: params
     })
       .then(res => {
         console.log('res=', res);
@@ -69,7 +66,8 @@ export default function NewGame() {
             console.log("user data3 = ", result.match_date);
           }
           else {
-            console.log(params);
+            //console.log(params);
+            console.log(userData);
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
           }
         },
@@ -88,14 +86,15 @@ export default function NewGame() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
-        <PickDate />
+        <PickDate tellPapa={setMatchDate} />
+
       </View>
       <Text></Text>
       <Text></Text>
 
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר שעה:   </Text>
-        <PickTime />
+        <PickTime tellPapa={setMatchTime}/>
       </View>
 
       <View style={styles.fieldStyle}>
@@ -113,14 +112,14 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 1:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={getDataFromChild} team={1} />
+          <ColorPicking tellPapa={getColorFromChild} team={1} />
         </View>
 
       </View>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 2:        </Text>
         <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={getDataFromChild} team={2} />
+          <ColorPicking tellPapa={getColorFromChild} team={2} />
         </View>
 
       </View>

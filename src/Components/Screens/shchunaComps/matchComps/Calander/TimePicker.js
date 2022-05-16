@@ -6,7 +6,7 @@ import { Ionicons as Icon } from '@expo/vector-icons';
 
 
 export const PickTime = () => {
-    const [date, setDate] = useState(new Date());
+    const [date1, setDate1] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const { userData, setUserData } = useContext(UserDataContext);
@@ -14,16 +14,26 @@ export const PickTime = () => {
 
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
+        const currentDate = selectedDate //|| date1;
         setShow(Platform.OS === 'ios');
-        setDate(currentDate);
+        setDate1(currentDate);
 
         let hours = (currentDate.getHours() < 10 ? '0' : '') + currentDate.getHours();
         let minutes = (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
         setMatchTime(`${hours}:${minutes}`);
-        setUserData({match_time: matchTime})
+        setUserData({match_time: `${hours}:${minutes}:00`})
+        saveData(`${hours}:${minutes}:00`);
+        console.log("data inserted = ", `${hours}:${minutes}:00`);
+        setUserData({ match_time: `${hours}:${minutes}:00` });
     };
 
+
+    const saveData = (data) => {
+        //setMatchTime(data);
+        setUserData({ match_time: data });
+        console.log("date picked = ", userData.match_date);
+        console.log("time picked = ", userData.match_time);
+    };
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -34,6 +44,12 @@ export const PickTime = () => {
     const showTimepicker = () => {
         showMode('time');
     };
+
+    const tellPapa = ({ setMatchTime }) => {
+        console.log(matchTime);
+        setMatchTime(matchTime)
+    }
+
 
     return (
         <View style={styles.container}>
@@ -50,11 +66,12 @@ export const PickTime = () => {
             {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
-                    value={date}
+                    value={date1}
                     mode={mode}
                     dateFormat={false}
                     is24Hour={true}
                     display='default'
+                    tellPapa={tellPapa}
                     onChange={onChange}
                 />
             )}

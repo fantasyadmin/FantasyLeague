@@ -1,42 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const initialState = {
-  //user info
+const userInfo = {
   nickname: null,
   picture: null,
   user_id: null,
-
-  //league info
-  league_name: null,
-  league_id: null,
-
-  //league_players info
-  players: [],
-
-  //league_players_teams info
-  teams: [
-    //{ 'nickname': "ahmed", points: 12 }, 
-
-  //  [{user_id: 12, 
-  //        [{player1: 11},
-  //         {player2: 16},
-  //         {player3: 1},
-  //         {player4: 43},
-  //  ]},]
-
-  ],
-
-
-  //fantasy team info
-  player1: null,
-  player2: null,
-  player3: null,
-  player4: null,
-  team_budget: null,
-  team_id: null,
-  team_points: null,
-
-  //player info
   games_played: null,
   player_score: null,
   total_assists: null,
@@ -44,29 +11,74 @@ const initialState = {
   total_goals_scored: null,
   total_pen_missed: null,
   total_wins: null,
+};
+const UserDataContext = React.createContext(userInfo);
+
+const leagueInfo = {
+  league_name: null,
+  league_id: null,
+  league_rules: null,
+  league_pic: null
+};
+const leagueInfoContext = React.createContext(leagueInfo);
 
 
-  //match
+const FantasyTeamInfo = {
+  player1: null,
+  player2: null,
+  player3: null,
+  player4: null,
+  team_budget: null,
+  team_id: null,
+  team_points: null,
+};
+const FantasyTeamInfoContext = React.createContext(FantasyTeamInfo);
+
+
+const LeaguePlayersInfo = { players: [], };
+const LeaguePlayersInfoContext = React.createContext(LeaguePlayersInfo);
+
+
+const matchInfo = {
   match_date: null,
   match_time: null,
   match_location: null,
   team_color1: null,
   team_color2: null,
-};
+}
+const matchInfoContext = React.createContext(matchInfo);
 
-const UserDataContext = React.createContext(initialState);
+
+const leagueTeamsInfo = { teams: [], }
+const leagueTeamsInfoContext = React.createContext(leagueTeamsInfo);
 
 const UserDatacontextProvider = ({ children }) => {
-  const [userData, setUserData] = useState(initialState);
+  const [userData, setUserData] = useState(userInfo);
+  const [leagueData, setLeagueData] = useState(leagueInfo);
+  const [FantasyTeamData, setFantasyTeamData] = useState(FantasyTeamInfo);
+  const [LeaguePlayersData, setLeaguePlayersData] = useState(LeaguePlayersInfo);
+  const [matchData, setMatchData] = useState(matchInfo);
+  const [leagueTeamsData, setLeagueTeamsData] = useState(leagueTeamsInfo);
+
 
   return (
     <UserDataContext.Provider value={{ userData, setUserData }}>
-      {children}
+      <leagueInfoContext.Provider value={{ leagueData, setLeagueData }}>
+        <FantasyTeamInfoContext.Provider value={{ FantasyTeamData, setFantasyTeamData }}>
+          <LeaguePlayersInfoContext.Provider value={{ LeaguePlayersData, setLeaguePlayersData }}>
+            <matchInfoContext.Provider value={{ matchData, setMatchData }}>
+              <leagueTeamsInfoContext.Provider value={{ leagueTeamsData, setLeagueTeamsData }}>
+                {children}
+              </leagueTeamsInfoContext.Provider>
+            </matchInfoContext.Provider>
+          </LeaguePlayersInfoContext.Provider>
+        </FantasyTeamInfoContext.Provider>
+      </leagueInfoContext.Provider>
     </UserDataContext.Provider>
   );
 };
 
-export { UserDataContext, UserDatacontextProvider };
+export { UserDataContext, UserDatacontextProvider, leagueInfoContext, FantasyTeamInfoContext, LeaguePlayersInfoContext, matchInfoContext, leagueTeamsInfoContext };
 
 
 
