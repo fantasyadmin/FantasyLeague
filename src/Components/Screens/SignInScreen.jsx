@@ -45,21 +45,39 @@ export default function SignInScreen() {
                             nickname: result.nickname,
                             user_id: result.user_id,
                             picture: result.picture,
-                            league_name: result.league_name,
-                            league_id: result.league_id,
-                            teams: result.listing,
-                            players: result.usres_in_league,
                             player_score: result.player_score,
-                            team_budget: result.team_budget,
-                            team_id: result.team_id,
-                            team_points: result.team_points,
                             total_assists: result.total_assists,
                             total_goals_recieved: result.total_goals_recieved,
                             total_goals_scored: result.total_goals_scored,
                             total_pen_missed: result.total_pen_missed,
                             total_wins: result.total_wins,
                             games_played: result.games_played,
+                        })
+                        setLeagueData({
+                            league_name: result.league_name,
+                            league_id: result.league_id,
                             league_rules: result.league_rules
+                        })
+                        setFantasyTeamData({
+                            team_budget: result.team_budget,
+                            team_id: result.team_id,
+                            team_points: result.team_points
+                        })
+                        setLeaguePlayersData({
+                            players: result.usres_in_league,
+                        })
+                        setMatchData({
+                            nickname: result.nickname,
+
+                            match_date: result.match_date,
+                            match_time: result.match_time,
+                            match_location: result.match_location,
+                            team_color1: result.team_color1,
+                            team_color2: result.team_color2,
+                        })
+                        setLeagueTeamsData({
+                            teams: result.listing,
+
                         })
                         console.log("data received = ", result);
                         console.log("==========================");

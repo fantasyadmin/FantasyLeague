@@ -18,16 +18,18 @@ const leagueInfo = {
   league_name: null,
   league_id: null,
   league_rules: null,
-  league_pic: null
+  league_pic: null,
 };
 const leagueInfoContext = React.createContext(leagueInfo);
 
 
 const FantasyTeamInfo = {
-  player1: null,
-  player2: null,
-  player3: null,
-  player4: null,
+  players: [
+    //{ 'user_id': 12, 'nickname': "ahmed", 'points': 88 },
+    //{ 'user_id': 45, 'nickname': "pele", 'points': 45 },
+    //{ 'user_id': 33, 'nickname': "guy", 'points': 3 },
+    //{ 'user_id': 86, 'nickname': "dor", 'points': 34 }
+  ],
   team_budget: null,
   team_id: null,
   team_points: null,

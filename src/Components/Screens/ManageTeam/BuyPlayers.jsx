@@ -4,17 +4,17 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { image } from '../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { UserDataContext } from '../../Context/UserContext';
+import { UserDataContext, LeaguePlayersInfoContext } from '../../Context/UserContext';
 import TopProfileBar from '../../MenuComponents/TopProfileBar';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 
-const players = [
-  { user_id: 12, nickname: "ahmed", points: 88 },
-  { user_id: 45, nickname: "pele", points: 45 },
-  { user_id: 33, nickname: "guy", points: 3 },
-  { user_id: 86, nickname: "dor", points: 34 },
-]
+//const players = [
+  //{ user_id: 12, nickname: "ahmed", points: 88 },
+  //{ user_id: 45, nickname: "pele", points: 45 },
+  //{ user_id: 33, nickname: "guy", points: 3 },
+  //{ user_id: 86, nickname: "dor", points: 34 },
+//]
 
 
 const logos = [
@@ -31,9 +31,10 @@ const logos = [
 
 export default function BuyPlayers() {
   const { userData, setUserData } = useContext(UserDataContext);
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
 
 
-  const sortplayers = [].concat(players).sort();   //userData.listed
+  const sortplayers = [].concat(LeaguePlayersData.players).sort();   //userData.listed
 
   var renderTable = sortplayers.map((x, ind) => {
     return <PlayersInLeague

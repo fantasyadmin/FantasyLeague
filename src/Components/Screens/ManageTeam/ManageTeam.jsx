@@ -1,15 +1,12 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { image } from '../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { UserDataContext } from '../../Context/UserContext';
-import TopProfileBar from '../../MenuComponents/TopProfileBar';
+import {FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { UserDataContext, FantasyTeamInfoContext } from '../../Context/UserContext';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-
 
 
 const players = [
@@ -18,7 +15,6 @@ const players = [
   { user_id: 33, nickname: "guy", points: 3 },
   { user_id: 86, nickname: "dor", points: 34 },
 ]
-
 
 const logos = [
   <FontAwesome5 name="crown" size={23} color="#993" />,
@@ -34,17 +30,13 @@ const logos = [
 
 export default function ManageTeam() {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [action, setAction] = useState(renderTable)
-  const [player, setPlayer] = useState('')
-
-
-  const navigation = useNavigation();
-
-  function managePlayer() {
-
-  }
-
+  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+  const [action, setAction] = useState(renderTable);
+  const [player, setPlayer] = useState('0');
+  
+  
   const sortplayers = [].concat(players).sort();   //userData.listed
+
 
   var renderTable = sortplayers.map((x, ind) => {
     return <PlayersInLeague
