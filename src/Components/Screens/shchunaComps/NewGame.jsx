@@ -1,7 +1,14 @@
 import { StyleSheet, Text, View, Image, ScrollView, TextInput } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { UserDataContext } from '../../Context/UserContext';
+import {
+  UserDataContext,
+  LeagueInfoContext,
+  FantasyTeamInfoContext,
+  LeaguePlayersInfoContext,
+  MatchInfoContext,
+  LeagueTeamsInfoContext
+} from '../../Context/UserContext'; 
 import CustomButton from '../../CustomComps/CustomButton';
 import ColorPicking from '../../CustomComps/ColorPicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
@@ -9,7 +16,8 @@ import { PickDate } from './matchComps/Calander/datePicker';
 
 
 export default function NewGame() {
-  const { userData, setUserData } = useContext(UserDataContext);
+  const { matchData, setMatchData } = useContext(MatchInfoContext);
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const [matchLocation, setMatchLocation] = useState("");
   const [matchDate, setMatchDate] = useState('');
   const [matchTime, setMatchTime] = useState('');
@@ -18,23 +26,23 @@ export default function NewGame() {
 
 
   const params = JSON.stringify({
-    "matchDate": userData.match_date,
-    "matchTime": userData.match_time,
-    "matchLocation": userData.match_location,
-    "teamColor1": userData.teamColor1,
-    "teamColor2": userData.teamColor2,
-    "league_id": userData.league_id
+    "matchDate": matchData.match_date,
+    "matchTime": matchData.match_time,
+    "matchLocation": matchData.match_location,
+    "teamColor1": matchData.teamColor1,
+    "teamColor2": matchData.teamColor2,
+    "league_id": leagueData.league_id
   });
 
 
   const getColorFromChild = (data) => {
     console.log('in parent data from child', data);
     if (data.teamNo == 1) {
-      setTeamColor1(data.selectedColor);
+      setMatchData({ teamColor1: data.selectedColor });
       console.log("team 1 color", teamColor1);
     }
     else {
-      setTeamColor2(data.selectedColor);
+      setMatchData({ teamColor2: data.selectedColor });
       console.log("team 2 color", teamColor2);
     }
   }
@@ -44,7 +52,7 @@ export default function NewGame() {
   }
 
   function setMatch() {
-    //console.log(params);
+    console.log(params);
     //fetch - update match in DB and set info in context
     fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Match', {
       method: 'POST',
@@ -67,7 +75,7 @@ export default function NewGame() {
           }
           else {
             //console.log(params);
-            console.log(userData);
+            console.log(matchData);
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
           }
         },
@@ -94,7 +102,7 @@ export default function NewGame() {
 
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר שעה:   </Text>
-        <PickTime tellPapa={setMatchTime}/>
+        <PickTime tellPapa={setMatchTime} />
       </View>
 
       <View style={styles.fieldStyle}>

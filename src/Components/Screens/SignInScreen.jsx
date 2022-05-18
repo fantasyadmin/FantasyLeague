@@ -3,18 +3,24 @@ import { image } from '../../../assets/exports';
 import React, { useState, useContext } from 'react';
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext, leagueInfoContext, FantasyTeamInfoContext, LeaguePlayersInfoContext, matchInfoContext, leagueTeamsInfoContext } from '../Context/UserContext.js';
-import { _storeData, _retrieveData } from '../Context/Storage';
+import {
+    UserDataContext,
+    LeagueInfoContext,
+    FantasyTeamInfoContext,
+    LeaguePlayersInfoContext,
+    MatchInfoContext,
+    LeagueTeamsInfoContext
+} from '../Context/UserContext'; 
 
 export default function SignInScreen() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { userData, setUserData } = useContext(UserDataContext);
-    const { leagueData, setLeagueData } = useContext(leagueInfoContext);
+    const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
     const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
     const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
-    const { matchData, setMatchData } = useContext(matchInfoContext);
-    const { leagueTeamsData, setLeagueTeamsData } = useContext(leagueTeamsInfoContext);
+    const { matchData, setMatchData } = useContext(MatchInfoContext);
+    const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
 
     const navigation = useNavigation();
 
@@ -67,8 +73,6 @@ export default function SignInScreen() {
                             players: result.usres_in_league,
                         })
                         setMatchData({
-                            nickname: result.nickname,
-
                             match_date: result.match_date,
                             match_time: result.match_time,
                             match_location: result.match_location,
@@ -77,12 +81,16 @@ export default function SignInScreen() {
                         })
                         setLeagueTeamsData({
                             teams: result.listing,
-
                         })
                         console.log("data received = ", result);
                         console.log("==========================");
-                        //console.log("user data3 = ", result.user_id);
+                        console.log("user data3 = ", result.user_id);
                         console.log("context = ", userData);
+                        console.log("context = ", leagueData);
+                        console.log("context = ", FantasyTeamData);
+                        console.log("context = ", LeaguePlayersData);
+                        console.log("context = ", matchData);
+                        console.log("context = ", leagueTeamsData);
                     }
                     else {
                         alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
@@ -93,7 +101,7 @@ export default function SignInScreen() {
                     console.log("err post=", error);
                     navigation.navigate('Sign In');
                 })
-            .then(navigation.navigate('Bottom', userData));
+            .then(navigation.navigate('Bottom'));
 
     }
 

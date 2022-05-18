@@ -11,7 +11,14 @@ import CreateLeague from './src/Components/Screens/FantasyLeagueComps/CreateLeag
 import TeamInTable from './src/Components/Screens/FantasyLeagueComps/TableComps/TeamInTable.jsx';
 import LeagueTable from './src/Components/Screens/FantasyLeagueComps/TableComps/LeagueTable.jsx';
 import Profile from './src/Components/Screens/Profile.jsx';
-import { UserDatacontextProvider } from './src/Components/Context/UserContext.js';
+import {
+  UserDatacontextProvider,
+  LeagueInfoContextProvider,
+  FantasyTeamInfoContextProvider,
+  LeaguePlayersInfoContextProvider,
+  MatchInfoContextProvider,
+  LeagueTeamsInfoContextProvider
+} from '../Fantasy_League/src/Components/Context/UserContext';
 import ManageExistingGame from './src/Components/Screens/shchunaComps/matchComps/ManageGame.jsx';
 import StopWatch from './src/Components/Screens/shchunaComps/matchComps/Timer/StopWatch.js';
 import NewGame from './src/Components/Screens/shchunaComps/NewGame.jsx';
@@ -22,7 +29,17 @@ import { PickTime } from './src/Components/Screens/shchunaComps/matchComps/Calan
 export default function App() {
   return (
     <UserDatacontextProvider>
-      <Navigation />
+      <LeagueInfoContextProvider>
+        <FantasyTeamInfoContextProvider>
+          <LeaguePlayersInfoContextProvider>
+            <MatchInfoContextProvider>
+              <LeagueTeamsInfoContextProvider>
+                <Navigation />
+              </LeagueTeamsInfoContextProvider>
+            </MatchInfoContextProvider>
+          </LeaguePlayersInfoContextProvider>
+        </FantasyTeamInfoContextProvider>
+      </LeagueInfoContextProvider>
     </UserDatacontextProvider>
     //<StopWatch/>
     //<NewGame/>
@@ -43,6 +60,17 @@ export default function App() {
     //<ManageExistingGame />
     //<PickDate/>
     //<PickTime/>
+    //<LeagueInfoContextProvider>
+    //<FantasyTeamInfoContextProvider>
+    //  <LeaguePlayersInfoContextProvider>
+    //    <MatchInfoContextProvider>
+    //      <LeagueTeamsInfoContextProvider>
+    //        <Navigation />
+    //      </LeagueTeamsInfoContextProvider>
+    //    </MatchInfoContextProvider>
+    //  </LeaguePlayersInfoContextProvider>
+    //</FantasyTeamInfoContextProvider>
+    //</LeagueInfoContextProvider>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Button, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { UserDataContext } from '../../../../Context/UserContext';
+import { MatchInfoContext } from '../../../../Context/UserContext';
 import { Ionicons as Icon } from '@expo/vector-icons';
 
 
@@ -9,7 +9,7 @@ export const PickTime = () => {
     const [date1, setDate1] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const { userData, setUserData } = useContext(UserDataContext);
+    const { matchData, setMatchData } = useContext(MatchInfoContext);
     const [matchTime, setMatchTime] = useState('');
 
 
@@ -21,18 +21,17 @@ export const PickTime = () => {
         let hours = (currentDate.getHours() < 10 ? '0' : '') + currentDate.getHours();
         let minutes = (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
         setMatchTime(`${hours}:${minutes}`);
-        setUserData({match_time: `${hours}:${minutes}:00`})
+        setMatchData({match_time: `${hours}:${minutes}:00`})
         saveData(`${hours}:${minutes}:00`);
         console.log("data inserted = ", `${hours}:${minutes}:00`);
-        setUserData({ match_time: `${hours}:${minutes}:00` });
     };
 
 
     const saveData = (data) => {
         //setMatchTime(data);
-        setUserData({ match_time: data });
-        console.log("date picked = ", userData.match_date);
-        console.log("time picked = ", userData.match_time);
+        setMatchData({ match_time: data });
+        console.log("date picked = ", matchData.match_date);
+        console.log("time picked = ", matchData.match_time);
     };
 
     const showMode = (currentMode) => {

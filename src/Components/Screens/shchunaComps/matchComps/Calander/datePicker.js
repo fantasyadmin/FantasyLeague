@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { SafeAreaView, Text, View, Button, StyleSheet } from 'react-native';
-import { UserDataContext } from '../../../../Context/UserContext';
+import { MatchInfoContext } from '../../../../Context/UserContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons as Icon } from "@expo/vector-icons";
 
@@ -11,8 +11,8 @@ export const PickDate = (props) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [matchDate, setMatchDate] = useState('');
-    const { userData, setUserData } = useContext(UserDataContext);
+    const [matchDate1, setMatchDate1] = useState('');
+    const { matchData, setMatchData } = useContext(MatchInfoContext);
 
     const onChange = (event, selectedDate) => {
         const year = selectedDate.getFullYear();
@@ -22,17 +22,17 @@ export const PickDate = (props) => {
         setShow(false);
 
         setDate(selectedDate);
-        setUserData({ match_date: `${day} ${monthName} ${year}` });
+        setMatchData({ match_date: `${day} ${monthName} ${year}` });
         saveData(`${day} ${monthName} ${year}`);
         console.log("date data = ", `${day} ${monthName} ${year}`);
     };
 
     const saveData = (data) => {
-        setMatchDate(data);
-        setUserData({ match_date: data });
+        setMatchDate1(data);
+        setMatchData({ match_date: data });
         //console.log("date set = ", data);
-        console.log("date picked = ", userData.match_date);
-        console.log("time picked = ", userData.match_time);
+        console.log("date picked = ", matchData.match_date);
+        console.log("time picked = ", matchData.match_time);
     };
 
 
@@ -54,7 +54,7 @@ export const PickDate = (props) => {
     return (
         <View style={styles1.container}>
             <View>
-                <Text style={styles.text}>              {matchDate}               </Text>
+                <Text style={styles.text}>              {matchDate1}               </Text>
             </View>
             <View >
                 <Icon
