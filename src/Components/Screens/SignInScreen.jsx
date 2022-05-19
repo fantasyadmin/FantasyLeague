@@ -28,9 +28,6 @@ export default function SignInScreen() {
         "email": username,
         "password": password,
     });
-
-
-
     const onSignInPress = () => {
         fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5', {
             method: 'POST',
@@ -65,6 +62,10 @@ export default function SignInScreen() {
                             league_rules: result.league_rules
                         })
                         setFantasyTeamData({
+                            player1 : result.player1,
+                            player2 : result.player2,
+                            player3 : result.player3,
+                            player4 : result.player4,
                             team_budget: result.team_budget,
                             team_id: result.team_id,
                             team_points: result.team_points

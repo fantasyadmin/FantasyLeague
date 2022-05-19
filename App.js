@@ -25,6 +25,7 @@ import NewGame from './src/Components/Screens/shchunaComps/NewGame.jsx';
 import ColorPicking from './src/Components/CustomComps/ColorPicker.js';
 import { PickDate } from './src/Components/Screens/shchunaComps/matchComps/Calander/datePicker.js';
 import { PickTime } from './src/Components/Screens/shchunaComps/matchComps/Calander/TimePicker.js';
+import BuyPlayers from './src/Components/Screens/ManageTeam/BuyPlayers.jsx';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         </FantasyTeamInfoContextProvider>
       </LeagueInfoContextProvider>
     </UserDatacontextProvider>
+    //<BuyPlayers />
     //<StopWatch/>
     //<NewGame/>
     //<ColorPicking />

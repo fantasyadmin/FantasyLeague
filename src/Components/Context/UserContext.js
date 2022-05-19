@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const userInfo= {
+const userInfo = {
   nickname: null,
   picture: null,
   user_id: null,
@@ -25,10 +25,18 @@ const LeagueInfoContext = React.createContext(leagueInfo);
 
 const FantasyTeamInfo = {
   players: [
-    //{ 'user_id': 12, 'nickname': "ahmed", 'points': 88 },
-    //{ 'user_id': 45, 'nickname': "pele", 'points': 45 },
-    //{ 'user_id': 33, 'nickname': "guy", 'points': 3 },
-    //{ 'user_id': 86, 'nickname': "dor", 'points': 34 }
+    //"player1": {
+    //  "user_id": 23,
+    //  "nickname": "Newer",
+    //  "picture": null,
+    //  "player_score": 100,
+    //  "games_played": 1,
+    //  "total_assists": 0,
+    //  "total_goals_recieved": 2,
+    //  "total_goals_scored": 1,
+    //  "total_pen_missed": 0,
+    //  "total_wins": 1
+    //},
   ],
   team_budget: null,
   team_id: null,

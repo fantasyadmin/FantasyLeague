@@ -12,27 +12,19 @@ export const PickDate = (props) => {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [matchDate1, setMatchDate1] = useState('');
-    const { matchData, setMatchData } = useContext(MatchInfoContext);
 
-    const onChange = (event, selectedDate) => {
+    const onChangeDate = (event, selectedDate) => {
         const year = selectedDate.getFullYear();
         const month = selectedDate.getMonth() + 1;
         let monthName = monthsArr[month - 1];
         const day = selectedDate.getDate();
         setShow(false);
-
         setDate(selectedDate);
-        setMatchData({ match_date: `${day} ${monthName} ${year}` });
-        saveData(`${day} ${monthName} ${year}`);
+        setMatchDate1(`${day} ${monthName} ${year}`);
+        let choice1 = `${day} ${monthName} ${year}`;
+        console.log(matchDate1);
+        props.uplift(choice1);
         console.log("date data = ", `${day} ${monthName} ${year}`);
-    };
-
-    const saveData = (data) => {
-        setMatchDate1(data);
-        setMatchData({ match_date: data });
-        //console.log("date set = ", data);
-        console.log("date picked = ", matchData.match_date);
-        console.log("time picked = ", matchData.match_time);
     };
 
 
@@ -46,10 +38,6 @@ export const PickDate = (props) => {
         showMode('date');
     };
 
-    const tellPapa = ({ setMatchDate }) => {
-        console.log(`${day} ${monthName} ${year}`);
-        setMatchDate(`${day} ${monthName} ${year}`)
-    }
 
     return (
         <View style={styles1.container}>
@@ -69,8 +57,8 @@ export const PickDate = (props) => {
                     value={date}
                     mode={mode}
                     is24Hour={true}
-                    tellPapa={() => tellPapa}
-                    onChange={onChange}
+
+                    onChange={onChangeDate}
                 />
             )}
         </View>

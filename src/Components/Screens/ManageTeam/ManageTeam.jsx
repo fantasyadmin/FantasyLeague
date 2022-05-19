@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableHighlight } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { UserDataContext, FantasyTeamInfoContext } from '../../Context/UserContext';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import HomeNav from '../../Navigation/HomeNav';
+import BuyPlayers from './BuyPlayers';
+import { render } from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
 
 
 const players = [
@@ -29,14 +32,19 @@ const logos = [
 
 
 export default function ManageTeam() {
+  const navigation = useNavigation();
   const { userData, setUserData } = useContext(UserDataContext);
   const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
   const [action, setAction] = useState(renderTable);
   const [player, setPlayer] = useState('0');
-  
-  
+
+
+
   const sortplayers = [].concat(players).sort();   //userData.listed
 
+  const onBuyClick = () => {
+    render(<BuyPlayers />)
+  }
 
   var renderTable = sortplayers.map((x, ind) => {
     return <PlayersInLeague
@@ -56,9 +64,8 @@ export default function ManageTeam() {
 
       <Text></Text>
       <View style={styles.text1}>
-        <Text style={styles.text}>דירוג קבוצה בליגה:</Text>
-        <Text style={styles.text}>סה"כ נקודות:    {userData.team_points}</Text>
-        <Text style={styles.text}>תקציב:     {userData.team_budget}</Text>
+        <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
+        <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
       <Text></Text>
       <Text></Text>
@@ -68,7 +75,10 @@ export default function ManageTeam() {
           {renderTable}
         </View>
         <View style={styles.buttons}>
-          <CustomButton text="קנה שחקן" onPress={''} />
+          <TouchableHighlight onPress={onBuyClick}>
+            <Text>press buy</Text>
+          </TouchableHighlight>
+          <CustomButton text="קנה שחקן" onPress={onBuyClick} />
           <Text>                </Text>
           <CustomButton text="מכור שחקן" onPress={''} />
         </View>
@@ -77,7 +87,6 @@ export default function ManageTeam() {
           <Text>                                   </Text>
           <CustomButton text="השוואת שחקנים" onPress={''} />
         </View>
-
       </ScrollView>
     </SafeAreaView>
   )

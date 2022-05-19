@@ -5,7 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { image } from '../../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { UserDataContext, LeaguePlayersInfoContext } from '../../../Context/UserContext';
+import {
+  UserDataContext,
+  LeaguePlayersInfoContext,
+  LeagueInfoContext,
+  LeagueTeamsInfoContext
+} from '../../../Context/UserContext';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -20,22 +25,69 @@ const logos = [
   <Icon name="rocket" size={29} color="#900" />,
 ]
 
-export default function LeagueTable(props) {
+export default function LeagueTable() {
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const { userData, setUserData } = useContext(UserDataContext);
+  const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+
+  function buyPlayers() {
+    const params = JSON.stringify({
+      "league_id": leagueData.league_id
+    });
+
+    //fetch - buy player
+    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageLeague/5', {
+      method: 'GET',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset=UTF-8'
+      }),
+      body: params
+    })
+      .then(res => {
+        console.log('res=', res);
+        return res.json()
+      })
+      .then(
+        (result) => {
+          if (result.team_id != undefined) {
+            setLeaguePlayersData({
+              teams: result.teams,
+            })
+            console.log("data received = ", result);
+            console.log("==========================");
+            console.log("teams data3 = ", result.teams);
+          }
+          else {
+            alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+          }
+        },
+        (error) => {
+          console.log("err post=", error);
+        })
+  }
+
+
+
+
+
+
+
+
+
 
   //sort teams by score
   const sortTeams = [].concat(LeaguePlayersData.players)
     .sort((a, b) => a.points < b.points);
 
-  console.log("context check = ", userData);
-
   var renderTable = sortTeams.map((x, ind) => {
+
     return <TeamInTable
       key={ind}
       nickname={x.nickname}
       place={ind + 1}
-      points={x.player_score}
+      points={x.team_points}
       icon={logos[ind]}
     />
   });

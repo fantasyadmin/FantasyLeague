@@ -13,17 +13,17 @@ const Stack = createNativeStackNavigator();
 
 const HomeNav = () => {
     return (
-            <NavigationContainer independent={true}>
-                <Stack.Navigator screenOptions={{ headerShown: false }} >
-                    <Stack.Screen name="Home" component={Home} />
-                    <Stack.Screen name="New Game" component={NewGame} />
-                    <Stack.Screen name="League Table" component={LeagueTable} />
-                    <Stack.Screen name="Manage Team" component={ManageTeam} />
-                    <Stack.Screen name="Profile" component={Profile} />
-                    <Stack.Screen name="Manage Players" component={ManagePlayers} />
-                    <Stack.Screen name="Buy Players" component={BuyPlayers} />
-                </Stack.Navigator>
-            </NavigationContainer>
+        <NavigationContainer independent={true}>
+            <Stack.Navigator screenOptions={{ headerShown: false }} >
+                <Stack.Screen name="Buy Players" component={BuyPlayers} />
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="New Game" component={NewGame} />
+                <Stack.Screen name="League Table" component={LeagueTable} />
+                <Stack.Screen name="Manage Team" component={ManageTeam} />
+                <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="Manage Players" component={ManagePlayers} />
+            </Stack.Navigator>
+        </NavigationContainer>
     )
 }
 

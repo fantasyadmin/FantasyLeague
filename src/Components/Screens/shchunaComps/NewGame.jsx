@@ -8,7 +8,7 @@ import {
   LeaguePlayersInfoContext,
   MatchInfoContext,
   LeagueTeamsInfoContext
-} from '../../Context/UserContext'; 
+} from '../../Context/UserContext';
 import CustomButton from '../../CustomComps/CustomButton';
 import ColorPicking from '../../CustomComps/ColorPicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
@@ -19,8 +19,8 @@ export default function NewGame() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const [matchLocation, setMatchLocation] = useState("");
-  const [matchDate, setMatchDate] = useState('');
-  const [matchTime, setMatchTime] = useState('');
+  const [matchDate, setMatchDate] = useState('0');
+  const [matchTime, setMatchTime] = useState('1');
   const [teamColor1, setTeamColor1] = useState('#ffff');
   const [teamColor2, setTeamColor2] = useState('#ffff');
 
@@ -47,11 +47,19 @@ export default function NewGame() {
     }
   }
 
-  const getTimeFromChild = (data) => {
-    setMatchTime(data);
+  const matchTimeFunc = (data) => {
+    console.log("new match =========== ", matchDate + "     " + matchTime);
+    setMatchTime(data.target.value);
+    //console.log("match date and time = ", matchData);
   }
 
-  function setMatch() {
+  const matchDateFunc = (data) => {
+    console.log("new match =========== ", matchDate + "     " + matchTime);
+    setMatchDate(data.target.value);
+    //console.log("match date and time = ", matchData);
+  }
+
+  function setMatchApi() {
     console.log(params);
     //fetch - update match in DB and set info in context
     fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/Match', {
@@ -75,7 +83,7 @@ export default function NewGame() {
           }
           else {
             //console.log(params);
-            console.log(matchData);
+            //console.log(matchData);
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
           }
         },
@@ -94,7 +102,7 @@ export default function NewGame() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר תאריך:</Text>
-        <PickDate tellPapa={setMatchDate} />
+        <PickDate uplift={(data) => matchDateFunc()} />
 
       </View>
       <Text></Text>
@@ -102,7 +110,7 @@ export default function NewGame() {
 
       <View style={styles.fieldStyle}>
         <Text style={styles.text}>  בחר שעה:   </Text>
-        <PickTime tellPapa={setMatchTime} />
+        <PickTime uplift={(data) => matchTimeFunc()} />
       </View>
 
       <View style={styles.fieldStyle}>
@@ -132,7 +140,7 @@ export default function NewGame() {
 
       </View>
       <View style={styles.buttons}>
-        <CustomButton text="קבע משחק" onPress={setMatch} />
+        <CustomButton text="קבע משחק" onPress={setMatchApi} />
       </View>
     </SafeAreaView>
   )
