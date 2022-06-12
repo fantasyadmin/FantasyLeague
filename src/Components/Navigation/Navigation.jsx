@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import SignInScreen from '../Screens/SignInScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 import MailConfirm from '../Screens/ConfirnEmail';
@@ -14,14 +14,14 @@ import Profile from '../Screens/Profile';
 import NewGame from '../Screens/shchunaComps/NewGame';
 import CreateLeague from '../Screens/FantasyLeagueComps/CreateLeague';
 import ManageTeam from '../Screens/ManageTeam/ManageTeam';
+import ManageExistingGame from '../Screens/shchunaComps/matchComps/ManageGame';
 
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     return (
-        
-            <NavigationContainer>
+            <NavigationContainer independent={true}>
                 <Stack.Navigator screenOptions={{ headerShown: false }} >
                     <Stack.Screen name="Wellcome" component={WellcomeScreen} />
                     <Stack.Screen name="Sign In" component={SignInScreen} />
@@ -36,12 +36,11 @@ const Navigation = () => {
                     <Stack.Screen name="League Table" component={LeagueTable} />
                     <Stack.Screen name="Manage Team" component={ManageTeam} />
                     <Stack.Screen name="Profile" component={Profile} />
+                    <Stack.Screen name="Manage Game" component={ManageExistingGame} />
                 </Stack.Navigator>
             </NavigationContainer>
-        
     )
 }
 
 export default Navigation
-
 

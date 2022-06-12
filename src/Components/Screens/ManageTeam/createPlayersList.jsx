@@ -1,19 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default function PlayersInLeague(props) {
-    const onClickTeam = (PlayerNo) => {
-        //return player / show player
+
+    function sendId() {
+        //alert(props.nickname)
+        props.tellSon(props.nickname, props.user_id);
     }
 
+
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={onClickTeam(props.key)}>{props.icon}</TouchableOpacity>
-            <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={30} color="#100" />{props.logo}</Text>
-            <Text style={styles.text2}>{props.points} pt.</Text>
+        <View style={styles.container} onStartShouldSetResponder={sendId}>
+            <TouchableOpacity>{props.icon}</TouchableOpacity>
+            <Text style={styles.text3}>pt. {props.points}</Text>
+            <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={35} color="#100" />{props.logo}</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>
     )
@@ -34,7 +37,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         marginVertical: 5,
         width: 320,
-
     },
     text: {
         flex: 1,

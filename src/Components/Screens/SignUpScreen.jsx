@@ -36,9 +36,9 @@ export default function SignUpScreen() {
                 body: registerUser
             })
                 .then(res => {
-                    console.log('res=', res);
-                    console.log('res.status', res.status);
-                    console.log('res.ok', res.ok);
+                    // console.log('res=', res);
+                    // console.log('res.status', res.status);
+                    // console.log('res.ok', res.ok);
                     return res.json()
                 })
                 .then(
@@ -46,9 +46,9 @@ export default function SignUpScreen() {
                         setUserData({
                             league_id: result.league_id
                         })
-                        console.log("process= ", result);
-                        result.map(st => console.log(st));
-                        console.log('username', result, username);
+                        // console.log("process= ", result);
+                        // result.map(st => console.log(st));
+                        // console.log('username', result, username);
                     },
                     (error) => {
                         console.log("err post=", error);
@@ -56,7 +56,7 @@ export default function SignUpScreen() {
 
             if (!league_id) {
                 setleagueId(userData.league_id)
-                console.log("league id  =", userData.league_id);
+                // console.log("league id  =", userData.league_id);
                 navigation.navigate('Create League');
             }
             else {

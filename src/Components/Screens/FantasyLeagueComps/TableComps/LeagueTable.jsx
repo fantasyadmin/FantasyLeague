@@ -5,7 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { image } from '../../../../../assets/exports';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { UserDataContext } from '../../../Context/UserContext';
+import { UserDataContext, LeaguePlayersInfoContext } from '../../../Context/UserContext';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const logos = [
@@ -19,24 +20,22 @@ const logos = [
   <Icon name="rocket" size={29} color="#900" />,
 ]
 
-
 export default function LeagueTable(props) {
   const { userData, setUserData } = useContext(UserDataContext);
-
-  //need to feed the data from props - TBC
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
 
   //sort teams by score
-  const sortTeams = [].concat(userData.teams)
+  const sortTeams = [].concat(LeaguePlayersData.players)
     .sort((a, b) => a.points < b.points);
 
   console.log("context check = ", userData);
-  
+
   var renderTable = sortTeams.map((x, ind) => {
     return <TeamInTable
       key={ind}
       nickname={x.nickname}
       place={ind + 1}
-      points={x.points}
+      points={x.player_score}
       icon={logos[ind]}
     />
   });
@@ -46,11 +45,11 @@ export default function LeagueTable(props) {
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>טבלת הליגה</Text>
       <Image source={image} style={styles.pic} />
-      <Text style={styles.text}>מספר משחקים ששוחקו:{props.gamesPlayed}</Text>
       <Text> </Text>
-      <Text>
+      <Text style={styles.text}>טבלת הקבוצות</Text>
+      <ScrollView>
         {renderTable}
-      </Text>
+      </ScrollView>
     </SafeAreaView>
 
   )

@@ -1,32 +1,15 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import CustomButton from '../CustomComps/CustomButton';
-import LeagueTable from './FantasyLeagueComps/TableComps/LeagueTable';
-import NewGame from './shchunaComps/NewGame';
 import TopProfileBar from '../MenuComponents/TopProfileBar';
-import React, { useState, useContext } from 'react';
-import { UserDataContext } from '../Context/UserContext';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Home = () => {
-    const { userData, setUserData } = useContext(UserDataContext);
-
-    const onPressFantasy = () => {
-        console.warn('ניווט לטבלת הפנטזי')
-    }
-
-    const onPressSchoona = () => {
-        console.warn('ניווט למשחק קיים / משחק חדש')
-    }
+    const navigation = useNavigation();
 
     const onPressChat = () => {
         console.warn('ניווט לצאט')
-    }
-
-    const onPressInvitePlayer = () => {
-        console.warn('הזמנת שחקן חדש')
-    }
-
-    const onPressManagePlayers = () => {
-        console.warn('ניהול שחקנים בליגה')
     }
 
     const onPressConfirmResults = () => {
@@ -34,20 +17,20 @@ const Home = () => {
     }
 
     return (
-            <View style={styles.container}>
-                <TopProfileBar />
-                <Text>אהלן {userData.nickname}</Text>
-                <CustomButton text="Fantasy ליגת" onPress={onPressFantasy} />
-                <CustomButton text="שחק צ'כונה" onPress={onPressSchoona} />
-                <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
-                <Text></Text>
-                <Text></Text>
+        <View style={styles.container}>
+            <TopProfileBar />
+            <CustomButton text="Fantasy ליגת" onPress={() => navigation.navigate('League Table')} />
+            <CustomButton text="משחק הצ'כונה הבא" onPress={() => navigation.navigate('Existing Match')} />
+            <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
 
-                <Text style={styles.text}>ניהול ליגה</Text>
-                <CustomButton text="הזמן שחקן חדש" onPress={onPressInvitePlayer} />
-                <CustomButton text="נהל שחקנים" onPress={onPressManagePlayers} />
-                <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
-            </View>
+            <Text></Text>
+            <Text></Text>
+
+            <Text style={styles.text}>ניהול ליגה</Text>
+            <CustomButton text="הזמן שחקן חדש" onPress={() => navigation.navigate('Contacts List')} />
+            <CustomButton text="נהל שחקנים" onPress={() => navigation.navigate('Manage Players')} />
+            <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
+        </View>
     )
 }
 

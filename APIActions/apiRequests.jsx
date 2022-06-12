@@ -54,14 +54,11 @@ export const onSignInPress = (params) => {
         body: params
     })
         .then(res => {
-            console.log('res=', res);
             return res.json()
         })
         .then(
             (result) => {
                 if (result) {
-                    console.log("result = ", result)
-                    console.log("result.active_in = ", result.Active_in);
                     return true;
                 }
                 else {
