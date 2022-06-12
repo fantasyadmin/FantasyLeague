@@ -14,41 +14,40 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons as Icon } from "@expo/vector-icons";
 
 
-
 export default function ExistingMatch() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   try {
-  //     const result = await fetch(
-  //       "https://proj.ruppin.ac.il/bgroup89/prod/api/MatchResults", //להניס את הקריאה למשחק
-  //       {
-  //         method: "GET",
-  //         headers: new Headers({
-  //           "Content-type": "application/json; charset=UTF-8",
-  //           Accept: "application/json; charset=UTF-8",
-  //         }),
-  //       }
-  //     );
-  //     console.log(JSON.stringify(result));
-  //     var exMatch = JSON.stringify(result);
-  //     setMatchData(
-  //       {
-  //         match_id: exMatch.match_id,
-  //         date: exMatch.match_date,
-  //         time: exMatch.match_time,
-  //         teamcolor1: exMatch.team_color1,
-  //         teamcolor2: exMatch.team_color2,
-  //         lat: exMatch.lat,
-  //         lng: exMatch.lng,
-  //       }
-  //     );
-  //   } catch (err) {
-  //     console.log(JSON.stringify(err));
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      const result = fetch(
+        "https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch/" + leagueData.league_id,
+        {
+          method: "GET",
+          headers: new Headers({
+            "Content-type": "application/json; charset=UTF-8",
+            Accept: "application/json; charset=UTF-8",
+          }),
+        }
+      );
+      console.log("results are: ",JSON.stringify(result));
+      var exMatch = JSON.stringify(result);
+      setMatchData(
+        {
+          match_id: exMatch.match_id,
+          date: exMatch.matchDateStr,
+          time: exMatch.match_time,
+          teamcolor1: exMatch.team_color1,
+          teamcolor2: exMatch.team_color2,
+          lat: exMatch.lat,
+          lng: exMatch.lng,
+        }
+      );
+    } catch (err) {
+      console.log(JSON.stringify(err));
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

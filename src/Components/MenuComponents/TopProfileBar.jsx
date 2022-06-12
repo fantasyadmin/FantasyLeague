@@ -2,13 +2,23 @@ import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native'
 import React, { useContext } from 'react';
 import { profilePic, image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
-import { UserDataContext } from '../Context/UserContext';
+import {
+    UserDataContext,
+    LeagueInfoContext,
+    FantasyTeamInfoContext,
+    LeaguePlayersInfoContext,
+    LeagueTeamsInfoContext,
+} from '../Context/UserContext';
 import { useNavigation } from '@react-navigation/native';
-import Profile from '../Screens/Profile';
 
 
 export default function TopProfileBar(props) {
-    const { userData } = useContext(UserDataContext);
+    const { userData, setUserData } = useContext(UserDataContext);
+    const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+    const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+    const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+    const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
+
     const navigation = useNavigation();
 
     const onProfileClick = () => {
@@ -24,7 +34,7 @@ export default function TopProfileBar(props) {
             <View>
                 <Text style={styles.text}>           {userData.nickname}</Text>
                 <Text></Text>
-                <Text style={styles.text}>    שם הליגה:    {userData.league_name}</Text>
+                <Text style={styles.text}>    שם הליגה:    {leagueData.league_name}</Text>
                 <Text style={styles.text}>    מספר משחקים:   {userData.games_played}</Text>
                 <Text style={styles.text}>    ציון שחקן:    {userData.player_score}</Text>
             </View>

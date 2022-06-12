@@ -4,6 +4,7 @@ const userInfo = {
   nickname: null,
   picture: null,
   user_id: null,
+  league_manager: null,
   games_played: null,
   player_score: null,
   total_assists: null,

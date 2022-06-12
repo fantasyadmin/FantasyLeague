@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from '../Screens/Home';
+import Home from '../Screens/HomeManager';
 import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/LeagueTable';
 import Profile from '../Screens/Profile';
 import NewGame from '../Screens/shchunaComps/NewGame';

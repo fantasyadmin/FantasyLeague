@@ -19,7 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function NewGame() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const [matchLocation, setMatchLocation] = useState([{'lat': 11.12123123, 'lng': 21.12312312}]);
+  const [matchLocation, setMatchLocation] = useState([{ 'lat': 11.12123123, 'lng': 21.12312312 }]);
   const navigation = useNavigation();
 
 
@@ -46,13 +46,15 @@ export default function NewGame() {
     setMatchData(prevState => ({ ...prevState, match_date: data }));
   }
 
-  const onFinishNav = () => {
-    navigation.navigate('Home');
+  const showMap = () => {
+    //console.log(data)
+    //setMatchData(prevState => ({ ...prevState, match_date: data }));
+    navigation.navigate('Map')
   }
 
 
-  function setMatchApi() {
 
+  function setMatchApi() {
     const params = JSON.stringify({
       "match_date": matchData.match_date,
       "match_time": matchData.match_time,
@@ -79,25 +81,23 @@ export default function NewGame() {
       })
       .then(
         (result) => {
-          console.log({result})
-          if (result.match_date != undefined) {
+          console.log({ result })
+          if (result.matchDateStr != undefined) {
             console.log("data received = ", result);
             console.log("==========================");
-            console.log("user data3 = ", result.match_date);
-            navigation.navigate('Bottom');
+            console.log("user data3 = ", result.matchDateStr);
+            alert("המשחק נקבע!")
+            //navigation.navigate('Home');
           }
           else {
-            //console.log(params);
-            //console.log(matchData);
+            console.log(params);
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
           }
         })
-        .catch(
-          (error) => {
-            console.log("err post=", error);
-          })
-      //.then(onFinishNav);
-
+      .catch(
+        (error) => {
+          console.log("err post=", error);
+        })
   }
 
   return (
@@ -122,12 +122,7 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> מיקום:          </Text>
         <View style={styles.textBarLocation}>
-          <TextInput
-            value={matchLocation}
-            //onChangeText={setMatchLocation}
-            placeholder={'  מיקום'}
-            style={styles.container2}
-          />
+          <CustomButton onPress={showMap} />
         </View>
 
       </View>

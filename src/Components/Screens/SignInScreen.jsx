@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, ScrollView } from "react-native";
 import { image } from "../../../assets/exports";
 import React, { useState, useContext } from "react";
 import CustomButton from "../CustomComps/CustomButton";
@@ -15,7 +8,6 @@ import {
   LeagueInfoContext,
   FantasyTeamInfoContext,
   LeaguePlayersInfoContext,
-  MatchInfoContext,
   LeagueTeamsInfoContext,
 } from "../Context/UserContext";
 
@@ -24,16 +16,9 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("");
   const { userData, setUserData } = useContext(UserDataContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const { FantasyTeamData, setFantasyTeamData } = useContext(
-    FantasyTeamInfoContext
-  );
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(
-    LeaguePlayersInfoContext
-  );
-  const { matchData, setMatchData } = useContext(MatchInfoContext);
-  const { leagueTeamsData, setLeagueTeamsData } = useContext(
-    LeagueTeamsInfoContext
-  );
+  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
 
   const navigation = useNavigation();
 
@@ -70,6 +55,7 @@ export default function SignInScreen() {
               total_wins: result.total_wins,
               games_played: result.games_played,
               team_id: result.team_id,
+              league_manager: result.league_manager
             });
             setLeagueData({
               league_name: result.league_name,
@@ -87,15 +73,6 @@ export default function SignInScreen() {
             setLeagueTeamsData({
               teams: result.listing,
             });
-            // console.log("data received = ", result);
-            // console.log("==========================");
-            // console.log("user data3 = ", result.user_id);
-            // console.log("context = ", userData);
-            // console.log("context = ", leagueData);
-            // console.log("context = ", FantasyTeamData);
-            // console.log("context = ", LeaguePlayersData);
-            // console.log("context = ", matchData);
-            // console.log("context = ", leagueTeamsData);
           } else {
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
             navigation.navigate("Sign In");

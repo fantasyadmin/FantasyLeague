@@ -2,12 +2,21 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-n
 import React, { useContext } from 'react';
 import { profilePic, image } from '../../../assets/exports';
 import CustomButton from '../CustomComps/CustomButton';
-import { UserDataContext } from '../Context/UserContext';
+import {
+  UserDataContext,
+  LeagueInfoContext,
+  FantasyTeamInfoContext,
+  LeaguePlayersInfoContext,
+  LeagueTeamsInfoContext,
+} from '../Context/UserContext';
 
 
 export default function Profile() {
-  const { userData } = useContext(UserDataContext);
-
+  const { userData, setUserData } = useContext(UserDataContext);
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
   return (
 
     <View style={styles.root}>
@@ -20,11 +29,11 @@ export default function Profile() {
 
       <Text></Text>
       <Text></Text>
-      <Text style={styles.text}>  שם הליגה:  {userData.league_name}</Text>
+      <Text style={styles.text}>  שם הליגה:  {leagueData.league_name}</Text>
       <Text></Text>
       <Text style={styles.text}>  מספר משחקים:  {userData.games_played}</Text>
       <Text></Text>
-      <Text style={styles.text}>  ניקוד קבוצת פנטזי:  {userData.team_points}</Text>
+      <Text style={styles.text}>  ניקוד קבוצת פנטזי:  {FantasyTeamData.team_points}</Text>
 
       <Text></Text><Text></Text><Text></Text>
       <Text style={styles.text}>ביצועים אישיים</Text>

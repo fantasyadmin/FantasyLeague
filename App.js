@@ -26,7 +26,7 @@ export default function App() {
             <MatchInfoContextProvider>
               <LeagueTeamsInfoContextProvider>
                 <ContactsForSMSProvider>
-                  <MapComp/>
+                  <Navigation />
                 </ContactsForSMSProvider>
               </LeagueTeamsInfoContextProvider>
             </MatchInfoContextProvider>
@@ -64,6 +64,8 @@ export default function App() {
     //     //  </LeaguePlayersInfoContextProvider>
     //     //</FantasyTeamInfoContextProvider>
     //     //</LeagueInfoContextProvider>
+    // <MapComp/>
+
   );
 }
 

@@ -115,10 +115,13 @@ const PlaceResults = () => {
             onChangeText={setGoalRecieved}
           />
         </View>
-        <CustomButton
-          onPress={submitResultsHandler}
-          text="שליחת תוצאות"
-        ></CustomButton>
+        <View style={styles.button}>
+          <CustomButton
+            onPress={submitResultsHandler}
+            text="שליחת תוצאות">
+          </CustomButton>
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: "#4472c4",
     direction: "rtl",
+    alignItems: 'center',
   },
   title: {
     fontWeight: "bold",
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
   },
   inputArea: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: 'flex-start',
     width: "100%",
     margin: 20,
   },
@@ -150,8 +154,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     fontSize: 20,
-    marginVertical: 10,
-    textAlign: "right",
+    marginLeft: 10,
+    paddingLeft: 1
   },
   input: {
     backgroundColor: "#fff",
@@ -165,5 +169,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     marginVertical: 10
+  },
+  button: {
+    alignItems: 'center',
+    fontSize: 20,
   }
 });

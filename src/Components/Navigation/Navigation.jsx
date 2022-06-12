@@ -8,14 +8,15 @@ import ForgotPassword from '../Screens/ForgotPassword';
 import ResetPassword from '../Screens/ResetPassword';
 import WellcomeScreen from '../Screens/WellcomeScreen';
 import Bottom from '../MenuComponents/Bottom_Menu';
-import Home from '../Screens/Home';
+import Home from '../Screens/HomeManager';
 import LeagueTable from '../Screens/FantasyLeagueComps/TableComps/TeamInTable';
 import Profile from '../Screens/Profile';
 import NewGame from '../Screens/shchunaComps/NewGame';
 import CreateLeague from '../Screens/FantasyLeagueComps/CreateLeague';
 import ManageTeam from '../Screens/ManageTeam/ManageTeam';
 import ManageExistingGame from '../Screens/shchunaComps/matchComps/ManageGame';
-
+import HomePlayer from '../Screens/HomePlayer';
+import MapComp from '../Screens/shchunaComps/matchComps/GoogleMapsAPI/map';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,10 +34,12 @@ const Navigation = () => {
                     <Stack.Screen name="Bottom" component={Bottom} />
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="New Game" component={NewGame} />
+                    <Stack.Screen name="Map" component={MapComp} />
                     <Stack.Screen name="League Table" component={LeagueTable} />
                     <Stack.Screen name="Manage Team" component={ManageTeam} />
                     <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Manage Game" component={ManageExistingGame} />
+                    <Stack.Screen name="Home Player" component={HomePlayer} />
                 </Stack.Navigator>
             </NavigationContainer>
     )
