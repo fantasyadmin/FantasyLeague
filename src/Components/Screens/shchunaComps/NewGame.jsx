@@ -14,7 +14,8 @@ import ColorPicking from '../../CustomComps/ColorPicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
 import { PickDate } from './matchComps/Calander/datePicker';
 import { useNavigation } from '@react-navigation/native';
-
+import MapComp from './matchComps/GoogleMapsAPI/map';
+import render from 'react-native-web/dist/cjs/exports/render';
 
 export default function NewGame() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
@@ -46,18 +47,23 @@ export default function NewGame() {
     setMatchData(prevState => ({ ...prevState, match_date: data }));
   }
 
+  const matchLocationFunc = (data) => {
+    console.log(data)
+    setMatchData(prevState => ({ ...prevState, match_location: data }));
+  }
+
   const showMap = () => {
     //console.log(data)
     //setMatchData(prevState => ({ ...prevState, match_date: data }));
     navigation.navigate('Map')
   }
 
-
-
   function setMatchApi() {
     const params = JSON.stringify({
       "match_date": matchData.match_date,
       "match_time": matchData.match_time,
+      // "lat": matchData.match_location.lat,
+      // "lng": matchData.match_location.lng,
       "lat": matchLocation[0].lat,
       "lng": matchLocation[0].lng,
       "team_color1": matchData.team_color1,

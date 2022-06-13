@@ -134,7 +134,7 @@ export default function Bottom() {
     <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={topBar}>
         <Tab.Screen name="תפריט ראשי"
-          component={HomeNavPlayer}
+          component={HomeNavManager}
           options={{
             tabBarIcon: ({ focused, color, size }) => (<AntDesign name="home" size={size} color={color} />)
           }} />
