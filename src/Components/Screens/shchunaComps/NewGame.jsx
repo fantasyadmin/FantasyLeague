@@ -92,7 +92,7 @@ export default function NewGame() {
             console.log("data received = ", result);
             console.log("==========================");
             console.log("user data3 = ", result.matchDateStr);
-            alert("המשחק נקבע!")
+            alert("המשחק נקבע בתאריך: " + result.matchDateStr + "\nבשעה: " + result.match_time + "!")
             //navigation.navigate('Home');
           }
           else {
