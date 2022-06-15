@@ -42,14 +42,16 @@ export default function ExistingMatch() {
             setMatchData(
               {
                 match_id: exMatch.match_id,
-                date: exMatch.matchDateStr,
-                time: exMatch.match_time,
-                teamcolor1: exMatch.team_color1,
-                teamcolor2: exMatch.team_color2,
-                lat: exMatch.lat,
-                lng: exMatch.lng,
+                match_date: exMatch.matchDateStr,
+                match_time: exMatch.match_time,
+                team_color1: exMatch.team_color1,
+                team_color2: exMatch.team_color2,
+                match_location: {
+                  lat: exMatch.lat, lng: exMatch.lng,
+                }
               }
             );
+            console.log("this is what i have = ", matchData);
           })
     }
     catch (err) {
@@ -106,11 +108,6 @@ export default function ExistingMatch() {
         </View>
       </View>
       <View style={styles.buttons}>
-        <CustomButton
-          text="הזן תוצאות"
-          onPress={() => navigation.navigate("PlaceResults")}
-        />
-        <Text> </Text>
         <CustomButton
           text="טיימר למשחק"
           onPress={() => navigation.navigate("StopWatch")}

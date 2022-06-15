@@ -1,19 +1,22 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Linking } from 'react-native';
 import CustomButton from '../CustomComps/CustomButton';
 import TopProfileBar from '../MenuComponents/TopProfileBar';
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { LeagueInfoContext } from '../Context/UserContext';
+import React, { useState, useContext } from "react";
+
 
 
 const Home = () => {
+    const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
     const navigation = useNavigation();
 
     const onPressChat = () => {
-        console.warn('ניווט לצאט')
-    }
-
-    const onPressConfirmResults = () => {
-        console.warn('אישור תוצאות משחק')
+        try {
+            Linking.openURL(leagueData.league_rules);
+        } catch (error) {
+            alert("לא קיימת קבוצה")
+        }
     }
 
     return (
@@ -22,6 +25,8 @@ const Home = () => {
             <CustomButton text="Fantasy ליגת" onPress={() => navigation.navigate('League Table')} />
             <CustomButton text="משחק הצ'כונה הבא" onPress={() => navigation.navigate('Existing Match')} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
+            <CustomButton text="הזן תוצאות משחק" onPress={() => navigation.navigate('Place Results')} />
+
 
             <Text></Text>
             <Text></Text>
@@ -29,7 +34,7 @@ const Home = () => {
             <Text style={styles.text}>ניהול ליגה</Text>
             <CustomButton text="הזמן שחקן חדש" onPress={() => navigation.navigate('Contacts List')} />
             <CustomButton text="נהל שחקנים" onPress={() => navigation.navigate('Manage Players')} />
-            <CustomButton text="אשר תוצאות משחק" onPress={onPressConfirmResults} />
+            <CustomButton text="אשר תוצאות משחקים" onPress={() => navigation.navigate('Approve Results')} />
         </View>
     )
 }

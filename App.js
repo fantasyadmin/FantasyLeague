@@ -13,12 +13,13 @@ import { ContactsForSMSProvider } from './src/Components/Context/ContactsContext
 // import SellPlayers from './src/Components/Screens/ManageTeam/SellPlayers';
 // import SmartRadar from './src/Components/Screens/SmartCalc/RadarBuildSmartCalc.jsx';
 import MapComp from './src/Components/Screens/shchunaComps/matchComps/GoogleMapsAPI/map'
-
+import ApproveResults from './src/Components/Screens/FantasyLeagueComps/ManageLeagueComps/approveResults.jsx';
 
 export default function App() {
   return (
     // <SmartRadar />
     //<GetContacts />
+    //<ApproveResults/>
     <UserDatacontextProvider>
       <LeagueInfoContextProvider>
         <FantasyTeamInfoContextProvider>

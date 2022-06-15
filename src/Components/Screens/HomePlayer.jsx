@@ -9,7 +9,11 @@ const HomePlayer = () => {
     const navigation = useNavigation();
 
     const onPressChat = () => {
-        console.warn('ניווט לצאט')
+        try {
+            Linking.openURL(leagueData.league_rules);
+        } catch (error) {
+            alert("לא קיימת קבוצה")
+        }
     }
 
 
@@ -19,7 +23,7 @@ const HomePlayer = () => {
             <CustomButton text="משחק הצ'כונה הבא" onPress={() => navigation.navigate('Existing Match')} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
             <CustomButton text="הזמן שחקן חדש" onPress={() => navigation.navigate('Contacts List')} />
-            <CustomButton text="הזן תוצאות משחק" onPress={console.log("להוסיף תוצאות")} />
+            <CustomButton text="הזן תוצאות משחק" onPress={() => navigation.navigate('Place Results')} />
         </View>
     )
 }

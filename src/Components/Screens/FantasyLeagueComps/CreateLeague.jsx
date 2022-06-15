@@ -82,18 +82,18 @@ export default function CreateLeague() {
                     <TextInput
                         value={leagueName}
                         placeholder={'שם הליגה'}
-                        onChangeText={setLeagueName} //{(text) => this.setState({email: text})}
+                        onChangeText={setLeagueName}
                         style={styles.container1}
                     />
                 </View>
 
                 <View style={styles.text}>
-                    <Text style={styles.text}>     חוקי הליגה:    </Text>
+                    <Text style={styles.text}>     צ'אט הליגה:    </Text>
                     <TextInput
                         multiline
                         numberOfLines={8}
                         value={leagueRules}
-                        placeholder={'חוקי הליגה'}
+                        placeholder={'הזן את הקישור לקבוצת הוואצאפ '}
                         style={styles.inputField}
                         onChangeText={setLeagueRules}
                     />

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, SafeAreaView } from "react-native";
 import {
   MatchInfoContext,
@@ -16,8 +16,39 @@ const PlaceResults = () => {
   const [assists, setAssists] = useState("");
   const [penMiss, setPenMiss] = useState("");
   const [goalRecieved, setGoalRecieved] = useState("");
+  const [lastMatch, setLastMatch] = useState(" ")
 
-  //user_id, match_id, league_id, pen_missed, wins, match_color, goals_scored, goals_recieved, assistss
+  useEffect(() => {
+    console.log("results league_id = ", leagueData.league_id);
+    const data = JSON.stringify({
+      league_id: leagueData.league_id
+    });
+    try {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LastMatch', {
+        method: "POST",
+        headers: new Headers({
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+        body: data,
+      })
+        .then(res => {
+          console.log('res=', res);
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("Close Match is: ", result);
+            var exMatch = JSON.stringify(result);
+            setLastMatch(result.matchDateStr)
+            console.log(result.matchDateStr);
+          })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }, []);
+
 
   const submitResultsHandler = async () => {
     if (
@@ -31,13 +62,13 @@ const PlaceResults = () => {
     }
     const data = {
       user_id: userData.user_id,
-      match_id: matchData.match_id,
+      match_id: lastMatch.match_id,
       league_id: leagueData.league_id,
-      pen_missed: +penMiss,
-      wins: +wins,
-      goals_scored: +goals,
-      goals_recieved: +goalRecieved,
-      assists: +assists,
+      pen_missed: penMiss,
+      wins: wins,
+      goals_scored: goals,
+      goals_recieved: goalRecieved,
+      assists: assists,
       match_color: "blue",
     };
     console.log(data);
@@ -59,14 +90,18 @@ const PlaceResults = () => {
     }
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.title}>הזן תוצאות</Text>
       </View>
+      <View>
+        <Text style={styles.title2}>הזנת תוצאות למשחק מ: {lastMatch} </Text>
+      </View>
       <View style={styles.form}>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>נצחונות</Text>
+          <Text style={styles.label}>נצחונות                                       </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -76,7 +111,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שהבקעתי</Text>
+          <Text style={styles.label}>שערים שהבקעתי                       </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -86,7 +121,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>בישולים שלי</Text>
+          <Text style={styles.label}>בישולים שלי                               </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -96,7 +131,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>החמצות פנדלים</Text>
+          <Text style={styles.label}>החמצות פנדלים                         </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -106,7 +141,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שקיבלתי כשוער</Text>
+          <Text style={styles.label}>שערים שקיבלתי כשוער             </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -143,6 +178,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     textAlign: "center",
+  },
+  title2: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 30,
+    marginBottom: 15
   },
   inputArea: {
     flexDirection: "row",

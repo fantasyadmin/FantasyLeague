@@ -11,7 +11,7 @@ import ExistingMatch from '../Screens/shchunaComps/ExistingMatch';
 import StopWatch from '../Screens/shchunaComps/matchComps/Timer/StopWatch';
 import ContactsList from '../Screens/FantasyLeagueComps/ManageLeagueComps/Contacts';
 import PlaceResults from '../Screens/shchunaComps/matchComps/PlaceResults';
-
+import ApproveResults from '../Screens/FantasyLeagueComps/ManageLeagueComps/approveResults';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +26,10 @@ const HomeNavManager = () => {
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="Manage Players" component={ManagePlayers} />
                 <Stack.Screen name="StopWatch" component={StopWatch} />
-                <Stack.Screen name="PlaceResults" component={PlaceResults} />
+                <Stack.Screen name="Place Results" component={PlaceResults} />
                 <Stack.Screen name="Existing Match" component={ExistingMatch} />
                 <Stack.Screen name="Contacts List" component={ContactsList} />
+                <Stack.Screen name="Approve Results" component={ApproveResults} />
             </Stack.Navigator>
         </NavigationContainer>
     )

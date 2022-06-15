@@ -12,7 +12,6 @@ import ContactsList from '../Screens/FantasyLeagueComps/ManageLeagueComps/Contac
 import PlaceResults from '../Screens/shchunaComps/matchComps/PlaceResults';
 import HomePlayer from '../Screens/HomePlayer';
 
-
 const Stack = createNativeStackNavigator();
 
 const HomeNavPlayer = () => {
