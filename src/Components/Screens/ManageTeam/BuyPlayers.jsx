@@ -43,7 +43,7 @@ export default function BuyPlayers() {
   function markPlayerToBuy(nickname, user_id) {
     setToBuy(user_id);
     //console.log(toBuy);
-    // console.log("real = ", user_id);
+    console.log("real = ", user_id);
     alert(nickname + " was chosen to buy");
   }
 
@@ -54,7 +54,7 @@ export default function BuyPlayers() {
         "user_id": toBuy,
         "team_id": userData.team_id
       });
-      // console.log(params);
+      console.log(params);
       //fetch - buy player
       fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/AddPlayer', {
         method: 'POST',
@@ -68,61 +68,56 @@ export default function BuyPlayers() {
           console.log('res=', res);
           return res.json()
         })
-      .then(
-        (result) => {
-          if (result.team_id != undefined) {
-            const players = [
-              result.player1,
-              result.player2,
-              result.player3,
-              result.player4,
+        .then(
+          (result) => {
+            if (result.team_id != undefined) {
+              const players = [
+                result.player1,
+                result.player2,
+                result.player3,
+                result.player4,
               ]
-              setFantasyTeamData(prevState => ({...prevState, players, team_budget: result.team_budget, team_points: result.team_points}))
-            // console.log("data received = ", result);
-            // console.log("==========================");
-            // console.log("user data3 = ", result.player1);
+              setFantasyTeamData(prevState => ({ ...prevState, players, team_budget: result.team_budget, team_points: result.team_points }))
+              console.log("data received = ", result);
+              console.log("==========================");
+              console.log("user data3 = ", result.player1);
 
-          }
-          else {
-            alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
-          }
-        },
-        (error) => {
-          console.log("err post=", error);
-        })
-  }
+            }
+            else {
+              alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+            }
+          },
+          (error) => {
+            console.log("err post=", error);
+          })
+    }
     else {
-    alert("כבר יש לך קבוצת פנטזי מלאה, מכור שחקן ונסה שנית")
+      alert("כבר יש לך קבוצת פנטזי מלאה, מכור שחקן ונסה שנית")
+    }
   }
-}
 
 
-return (
-  <SafeAreaView style={styles.container1}>
-    <View style={styles.container}>
-      <Text style={styles.text}>קנה שחקן</Text>
-    </View>
-    <Text></Text>
-    <View style={styles.text1}>
-      <Text style={styles.text}>דירוג קבוצה בליגה:</Text>
-      <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
-      <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
-    </View>
-    <Text></Text>
-    <Text></Text>
-    <ScrollView>
-      <View>
-        <Text style={styles.text}>שחקני הליגה</Text>
-        {renderTable}
+  return (
+    <SafeAreaView style={styles.container1}>
+      <View style={styles.container}>
+        <Text style={styles.text}>קנה שחקן</Text>
       </View>
       <Text></Text>
-      <View style={styles.buttons1}>
-        <Text>                                   </Text>
-        <CustomButton text="קנה שחקן" onPress={buyPlayersAPI} />
+      <View style={styles.text1}>
+        <Text style={styles.text}>דירוג קבוצה בליגה:</Text>
+        <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
+        <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
-    </ScrollView>
-  </SafeAreaView>
-)
+      <CustomButton text="קנה שחקן" onPress={buyPlayersAPI} />
+      <Text></Text>
+      <Text style={styles.text}>שחקני הליגה</Text>
+      <ScrollView>
+        <View>
+          {renderTable}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({

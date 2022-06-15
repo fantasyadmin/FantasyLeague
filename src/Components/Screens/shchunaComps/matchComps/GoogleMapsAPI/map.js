@@ -23,7 +23,7 @@ export default function MapComp(props) {
   function savelocation(locationData) {
     setLocation({
       latitude: locationData.coords.latitude,
-      longitude: locationData.coords.longitude,
+      longitude: locationData.coords.longitude
     })
     console.log("location received: ", locationData);
     Alert.alert(
@@ -47,11 +47,13 @@ export default function MapComp(props) {
     console.log("location received: ", locationData);
     if (!locationData) {
       setLocation({
-        latitude: locationData.latitude,
-        longitude: locationData.longitude,
+        latitude: locationData.coords.latitude,
+        longitude: locationData.coords.longitude,
       })
     }
-    setMatchData(prevState => ({ ...prevState, match_location: locationData }))
+    console.log("tell papa===", location);
+    //props.matchLocationFunc(locationData.coords.latitude, locationData.coords.longitude)
+    setMatchData(prevState => ({ ...prevState, match_location: location }))
     console.log("print context = ", matchData);
    
    

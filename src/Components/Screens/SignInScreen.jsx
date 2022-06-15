@@ -42,6 +42,7 @@ export default function SignInScreen() {
       })
       .then(
         (result) => {
+          console.log(result);
           if (result.nickname != undefined) {
             setUserData({
               nickname: result.nickname,
@@ -66,6 +67,7 @@ export default function SignInScreen() {
               team_budget: result.team_budget,
               team_id: result.team_id,
               team_points: result.team_points,
+              players: result.players,
             });
             setLeaguePlayersData({
               players: result.usres_in_league,

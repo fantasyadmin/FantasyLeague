@@ -45,7 +45,7 @@ const matchInfo = {
   match_id: null,
   match_date: null,
   match_time: null,
-  match_location: null,
+  match_location: [],
   team_color1: null,
   team_color2: null,
 }
@@ -82,20 +82,24 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
-    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageFantasyTeam/5', {
+    console.log("preparing fetch.....=========================");
+    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/GetFantasyTeam', {
       method: 'POST',
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset=UTF-8'
       }),
       body: JSON.stringify({
-        team_id: userData.team_id
+        team_id: FantasyTeamData.team_id
       })
     })
       .then(response => {
         return response.json()
       })
       .then((result) => {
+        console.log("team id: ", FantasyTeamData.team_id);
+
+        console.log("team players: ", result);
         const players = [
           result.player1,
           result.player2,
@@ -104,7 +108,7 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
         ]
         setFantasyTeamData(prevState => ({ ...prevState, players }))
       })
-  }, [userData.team_id])
+  }, [FantasyTeamData.team_id])
 
 
 

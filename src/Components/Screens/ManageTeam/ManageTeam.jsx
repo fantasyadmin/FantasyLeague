@@ -8,12 +8,6 @@ import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
-const players = [
-  { user_id: 12, nickname: "ahmed", player_score: 88 },
-  { user_id: 45, nickname: "pele", player_score: 45 },
-  { user_id: 33, nickname: "guy", player_score: 3 },
-  // { user_id: 86, nickname: "dor", player_score: 34 },
-]
 
 const logos = [
   <FontAwesome5 name="crown" size={23} color="#993" />,

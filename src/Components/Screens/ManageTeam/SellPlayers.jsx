@@ -7,15 +7,6 @@ import { UserDataContext, LeaguePlayersInfoContext, FantasyTeamInfoContext } fro
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 
-
-const players = [
-  { user_id: 12, nickname: "ahmed", points: 88 },
-  { user_id: 45, nickname: "pele", points: 45 },
-  { user_id: 33, nickname: "guy", points: 3 },
-  { user_id: 86, nickname: "dor", points: 34 },
-]
-
-
 const logos = [
   <FontAwesome5 name="crown" size={23} color="#993" />,
   <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
@@ -34,7 +25,6 @@ export default function SellPlayers() {
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
   const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
 
-  //const sortplayers = [].concat(FantasyTeamData.players).sort();
   const sortplayers = [].concat(FantasyTeamData.players).sort();
 
 
@@ -52,7 +42,7 @@ export default function SellPlayers() {
   function markPlayerToSell(nickname, user_id) {
     setToSell(user_id);
     console.log("real = ", user_id);
-    alert(nickname + " was chosen fro sale");
+    alert(nickname + " was chosen for sale");
   }
 
   function sellPlayersAPI() {

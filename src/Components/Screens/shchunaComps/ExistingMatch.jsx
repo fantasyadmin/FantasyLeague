@@ -19,33 +19,41 @@ export default function ExistingMatch() {
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const navigation = useNavigation();
 
+
   useEffect(() => {
+    const params = JSON.stringify({ 'league_id': leagueData.league_id })
     try {
-      const result = fetch(
-        "https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch/" + leagueData.league_id,
-        {
-          method: "GET",
-          headers: new Headers({
-            "Content-type": "application/json; charset=UTF-8",
-            Accept: "application/json; charset=UTF-8",
-          }),
-        }
-      );
-      console.log("results are: ",JSON.stringify(result));
-      var exMatch = JSON.stringify(result);
-      setMatchData(
-        {
-          match_id: exMatch.match_id,
-          date: exMatch.matchDateStr,
-          time: exMatch.match_time,
-          teamcolor1: exMatch.team_color1,
-          teamcolor2: exMatch.team_color2,
-          lat: exMatch.lat,
-          lng: exMatch.lng,
-        }
-      );
-    } catch (err) {
-      console.log(JSON.stringify(err));
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
+        method: "POST",
+        headers: new Headers({
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+        body: params
+      })
+        .then(res => {
+          console.log('res=', res);
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("results are: ", result);
+            var exMatch = JSON.stringify(result);
+            setMatchData(
+              {
+                match_id: exMatch.match_id,
+                date: exMatch.matchDateStr,
+                time: exMatch.match_time,
+                teamcolor1: exMatch.team_color1,
+                teamcolor2: exMatch.team_color2,
+                lat: exMatch.lat,
+                lng: exMatch.lng,
+              }
+            );
+          })
+    }
+    catch (err) {
+      console.log(err);
     }
   }, []);
 
@@ -57,12 +65,12 @@ export default function ExistingMatch() {
       <Text></Text>
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> תאריך:</Text>
-        <Text style={styles.text}>{matchData.date}</Text>
+        <Text style={styles.text}>{matchData.match_date}</Text>
       </View>
       <Text></Text>
 
       <View style={styles.fieldStyle}>
-        <Text style={styles.text}> שעה: {matchData.time}</Text>
+        <Text style={styles.text}> שעה: {matchData.match_time}</Text>
       </View>
       <View style={styles.fieldStyle}>
         <View>
@@ -84,7 +92,7 @@ export default function ExistingMatch() {
         <View style={styles.itemsLocation}>
           <Icon
             name="shirt"
-            style={{ fontSize: 30, color: matchData.teamcolor1 }}
+            style={{ fontSize: 30, color: matchData.team_color1 }}
           />
         </View>
       </View>
@@ -93,7 +101,7 @@ export default function ExistingMatch() {
         <View style={styles.itemsLocation}>
           <Icon
             name="shirt"
-            style={{ fontSize: 30, color: matchData.teamcolor2 }}
+            style={{ fontSize: 30, color: matchData.team_color2 }}
           />
         </View>
       </View>
