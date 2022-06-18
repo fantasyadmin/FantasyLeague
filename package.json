@@ -42,11 +42,12 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-status-color-picker": "^1.0.5",
+    "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
     "react-router-dom": "^6.2.2",
-    "react-svg-radar-chart": "^1.4.0",
-    "toggle-switch-react-native": "^3.3.0"
+    "toggle-switch-react-native": "^3.3.0",
+    "victory-native": "^36.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

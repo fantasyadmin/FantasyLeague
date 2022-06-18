@@ -4,12 +4,14 @@ import { Marker } from "react-native-maps";
 import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { MatchInfoContext } from "../../../../Context/UserContext";
+import { NavigationContainer } from '@react-navigation/native';
+import { Navigate } from "react-router-dom";
 
-
-export default function MapComp(props) {
+export default function GameLocMap(props) {
+  const { matchData, setMatchData } = useContext(MatchInfoContext);
   const [location, setLocation] = useState({
-    latitude: 32.343190083930146,
-    longitude: 34.91241507999918,
+    latitude: matchData.match_location.lat,
+    longitude: matchData.match_location.lng,
     latitudeDelta: 0.08,
     longitudeDelta: 0.08,
   });
@@ -17,7 +19,7 @@ export default function MapComp(props) {
 
   const [marker, setMarker] = useState('');
 
-  const { matchData, setMatchData } = useContext(MatchInfoContext);
+
 
   function savelocation(locationData) {
     setLocation({
@@ -45,39 +47,40 @@ export default function MapComp(props) {
   function setGameLocation(locationData) {
     console.log("location received: ", locationData);
     if (!locationData) {
-      setLocation(
-        locationData.coords
-      )
+      setLocation({
+        latitude: locationData.coords.latitude,
+        longitude: locationData.coords.longitude,
+      })
     }
     console.log("tell papa===", location);
     //props.matchLocationFunc(locationData.coords.latitude, locationData.coords.longitude)
-    setMatchData(prevState => ({ ...prevState, match_location: {latitude: locationData.latitude, longitude: locationData.longitude} }))
+    setMatchData(prevState => ({ ...prevState, match_location: location }))
     console.log("print context = ", matchData);
 
 
     //Navigate.goBack();
   }
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
+  // useEffect(() => {
+  //   (async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
 
-      let locationLocal = await Location.getCurrentPositionAsync({});
+  //     let locationLocal = await Location.getCurrentPositionAsync({});
 
-      //console.log(locationLocal);
-      let obj = {
-        latitude: locationLocal.coords.latitude,
-        longitude: locationLocal.coords.longitude,
-        latitudeDelta: 0.08,
-        longitudeDelta: 0.08,
-      };
-      setLocation(obj);
-    })();
-  }, []);
+  //     //console.log(locationLocal);
+  //     let obj = {
+  //       latitude: locationLocal.coords.latitude,
+  //       longitude: locationLocal.coords.longitude,
+  //       latitudeDelta: 0.08,
+  //       longitudeDelta: 0.08,
+  //     };
+  //     setLocation(obj);
+  //   })();
+  // }, []);
 
   let text = "Waiting..";
   if (errorMsg) {
@@ -88,7 +91,7 @@ export default function MapComp(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>text={text}</Text>
+      <Text style={styles.paragraph}></Text>
       <MapView
         style={styles.map}
         region={location}
@@ -96,18 +99,10 @@ export default function MapComp(props) {
         //   console.log(pos.nativeEvent.coordinate);
         // }}
         provider='google'
-        onPoiClick={(e) => savelocation({ name: e.nativeEvent.name, coords: e.nativeEvent.coordinate })}
-        onPress={(e) => savelocation({
-          coords: {
-            latitude: e.nativeEvent.coordinate.latitude,
-            longitude: e.nativeEvent.coordinate.longitude
-          }
-        })
-        }
       // onPress={(e) => setMarker({ markers: [...this.state.markers, { latlng: e.nativeEvent.coordinate }] })}
       >
         {/* <MapView.Marker coordinate={location} key={i} /> */}
-        <Marker coordinate={location} title="avi" description="desc1" />
+        <Marker coordinate={location} title="מיקום המשחק" description="   " />
       </MapView>
     </View>
   );

@@ -12,13 +12,14 @@ import {
 import CustomButton from "../../CustomComps/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons as Icon } from "@expo/vector-icons";
+import GameMapComp from "./matchComps/GoogleMapsAPI/GameLocMap";
 
 
 export default function ExistingMatch() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
 
   useEffect(() => {
     const params = JSON.stringify({ 'league_id': leagueData.league_id })
@@ -38,16 +39,15 @@ export default function ExistingMatch() {
         .then(
           (result) => {
             console.log("results are: ", result);
-            var exMatch = JSON.stringify(result);
             setMatchData(
               {
-                match_id: exMatch.match_id,
-                match_date: exMatch.matchDateStr,
-                match_time: exMatch.match_time,
-                team_color1: exMatch.team_color1,
-                team_color2: exMatch.team_color2,
+                match_id: result.match_id,
+                match_date: result.matchDateStr,
+                match_time: result.match_time,
+                team_color1: result.team_color1,
+                team_color2: result.team_color2,
                 match_location: {
-                  lat: exMatch.lat, lng: exMatch.lng,
+                  lat: result.lat, lng: result.lng,
                 }
               }
             );
@@ -75,20 +75,9 @@ export default function ExistingMatch() {
         <Text style={styles.text}> שעה: {matchData.match_time}</Text>
       </View>
       <View style={styles.fieldStyle}>
-        <View>
-          <Text style={styles.text}> מיקום: </Text>
-        </View>
-        <View style={styles.textBarLocation}>
-
-          {/* <TextInput
-            value={matchData.location}
-            placeholder={"  מיקום"}
-            style={styles.container2}
-          /> */}
-
-
-        </View>
       </View>
+
+
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> צבע קבוצה 1: </Text>
         <View style={styles.itemsLocation}>
@@ -105,6 +94,16 @@ export default function ExistingMatch() {
             name="shirt"
             style={{ fontSize: 30, color: matchData.team_color2 }}
           />
+        </View>
+      </View>
+      <Text></Text>
+      <Text></Text>
+      <View style={styles.fieldStyle}>
+        <Text style={styles.text}> מיקום המשחק:          </Text>
+        <View style={styles.textBarLocation}>
+          <CustomButton
+            text="הצג מיקום על המפה"
+            onPress={() => navigation.navigate("Game Location", matchData.match_location)} />
         </View>
       </View>
       <View style={styles.buttons}>
@@ -155,9 +154,8 @@ const styles = StyleSheet.create({
     width: "10%",
   },
   textBarLocation: {
-    paddingTop: 7,
-    //paddingLeft: 40,
     width: "100%",
+    paddingBottom: 5
   },
   buttons: {
     flex: 1,
@@ -165,6 +163,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 300,
     margin: "5%",
+
   },
   buttons1: {
     flexDirection: "row",

@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     marginVertical: 10
-
   },
   text1: {
     marginRight: 0,

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, TextInput, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { image } from "../../../assets/exports";
 import React, { useState, useContext } from "react";
 import CustomButton from "../CustomComps/CustomButton";
@@ -16,9 +23,15 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("");
   const { userData, setUserData } = useContext(UserDataContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
-  const { leagueTeamsData, setLeagueTeamsData } = useContext(LeagueTeamsInfoContext);
+  const { FantasyTeamData, setFantasyTeamData } = useContext(
+    FantasyTeamInfoContext
+  );
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(
+    LeaguePlayersInfoContext
+  );
+  const { leagueTeamsData, setLeagueTeamsData } = useContext(
+    LeagueTeamsInfoContext
+  );
 
   const navigation = useNavigation();
 
@@ -56,7 +69,7 @@ export default function SignInScreen() {
               total_wins: result.total_wins,
               games_played: result.games_played,
               team_id: result.team_id,
-              league_manager: result.league_manager
+              league_manager: result.league_manager,
             });
             setLeagueData({
               league_name: result.league_name,

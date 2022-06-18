@@ -8,7 +8,7 @@ export default function PlayersInLeague(props) {
 
     function sendId() {
         //alert(props.nickname)
-        props.tellSon(props.nickname, props.user_id);
+        props.tellSon(props.nickname, props.user_id, props.color);
     }
 
 
@@ -16,7 +16,7 @@ export default function PlayersInLeague(props) {
         <View style={styles.container} onStartShouldSetResponder={sendId}>
             <TouchableOpacity>{props.icon}</TouchableOpacity>
             <Text style={styles.text3}>pt. {props.points}</Text>
-            <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={35} color="#100" />{props.logo}</Text>
+            {/* <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={35} color="#100" />{props.logo}</Text> */}
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>
     )
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 5,
         marginVertical: 5,
-        width: 320,
+        width: "100%",
     },
     text: {
         flex: 1,

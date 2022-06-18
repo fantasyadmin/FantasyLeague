@@ -3,7 +3,8 @@ import CustomButton from '../CustomComps/CustomButton';
 import TopProfileBar from '../MenuComponents/TopProfileBar';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import MatchNav from '../Navigation/MatchNav';
+import ExistingMatchNav from '../Navigation/ExistingMatchNav';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -20,7 +21,7 @@ const Home = () => {
         <View style={styles.container}>
             <TopProfileBar />
             <CustomButton text="Fantasy ליגת" onPress={() => navigation.navigate('League Table')} />
-            <CustomButton text="משחק הצ'כונה הבא" onPress={() => navigation.navigate('Existing Match')} />
+            <CustomButton text="משחק הצ'כונה הבא" onPress={ExistingMatchNav} />
             <CustomButton text="צ'אט הליגה" onPress={onPressChat} />
 
             <Text></Text>
@@ -35,6 +36,7 @@ const Home = () => {
 }
 
 export default Home
+{/* <CustomButton text="משחק הצ'כונה הבא" onPress={() => navigation.navigate('Existing Match')} /> */}
 
 const styles = StyleSheet.create({
     container: {

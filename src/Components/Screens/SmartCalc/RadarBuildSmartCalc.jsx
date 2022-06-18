@@ -1,71 +1,103 @@
-import React from 'react';
+import React from "react";
+import {
+  VictoryChart,
+  VictoryTheme,
+  VictoryGroup,
+  VictoryArea,
+  VictoryPolarAxis,
+  VictoryLabel,
+} from "victory-native";
 
-import RadarChart from 'react-svg-radar-chart';
-//import '../../../../App.css';
+// const characterData = [
+//   {
+//     ["Attack"]: 1,
+//     ["Goalie"]: 250,
+//     ["Team Player"]: 1,
+//     ["Player Score"]: 40,
+//     // charisma: 50,
+//   },
+//   {
+//     ["Attack"]: 1.5,
+//     ["Goalie"]: 2.5,
+//     ["Team Player"]: 12,
+//     ["Player Score"]: 4,
+//     // charisma: 50,
+//   },
+// ];
 
-class SmartRadar extends React.Component {
-  render() {
-    const data = [
-      {
-        data: {
-          battery: 0.7,
-          design: .8,
-          useful: 0.9,
-          speed: 0.67,
-          weight: 0.8
-        },
-        meta: { color: 'blue' }
-      },
-      {
-        data: {
-          battery: 0.6,
-          design: .85,
-          useful: 0.5,
-          speed: 0.6,
-          weight: 0.7
-        },
-        meta: { color: 'red' }
-      }
-    ];
-
-    const captions = {
-      // columns
-      battery: 'Battery Capacity',
-      design: 'Design',
-      useful: 'Usefulness',
-      speed: 'Speed',
-      weight: 'Weight'
+class Radar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.processData(props.data),
+      maxima: this.getMaxima(props.data),
     };
+  }
 
+
+  getMaxima(data) {
+    const groupedData = Object.keys(data[0]).reduce((memo, key) => {
+      memo[key] = data.map((d) => d[key]);
+      return memo;
+    }, {});
+    return Object.keys(groupedData).reduce((memo, key) => {
+      memo[key] = Math.max(...groupedData[key]);
+      return memo;
+    }, {});
+  }
+
+  processData(data) {
+    console.log("radar info =======", data);
+    const maxByGroup = this.getMaxima(data);
+    const makeDataArray = (d) => {
+      return Object.keys(d).map((key) => {
+        return { x: key, y: d[key] / maxByGroup[key] };
+      });
+    };
+    return data.map((datum) => makeDataArray(datum));
+  }
+
+  render() {
     return (
-      <div>
-        <RadarChart
-          captions={{
-            // columns
-            battery: 'Battery Capacity',
-            design: 'Design',
-            useful: 'Usefulness',
-            speed: 'Speed',
-            weight: 'Weight'
+      <VictoryChart polar theme={VictoryTheme.material} domain={{ y: [0, 1] }}>
+        <VictoryGroup
+          colorScale={["gold", "orange", "tomato"]}
+          style={{ data: { fillOpacity: 0.2, strokeWidth: 2 } }}
+        >
+          {this.state.data.map((data, i) => {
+            return <VictoryArea key={i} data={data} />;
+          })}
+        </VictoryGroup>
+        {Object.keys(this.state.maxima).map((key, i) => {
+          return (
+            <VictoryPolarAxis
+              key={i}
+              dependentAxis
+              style={{
+                axisLabel: { padding: 10 },
+                axis: { stroke: "none" },
+                grid: { stroke: "grey", strokeWidth: 0.25, opacity: 0.5 },
+              }}
+              tickLabelComponent={<VictoryLabel labelPlacement="vertical" />}
+              labelPlacement="perpendicular"
+              axisValue={i + 1}
+              label={key}
+              tickFormat={(t) => Math.ceil(t * this.state.maxima[key])}
+              tickValues={[0.25, 0.5, 0.75]}
+            />
+          );
+        })}
+        <VictoryPolarAxis
+          labelPlacement="parallel"
+          tickFormat={() => ""}
+          style={{
+            axis: { stroke: "none" },
+            grid: { stroke: "grey", opacity: 0.5 },
           }}
-          data={[
-            // data
-            {
-              data: {
-                battery: 0.7,
-                design: .8,
-                useful: 0.9,
-                speed: 0.67,
-                weight: 0.8
-              },
-              meta: { color: '#58FCEC' }
-            },
-          ]}
-          size={400}
         />
-      </div>
+      </VictoryChart>
     );
   }
 }
 
-export default SmartRadar;
+export default Radar;

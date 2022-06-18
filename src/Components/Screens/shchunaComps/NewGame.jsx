@@ -63,8 +63,6 @@ export default function NewGame() {
       "match_time": matchData.match_time,
       "lat": matchData.match_location.latitude,
       "lng": matchData.match_location.longitude,
-      // "lat": matchLocation[0].lat,
-      // "lng": matchLocation[0].lng,
       "team_color1": matchData.team_color1,
       "team_color2": matchData.team_color2,
       "league_id": leagueData.league_id
