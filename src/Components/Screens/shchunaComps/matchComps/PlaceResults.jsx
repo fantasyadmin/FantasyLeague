@@ -16,15 +16,15 @@ const PlaceResults = () => {
   const [assists, setAssists] = useState("");
   const [penMiss, setPenMiss] = useState("");
   const [goalRecieved, setGoalRecieved] = useState("");
-  const [lastMatch, setLastMatch] = useState(" ")
+  const [lastMatch, setLastMatch] = useState(" ");
 
   useEffect(() => {
     console.log("results league_id = ", leagueData.league_id);
     const data = JSON.stringify({
-      league_id: leagueData.league_id
+      league_id: leagueData.league_id,
     });
     try {
-      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LastMatch', {
+      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/LastMatch", {
         method: "POST",
         headers: new Headers({
           "Content-type": "application/json; charset=UTF-8",
@@ -32,23 +32,20 @@ const PlaceResults = () => {
         }),
         body: data,
       })
-        .then(res => {
-          console.log('res=', res);
-          return res.json()
+        .then((res) => {
+          console.log("res=", res);
+          return res.json();
         })
-        .then(
-          (result) => {
-            console.log("Close Match is: ", result);
-            var exMatch = JSON.stringify(result);
-            setLastMatch(result.matchDateStr)
-            console.log(result.matchDateStr);
-          })
-    }
-    catch (err) {
+        .then((result) => {
+          console.log("Close Match is: ", result);
+          var exMatch = JSON.stringify(result);
+          setLastMatch(result.matchDateStr);
+          console.log(result.matchDateStr);
+        });
+    } catch (err) {
       console.log(err);
     }
   }, []);
-
 
   const submitResultsHandler = async () => {
     if (
@@ -90,7 +87,6 @@ const PlaceResults = () => {
     }
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -101,7 +97,7 @@ const PlaceResults = () => {
       </View>
       <View style={styles.form}>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>נצחונות                                       </Text>
+          <Text style={styles.label}>נצחונות </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -111,7 +107,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שהבקעתי                       </Text>
+          <Text style={styles.label}>שערים שהבקעתי </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -121,7 +117,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>בישולים שלי                               </Text>
+          <Text style={styles.label}>בישולים שלי </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -131,7 +127,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>החמצות פנדלים                         </Text>
+          <Text style={styles.label}>החמצות פנדלים </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -141,7 +137,7 @@ const PlaceResults = () => {
           />
         </View>
         <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שקיבלתי כשוער             </Text>
+          <Text style={styles.label}>שערים שקיבלתי כשוער </Text>
           <TextInput
             type={"cc-number"}
             keyboardType={"numeric"}
@@ -153,10 +149,9 @@ const PlaceResults = () => {
         <View style={styles.button}>
           <CustomButton
             onPress={submitResultsHandler}
-            text="שליחת תוצאות">
-          </CustomButton>
+            text="שליחת תוצאות"
+          ></CustomButton>
         </View>
-
       </View>
     </SafeAreaView>
   );
@@ -171,7 +166,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: "#4472c4",
     direction: "rtl",
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontWeight: "bold",
@@ -185,20 +180,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginTop: 30,
-    marginBottom: 15
+    marginBottom: 15,
   },
   inputArea: {
     flexDirection: "row",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     width: "100%",
     margin: 20,
   },
   label: {
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     fontSize: 20,
     marginLeft: 10,
-    paddingLeft: 1
+    paddingLeft: 1,
   },
   input: {
     backgroundColor: "#fff",
@@ -208,13 +203,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   text: {
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     fontSize: 20,
-    marginVertical: 10
+    marginVertical: 10,
   },
   button: {
-    alignItems: 'center',
+    alignItems: "center",
     fontSize: 20,
-  }
+  },
 });

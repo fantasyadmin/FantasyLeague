@@ -8,7 +8,9 @@ import {
   LeagueTeamsInfoContextProvider,
 } from "./src/Components/Context/UserContext";
 import { ContactsForSMSProvider } from "./src/Components/Context/ContactsContext.js";
-
+import { Modal } from "react-native-paper";
+import ModalResult from "./src/Components/CustomComps/Modal.jsx";
+import { TempUserDataContext, TempUserDataContextProvider } from "./src/Components/Context/TempUserContext.js";
 
 export default function App() {
   return (
@@ -16,21 +18,24 @@ export default function App() {
     //<GetContacts />
     //<ApproveResults/>
     //<GameMapComp />
-    <UserDatacontextProvider>
-      <LeagueInfoContextProvider>
-        <FantasyTeamInfoContextProvider>
-          <LeaguePlayersInfoContextProvider>
-            <MatchInfoContextProvider>
-              <LeagueTeamsInfoContextProvider>
-                <ContactsForSMSProvider>
-                  <Navigation />
-                </ContactsForSMSProvider>
-              </LeagueTeamsInfoContextProvider>
-            </MatchInfoContextProvider>
-          </LeaguePlayersInfoContextProvider>
-        </FantasyTeamInfoContextProvider>
-      </LeagueInfoContextProvider>
-    </UserDatacontextProvider>
+    <TempUserDataContextProvider>
+      <UserDatacontextProvider>
+        <LeagueInfoContextProvider>
+          <FantasyTeamInfoContextProvider>
+            <LeaguePlayersInfoContextProvider>
+              <MatchInfoContextProvider>
+                <LeagueTeamsInfoContextProvider>
+                  <ContactsForSMSProvider>
+                    <Navigation />
+                  </ContactsForSMSProvider>
+                </LeagueTeamsInfoContextProvider>
+              </MatchInfoContextProvider>
+            </LeaguePlayersInfoContextProvider>
+          </FantasyTeamInfoContextProvider>
+        </LeagueInfoContextProvider>
+      </UserDatacontextProvider>
+    </TempUserDataContextProvider>
+
     //     //<StopWatch/>
     //     //<NewGame/>
     //     //<ColorPicking />

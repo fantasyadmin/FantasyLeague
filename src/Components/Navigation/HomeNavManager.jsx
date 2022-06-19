@@ -8,10 +8,10 @@ import NewGame from "../Screens/shchunaComps/NewGame";
 import ManageTeam from "../Screens/ManageTeam/ManageTeam";
 import ManagePlayers from "../Screens/shchunaComps/ManagePlayers";
 import ExistingMatch from "../Screens/shchunaComps/ExistingMatch";
+import ApproveResults from "../Screens/FantasyLeagueComps/ManageLeagueComps/approveResults";
 import StopWatch from "../Screens/shchunaComps/matchComps/Timer/StopWatch";
 import ContactsList from "../Screens/FantasyLeagueComps/ManageLeagueComps/Contacts";
 import PlaceResults from "../Screens/shchunaComps/matchComps/PlaceResults";
-import ApproveResults from "../Screens/FantasyLeagueComps/ManageLeagueComps/ApproveResults";
 import { UserDataContext } from "../Context/UserContext";
 import GameMapComp from "../Screens/shchunaComps/matchComps/GoogleMapsAPI/GameLocMap";
 

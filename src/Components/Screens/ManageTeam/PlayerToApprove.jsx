@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import ModalResult from "../../CustomComps/Modal";
 
-const PlayerToApprove = ({ player }) => (
+
+const PlayerToApprove = ({ player, data }) => (
   <View style={styles.container}>
     <Text style={styles.text}>
-      <FontAwesome name="soccer-ball-o" size={35} color="#100" />
+      <ModalResult data={data} player={player} />
     </Text>
     <Text style={styles.text3}>{player.nickname}</Text>
   </View>
