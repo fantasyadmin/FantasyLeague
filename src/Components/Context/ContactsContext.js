@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const contactsToInvite = { contact: [] };
+const contactsToInvite = { contacts: [null] };
 const ContactsForSMS = React.createContext(contactsToInvite);
 
 const ContactsForSMSProvider = ({ children }) => {
@@ -13,10 +13,6 @@ const ContactsForSMSProvider = ({ children }) => {
         </ContactsForSMS.Provider>
     );
 };
-
-
-
-
 
 export {
     ContactsForSMS, ContactsForSMSProvider,

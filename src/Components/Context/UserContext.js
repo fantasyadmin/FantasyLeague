@@ -20,6 +20,7 @@ const leagueInfo = {
   league_id: null,
   league_rules: null,
   league_pic: null,
+  Invite_Contacts: [null],
 };
 const LeagueInfoContext = React.createContext(leagueInfo);
 
@@ -40,6 +41,12 @@ const FantasyTeamInfoContext = React.createContext(FantasyTeamInfo);
 
 const LeaguePlayersInfo = { players: [], };
 const LeaguePlayersInfoContext = React.createContext(LeaguePlayersInfo);
+
+
+
+const InviteContacts = { contacts: [], };
+const InviteContactsContext = React.createContext(InviteContacts);
+
 
 const matchInfo = {
   match_id: null,
@@ -130,6 +137,18 @@ const LeaguePlayersInfoContextProvider = ({ children }) => {
   );
 };
 
+
+const InviteContactsContextProvider = ({ children }) => {
+  const [InviteContactsData, setInviteContactsData] = useState(InviteContacts);
+
+
+  return (
+    <InviteContactsContext.Provider value={{ InviteContactsData, setInviteContactsData }}>
+      {children}
+    </InviteContactsContext.Provider>
+  );
+};
+
 const MatchInfoContextProvider = ({ children }) => {
   const [matchData, setMatchData] = useState(matchInfo);
 
@@ -160,7 +179,8 @@ export {
   FantasyTeamInfoContext, FantasyTeamInfoContextProvider,
   LeaguePlayersInfoContext, LeaguePlayersInfoContextProvider,
   MatchInfoContext, MatchInfoContextProvider,
-  LeagueTeamsInfoContext, LeagueTeamsInfoContextProvider
+  LeagueTeamsInfoContext, LeagueTeamsInfoContextProvider,
+  InviteContactsContext, InviteContactsContextProvider
 };
 
 

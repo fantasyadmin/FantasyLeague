@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
 import { image } from '../../../../assets/exports';
-import { postCreateLeague } from '../../../../APIActions/apiRequests';
 import { useNavigation } from '@react-navigation/native';
 import { UserDataContext } from '../../Context/UserContext';
 

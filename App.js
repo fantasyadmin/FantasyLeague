@@ -6,6 +6,7 @@ import {
   LeaguePlayersInfoContextProvider,
   MatchInfoContextProvider,
   LeagueTeamsInfoContextProvider,
+  InviteContactsContextProvider
 } from "./src/Components/Context/UserContext";
 import { ContactsForSMSProvider } from "./src/Components/Context/ContactsContext.js";
 import { Modal } from "react-native-paper";
@@ -26,7 +27,9 @@ export default function App() {
               <MatchInfoContextProvider>
                 <LeagueTeamsInfoContextProvider>
                   <ContactsForSMSProvider>
-                    <Navigation />
+                    <InviteContactsContextProvider>
+                      <Navigation />
+                    </InviteContactsContextProvider>
                   </ContactsForSMSProvider>
                 </LeagueTeamsInfoContextProvider>
               </MatchInfoContextProvider>
