@@ -1,44 +1,27 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
-import TeamInTable from "../TableComps/TeamInTable";
-import PlayersInLeague from "../../ManageTeam/createPlayersList";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { image } from "../../../../../assets/exports";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   UserDataContext,
   LeagueInfoContext,
   LeaguePlayersInfoContext,
+  InviteContactsContext
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
 import PlayerToApprove from "../../ManageTeam/PlayerToApprove";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import { TempUserDataContext } from "../../../Context/TempUserContext";
 
 export default function ApproveResults() {
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const approvals = [];
-  const { TempUserData, setTempUserData } = useContext(TempUserDataContext);
+  const { TempUserData, setTempUserData } = useContext(InviteContactsContext);
+  const [approvals, setApprovals] = useState([])
+  const [rendering, setRendering] = useState([])
+
 
   function CalcRes(result) {
-    
-    for (let index = 0; index < LeaguePlayersData.length; index++) {
-      result.forEach(x => {
-        if (x.user_id == LeaguePlayersData[index].user_id) {
-          approvals[index] = ({
-            nickname: x.m1.nickname,
-            total_goals_scored: x.m1.total_goals_scored,
-            total_assists: x.m1.total_assists,
-            total_goals_recieved: x.m1.total_goals_recieved,
-            total_pen_missed: x.m1.total_pen_missed,
-            total_wins: x.m1.total_wins,
-          })
-        }
-        console.log("8888888888888888888888888888888888888", approvals[index]);
-      });
-    }
+    setApprovals(result)
   }
 
   //fetch שמקבל את רשימת התוצאות שצריך לאשר
@@ -57,19 +40,32 @@ export default function ApproveResults() {
         body: JSON.stringify(data),
       })
         .then((res) => {
-          console.log("reeeeeeeessss", res);
           return res.json();
         })
         .then((result) => {
+          console.log("reeeeeees", result);
           CalcRes(result.m1)
-
-          console.log("333333", result);
-
+          console.log("check state for approval ", approvals);
         });
     } catch (err) {
       console.log(err);
     }
   }, []);
+
+
+
+  const render = LeaguePlayersData.players.forEach(player => {
+    approvals.map(approv => {
+      if (approv.user_id == player.user_id) {
+        // console.log("render approv", approv.user_id);
+        // console.log("render player", player.user_id);
+        // console.log("render approv", approv);
+        return <Pressable>
+          <PlayerToApprove key={player.user_id} player={player} data={approv} />
+        </Pressable>
+      }
+    });
+  })
 
 
   return (
@@ -85,6 +81,7 @@ export default function ApproveResults() {
           </Pressable>
         ))}
       </ScrollView>
+
     </SafeAreaView>
   );
 }

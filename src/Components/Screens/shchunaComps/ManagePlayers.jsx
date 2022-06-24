@@ -48,7 +48,7 @@ export default function ManagePlayers() {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: '         '},
+        { text: '         ' },
         { text: 'מחק שחקן מהליגה', onPress: () => deletePlayerAPI(toDel, leagueData.league_id) },
       ],
       { cancelable: false },
@@ -56,17 +56,20 @@ export default function ManagePlayers() {
   }
 
   function deletePlayerAPI(id, league) {
+    const params = JSON.stringify({
+      "user_id": id,
+      "league_id": league
+    });
     if (id) {
-
       console.log(id);
       //fetch - delete player
-      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageFantasyTeam/' + { id, league }, {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageLeague/5' + { id, league }, {
         method: 'DELETE',
         headers: new Headers({
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset=UTF-8'
         }),
-        //body: params
+        body: params
       })
         .then(res => {
           console.log('res=', res);

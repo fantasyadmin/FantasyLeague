@@ -1,110 +1,69 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import { UserDataContext } from "../Context/UserContext";
-import { TempUserDataContext } from "../Context/TempUserContext";
+import {
+  UserDataContext,
+  LeaguePlayersInfoContext,
+} from "../Context/UserContext";
 
-const ModalResult = (props) => {
+const ModalResult = ({ data, player }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const userData = useContext(UserDataContext);
-  const TempUserData = useContext(TempUserDataContext);
-  const [currentUser, setCurrentUser] = useState({
-    nickname: 1,
-    total_goals_scored: 1,
-    total_assists: 1,
-    total_goals_recieved: 1,
-    total_pen_missed: 1,
-    total_wins: 1,
-  })
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const [currentUser, setCurrentUser] = useState(
+    {
+      user_id: data.user_id,
+      goals_scored: data.goals_scored,
+      assists: data.assists,
+      goals_recieved: data.goals_recieved,
+      pen_missed: data.pen_missed,
+      wins: data.wins,
+    }
+  )
 
 
-  // useEffect(() => {
-  //   TempUserData.forEach(x => {
-  //     console.log("pqpqpqpqpqpqpqpqpqpqpqpq", player.user_id);
-  //     if (x.user_id == player.user_id) {
-  //       setCurrentUser({
-  //         nickname: x.m1.nickname,
-  //         total_goals_scored: x.m1.total_goals_scored,
-  //         total_assists: x.m1.total_assists,
-  //         total_goals_recieved: x.m1.total_goals_recieved,
-  //         total_pen_missed: x.m1.total_pen_missed,
-  //         total_wins: x.m1.total_wins,
-  //       })
-  //       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", x);
-  //     }
-  //   });
-  //   return () => {
-  //     console.log("112123123123123123123123123312");
-  //   }
-  // }, [])
+  function placeData(data) {
+    setCurrentUser(
+      {
+        user_id: data.user_id,
+        goals_scored: data.goals_scored,
+        assists: data.assists,
+        goals_recieved: data.goals_recieved,
+        pen_missed: data.pen_missed,
+        wins: data.wins,
+      }
+    )
+  }
 
-  // function getScores(dataReq) {
-  //   TempUserData.forEach(x => {
-  //     console.log("pqpqpqpqpqpqpqpqpqpqpqpq", player.user_id);
-  //     if (x.user_id == player.user_id) {
-  //       setCurrentUser({
-  //         nickname: x.m1.nickname,
-  //         total_goals_scored: x.m1.total_goals_scored,
-  //         total_assists: x.m1.total_assists,
-  //         total_goals_recieved: x.m1.total_goals_recieved,
-  //         total_pen_missed: x.m1.total_pen_missed,
-  //         total_wins: x.m1.total_wins,
-  //       })
-  //     }
-  //   });
-  //   return currentUser[dataReq]
-  // }
+  useEffect(() => {
+    console.log("modal print ::::", data);
+    console.log(" ::::", currentUser);
+    for (let index = 0; index < LeaguePlayersData.players.length; index++) {
+      data.forEach(element => {
+        if (element.user_id == player.user_id) {
+          console.log("checking user id = ", player.user_id);
+          console.log("ddddDdDdDdDdadadadadadadadadadadadadadadad ",);
 
+          placeData(element)
+          return console.log("found results for  ", LeaguePlayersData.players[index].user_id);
+        }
+        else{
+          placeData({
+            user_id: 0,
+            goals_scored: 0,
+            assists: 0,
+            goals_recieved: 0,
+            pen_missed: 0,
+            wins: 0,}
+          )
+        }
+      });
 
+    }
 
-  // useEffect(() => {
-  //   const data = {
-  //     league_id: leagueData.league_id,
-  //   };
-  //   console.log(data);
-  //   try {
-  //     fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/SmartCalc", {
-  //       method: "POST",
-  //       headers: new Headers({
-  //         "Content-type": "application/json; charset=UTF-8",
-  //         Accept: "application/json; charset=UTF-8",
-  //       }),
-  //       body: JSON.stringify(data),
-  //     })
-  //       .then((res) => {
-  //         console.log("res=", JSON.stringify(res));
-  //         return res.json();
-  //       })
-  //       .then((result) => {
-  //         console.log(result);
-  //         const approvals = [].concat(result);
-  //         const leaguePlayers = [].concat(LeaguePlayersData);
-  //         console.log("league players =======", leaguePlayers);
-  //         var playersList = approvals.map((x, ind) => {
-  //           // שמייצר שורה בטבלה רק לשחקנים עם תוצאות שלא אושרו עדיין (מהפאצ')
-  //           leaguePlayers.forEach((p) => {
-  //             if (x.user_id == p.user_id) {
-  //               <PlayersInLeague
-  //                 key={x.user_id}
-  //                 nickname={p.nickname}
-  //                 //points={x.player_score}
-  //                 icon={logos[ind]}
-  //                 user_id={x.user_id}
-  //                 //tellSon={markPlayerToWatch}
-  //               />;
-  //             }
-  //           });
-  //         });
-  //         setRenderData(playersList);
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
-
-
-
-
-
+    return () => {
+      console.log("112123123123123123123123123312");
+    }
+  }, [])
 
 
 
@@ -123,26 +82,26 @@ const ModalResult = (props) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              אישור תוצאות של:{props.player.nickname}
+              אישור תוצאות של:{player.nickname}
             </Text>
             <View>
               <Text>
-                שערים שכבש : {currentUser.total_goals_scored}
+                שערים שכבש : {currentUser.goals_scored}
                 {"\n"}
               </Text>
               <Text>
-                בישולים:{currentUser.total_assists}
+                בישולים:{currentUser.assists}
                 {"\n"}
               </Text>
               <Text>
-                שערים שספג כשוער:{currentUser.total_goals_recieved} {"\n"}
+                שערים שספג כשוער:{currentUser.goals_recieved} {"\n"}
               </Text>
               <Text>
-                פנדלים שהוחמצו: {currentUser.total_pen_missed}
+                פנדלים שהוחמצו: {currentUser.pen_missed}
                 {"\n"}
               </Text>
               <Text>
-                מספר נצחונות:{currentUser.total_wins} {"\n"}
+                מספר נצחונות:{currentUser.wins} {"\n"}
               </Text>
             </View>
             <View style={styles.ButtonView}>

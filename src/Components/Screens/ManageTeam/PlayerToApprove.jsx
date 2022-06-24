@@ -6,7 +6,7 @@ import ModalResult from "../../CustomComps/Modal";
 const PlayerToApprove = ({ player, data }) => (
   <View style={styles.container}>
     <Text style={styles.text}>
-      <ModalResult data={data} player={player} />
+      <ModalResult data={data} player={player}/>
     </Text>
     <Text style={styles.text3}>{player.nickname}</Text>
   </View>
@@ -37,17 +37,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     paddingHorizontal: 10,
-    marginVertical: 5,
-  },
-  text2: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "baseline",
-    fontWeight: "bold",
-    color: "white",
-    width: 80,
-    fontSize: 20,
-    paddingHorizontal: 5,
     marginVertical: 5,
   },
   text3: {

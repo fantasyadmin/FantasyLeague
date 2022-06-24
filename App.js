@@ -11,7 +11,7 @@ import {
 import { ContactsForSMSProvider } from "./src/Components/Context/ContactsContext.js";
 import { Modal } from "react-native-paper";
 import ModalResult from "./src/Components/CustomComps/Modal.jsx";
-import { TempUserDataContext, TempUserDataContextProvider } from "./src/Components/Context/TempUserContext.js";
+import {TempUserDataContextProvider } from "./src/Components/Context/TempUserContext.js";
 
 export default function App() {
   return (

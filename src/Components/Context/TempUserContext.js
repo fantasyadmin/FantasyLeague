@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 
-const tempUserInfo = { tempResults: [] };
+const tempUserInfo = [];
 const TempUserDataContext = React.createContext(tempUserInfo);
 
 const TempUserDataContextProvider = ({ children }) => {
