@@ -1,42 +1,33 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
-import TeamInTable from "../TableComps/TeamInTable";
-import PlayersInLeague from "../../ManageTeam/createPlayersList";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { image } from "../../../../../assets/exports";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   UserDataContext,
   LeagueInfoContext,
   LeaguePlayersInfoContext,
+  InviteContactsContext
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
 import PlayerToApprove from "../../ManageTeam/PlayerToApprove";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-const logos = [
-  <FontAwesome5 name="crown" size={23} color="#993" />,
-  <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-];
+export default function ApproveResults() {
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const { TempUserData, setTempUserData } = useContext(InviteContactsContext);
+  const [approvals, setApprovals] = useState([])
+  const [rendering, setRendering] = useState([])
 
-export default function ApproveResults(props) {
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(
-    LeaguePlayersInfoContext
-  );
-  const [approvles, setApprovles] = useState([]);
 
-  //   console.log({ LeaguePlayersData });
+  function CalcRes(result) {
+    setApprovals(result)
+  }
 
   //fetch שמקבל את רשימת התוצאות שצריך לאשר
   useEffect(() => {
     const data = {
-      league_id: 11, //leagueData.league_id,
+      league_id: leagueData.league_id,
     };
     console.log(data);
     try {
@@ -49,37 +40,33 @@ export default function ApproveResults(props) {
         body: JSON.stringify(data),
       })
         .then((res) => {
-          console.log("res=", JSON.stringify(res));
           return res.json();
         })
         .then((result) => {
-          console.log(result);
-          //   const approvals = [].concat(result);
-          // const leaguePlayers = [].concat(LeaguePlayersData);
-          console.log("league players =======", LeaguePlayersData);
-          setApprovles(result);
-
-          //   var playersList = approvals.map((x, ind) => {
-          // שמייצר שורה בטבלה רק לשחקנים עם תוצאות שלא אושרו עדיין (מהפאצ')
-          //     leaguePlayers.forEach((p) => {
-          //       if (x.user_id == p.user_id) {
-          //         <PlayersInLeague
-          //           key={x.user_id}
-          //           nickname={p.nickname}
-          //           //points={x.player_score}
-          //           icon={logos[ind]}
-          //           user_id={x.user_id}
-          //           //tellSon={markPlayerToWatch}
-          //         />;
-          //       }
-          //     });
-          //   });
-          //   setRenderData(playersList);
+          console.log("reeeeeees", result);
+          CalcRes(result.m1)
+          console.log("check state for approval ", approvals);
         });
     } catch (err) {
       console.log(err);
     }
   }, []);
+
+
+
+  const render = LeaguePlayersData.players.forEach(player => {
+    approvals.map(approv => {
+      if (approv.user_id == player.user_id) {
+        // console.log("render approv", approv.user_id);
+        // console.log("render player", player.user_id);
+        // console.log("render approv", approv);
+        return <Pressable>
+          <PlayerToApprove key={player.user_id} player={player} data={approv} />
+        </Pressable>
+      }
+    });
+  })
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -88,10 +75,13 @@ export default function ApproveResults(props) {
       <Text> </Text>
       <Text style={styles.text}>בחר שחקן לצפיה בתוצאות</Text>
       <ScrollView>
-        {LeaguePlayersData.players.map((player) => (
-          <PlayerToApprove key={player.user_id} player={player} />
+        {LeaguePlayersData.players.map((player, ind) => (
+          <Pressable>
+            <PlayerToApprove key={ind} player={player} data={approvals} />
+          </Pressable>
         ))}
       </ScrollView>
+
     </SafeAreaView>
   );
 }

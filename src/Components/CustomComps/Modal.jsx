@@ -59,10 +59,6 @@ const ModalResult = ({ data, player }) => {
       });
 
     }
-
-    return () => {
-      console.log("112123123123123123123123123312");
-    }
   }, [])
 
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from "react";
 
 const userInfo = {
   nickname: null,
@@ -24,7 +24,6 @@ const leagueInfo = {
 };
 const LeagueInfoContext = React.createContext(leagueInfo);
 
-
 const FantasyTeamInfo = {
   players: [
     //{ 'user_id': 12, 'nickname': "ahmed", 'points': 88 },
@@ -38,15 +37,11 @@ const FantasyTeamInfo = {
 };
 const FantasyTeamInfoContext = React.createContext(FantasyTeamInfo);
 
-
-const LeaguePlayersInfo = { players: [], };
+const LeaguePlayersInfo = { players: [] };
 const LeaguePlayersInfoContext = React.createContext(LeaguePlayersInfo);
 
-
-
-const InviteContacts = { contacts: [], };
+const InviteContacts = { contacts: [] };
 const InviteContactsContext = React.createContext(InviteContacts);
-
 
 const matchInfo = {
   match_id: null,
@@ -55,16 +50,14 @@ const matchInfo = {
   match_location: [],
   team_color1: null,
   team_color2: null,
-}
+};
 const MatchInfoContext = React.createContext(matchInfo);
 
-
-const leagueTeamsInfo = { teams: [], }
+const leagueTeamsInfo = { teams: [] };
 const LeagueTeamsInfoContext = React.createContext(leagueTeamsInfo);
 
 const UserDatacontextProvider = ({ children }) => {
   const [userData, setUserData] = useState(userInfo);
-
 
   return (
     <UserDataContext.Provider value={{ userData, setUserData }}>
@@ -75,7 +68,6 @@ const UserDatacontextProvider = ({ children }) => {
 
 const LeagueInfoContextProvider = ({ children }) => {
   const [leagueData, setLeagueData] = useState(leagueInfo);
-
 
   return (
     <LeagueInfoContext.Provider value={{ leagueData, setLeagueData }}>
@@ -90,18 +82,18 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
 
   useEffect(() => {
     console.log("preparing fetch.....=========================");
-    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/GetFantasyTeam', {
-      method: 'POST',
+    fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/GetFantasyTeam", {
+      method: "POST",
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset=UTF-8'
+        "Content-type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
       }),
       body: JSON.stringify({
-        team_id: FantasyTeamData.team_id
-      })
+        team_id: FantasyTeamData.team_id,
+      }),
     })
-      .then(response => {
-        return response.json()
+      .then((response) => {
+        return response.json();
       })
       .then((result) => {
         console.log("team id: ", FantasyTeamData.team_id);
@@ -112,15 +104,15 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
           result.player2,
           result.player3,
           result.player4,
-        ]
-        setFantasyTeamData(prevState => ({ ...prevState, players }))
-      })
-  }, [FantasyTeamData.team_id])
-
-
+        ];
+        setFantasyTeamData((prevState) => ({ ...prevState, players }));
+      });
+  }, [FantasyTeamData.team_id]);
 
   return (
-    <FantasyTeamInfoContext.Provider value={{ FantasyTeamData, setFantasyTeamData }}>
+    <FantasyTeamInfoContext.Provider
+      value={{ FantasyTeamData, setFantasyTeamData }}
+    >
       {children}
     </FantasyTeamInfoContext.Provider>
   );
@@ -129,21 +121,22 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
 const LeaguePlayersInfoContextProvider = ({ children }) => {
   const [LeaguePlayersData, setLeaguePlayersData] = useState(LeaguePlayersInfo);
 
-
   return (
-    <LeaguePlayersInfoContext.Provider value={{ LeaguePlayersData, setLeaguePlayersData }}>
+    <LeaguePlayersInfoContext.Provider
+      value={{ LeaguePlayersData, setLeaguePlayersData }}
+    >
       {children}
     </LeaguePlayersInfoContext.Provider>
   );
 };
 
-
 const InviteContactsContextProvider = ({ children }) => {
   const [InviteContactsData, setInviteContactsData] = useState(InviteContacts);
 
-
   return (
-    <InviteContactsContext.Provider value={{ InviteContactsData, setInviteContactsData }}>
+    <InviteContactsContext.Provider
+      value={{ InviteContactsData, setInviteContactsData }}
+    >
       {children}
     </InviteContactsContext.Provider>
   );
@@ -152,9 +145,7 @@ const InviteContactsContextProvider = ({ children }) => {
 const MatchInfoContextProvider = ({ children }) => {
   const [matchData, setMatchData] = useState(matchInfo);
 
-
   return (
-
     <MatchInfoContext.Provider value={{ matchData, setMatchData }}>
       {children}
     </MatchInfoContext.Provider>
@@ -164,24 +155,28 @@ const MatchInfoContextProvider = ({ children }) => {
 const LeagueTeamsInfoContextProvider = ({ children }) => {
   const [leagueTeamsData, setLeagueTeamsData] = useState(leagueTeamsInfo);
 
-
   return (
-    <LeagueTeamsInfoContext.Provider value={{ leagueTeamsData, setLeagueTeamsData }}>
+    <LeagueTeamsInfoContext.Provider
+      value={{ leagueTeamsData, setLeagueTeamsData }}
+    >
       {children}
     </LeagueTeamsInfoContext.Provider>
   );
 };
 
-
 export {
-  UserDataContext, UserDatacontextProvider,
-  LeagueInfoContext, LeagueInfoContextProvider,
-  FantasyTeamInfoContext, FantasyTeamInfoContextProvider,
-  LeaguePlayersInfoContext, LeaguePlayersInfoContextProvider,
-  MatchInfoContext, MatchInfoContextProvider,
-  LeagueTeamsInfoContext, LeagueTeamsInfoContextProvider,
-  InviteContactsContext, InviteContactsContextProvider
+  UserDataContext,
+  UserDatacontextProvider,
+  LeagueInfoContext,
+  LeagueInfoContextProvider,
+  FantasyTeamInfoContext,
+  FantasyTeamInfoContextProvider,
+  LeaguePlayersInfoContext,
+  LeaguePlayersInfoContextProvider,
+  MatchInfoContext,
+  MatchInfoContextProvider,
+  LeagueTeamsInfoContext,
+  LeagueTeamsInfoContextProvider,
+  InviteContactsContext,
+  InviteContactsContextProvider,
 };
-
-
-
