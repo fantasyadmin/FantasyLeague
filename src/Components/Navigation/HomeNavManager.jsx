@@ -8,12 +8,14 @@ import NewGame from "../Screens/shchunaComps/NewGame";
 import ManageTeam from "../Screens/ManageTeam/ManageTeam";
 import ManagePlayers from "../Screens/shchunaComps/ManagePlayers";
 import ExistingMatch from "../Screens/shchunaComps/ExistingMatch";
-import ApproveResults from "../Screens/FantasyLeagueComps/ManageLeagueComps/approveResults";
+import ApproveResults from "../Screens/FantasyLeagueComps/ManageLeagueComps/ApproveResults";
 import StopWatch from "../Screens/shchunaComps/matchComps/Timer/StopWatch";
 import ContactsList from "../Screens/FantasyLeagueComps/ManageLeagueComps/Contacts";
 import PlaceResults from "../Screens/shchunaComps/matchComps/PlaceResults";
 import { UserDataContext } from "../Context/UserContext";
 import GameMapComp from "../Screens/shchunaComps/matchComps/GoogleMapsAPI/GameLocMap";
+import UploadPic from "../FireBase/Upload";
+import GetPic from "../FireBase/GetImage";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,8 @@ const HomeNavManager = () => {
       <Stack.Screen name="Contacts List" component={ContactsList} />
       <Stack.Screen name="Approve Results" component={ApproveResults} />
       <Stack.Screen name="Game Location" component={GameMapComp} />
+      <Stack.Screen name="Upload Picture" component={UploadPic} />
+      <Stack.Screen name="Get Picture" component={GetPic} />
     </Stack.Navigator>
   );
 
@@ -49,6 +53,8 @@ const HomeNavManager = () => {
       <Stack.Screen name="Existing Match" component={ExistingMatch} />
       <Stack.Screen name="Contacts List" component={ContactsList} />
       <Stack.Screen name="Game Location" component={GameMapComp} />
+      <Stack.Screen name="Upload Picture" component={UploadPic} />
+      <Stack.Screen name="Get Picture" component={GetPic} />
     </Stack.Navigator>
   );
 

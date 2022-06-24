@@ -6,12 +6,16 @@ import {
   LeaguePlayersInfoContextProvider,
   MatchInfoContextProvider,
   LeagueTeamsInfoContextProvider,
-  InviteContactsContextProvider
+  InviteContactsContextProvider,
 } from "./src/Components/Context/UserContext";
 import { ContactsForSMSProvider } from "./src/Components/Context/ContactsContext.js";
-import { Modal } from "react-native-paper";
-import ModalResult from "./src/Components/CustomComps/Modal.jsx";
-import {TempUserDataContextProvider } from "./src/Components/Context/TempUserContext.js";
+import {
+  TempUserDataContext,
+  TempUserDataContextProvider,
+} from "./src/Components/Context/TempUserContext.js";
+// import Guy from "./src/Components/FireBase/Upload.jsx";
+// import Guy2 from "./src/Components/FireBase/GetImage.jsx";
+// import Guy2 from "./src/Components/FireBase/GetImage.jsx";
 
 export default function App() {
   return (

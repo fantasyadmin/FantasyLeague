@@ -88,6 +88,7 @@ export default function SignInScreen() {
             setLeagueTeamsData({
               teams: result.listing,
             });
+            console.log("======%%%%% ", result.picture);
           } else {
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
             navigation.navigate("Sign In");
