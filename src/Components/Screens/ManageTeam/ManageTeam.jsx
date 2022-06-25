@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
-import { UserDataContext, FantasyTeamInfoContext } from '../../Context/UserContext';
+import { UserDataContext, FantasyTeamInfoContext, LeaguePlayersInfoContext } from '../../Context/UserContext';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
@@ -24,14 +24,14 @@ const logos = [
 export default function ManageTeam() {
   const { userData, setUserData } = useContext(UserDataContext);
   const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
-  // const [action, setAction] = useState(renderTable);
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
   const [player, setPlayer] = useState('0');
 
   const navigation = useNavigation();
 
   const sortplayers = [].concat(FantasyTeamData.players).sort();
 
-  console.log({players: FantasyTeamData.players})
+  console.log({ players: FantasyTeamData.players })
 
 
   var renderTable = sortplayers.map((x, ind) => {
@@ -101,16 +101,21 @@ export default function ManageTeam() {
         })
   }
 
-  const saleCheck = () => {
-    () => navigation.navigate('Sell Players')
 
-    if (FantasyTeamData.players != undefined) {
-      () => navigation.navigate('Sell Players')
-    }
-    else {
-      alert("קבוצת הפנטזי שלך ריקה, לא ניתן למכור שחקן")
+  function TeamPlace() {
+    const sortTeams = []
+      .concat(LeaguePlayersData.players)
+      .sort((a, b) => b.player_score - a.player_score);
+
+    for (let index = 1; index < sortTeams.length; index++) {
+      if (condition) {
+        return index
+      }
     }
   }
+
+
+
 
 
   return (
@@ -121,7 +126,7 @@ export default function ManageTeam() {
 
       <Text></Text>
       <View style={styles.text1}>
-        <Text style={styles.text}>דירוג קבוצה בליגה:</Text>
+        <Text style={styles.text}>דירוג קבוצה בליגה:      {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>

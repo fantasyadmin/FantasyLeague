@@ -45,16 +45,17 @@ export default function Profile() {
       <View style={styles.top}>
         <View>
           <GetPic />
-          <Icon
-            name="picture"
-            style={{ fontSize: 30, color: "white" }}
-            onPress={() => navigation.navigate("Upload Picture")}
-          />
+
         </View>
+        <Icon
+          name="picture"
+          style={{ fontSize: 30, color: "white" }}
+          onPress={() => navigation.navigate("Upload Picture")}
+        />
       </View>
 
       <Text style={styles.text}>
-        {"\n"}
+        {"\n\n\n"}
         {userData.nickname}
       </Text>
 

@@ -14,6 +14,7 @@ import ColorPicking from '../../CustomComps/ColorPicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
 import { PickDate } from './matchComps/Calander/datePicker';
 import { useNavigation } from '@react-navigation/native';
+import { back } from 'react-native/Libraries/Animated/Easing';
 
 
 export default function NewGame() {
@@ -48,7 +49,7 @@ export default function NewGame() {
 
   const matchLocationFunc = (data) => {
     console.log("match location func ====== ", data)
-    setMatchData(prevState => ({ ...prevState, match_location: {latitude: data.coords.latitude, longitude: data.coords.longitude} }));
+    setMatchData(prevState => ({ ...prevState, match_location: { latitude: data.coords.latitude, longitude: data.coords.longitude } }));
   }
 
   const showMap = () => {
@@ -90,7 +91,6 @@ export default function NewGame() {
             console.log("==========================");
             console.log("user data3 = ", result.matchDateStr);
             alert("המשחק נקבע בתאריך: " + result.matchDateStr + "\nבשעה: " + result.match_time + "!")
-            //navigation.navigate('Home');
           }
           else {
             console.log(params);
@@ -101,6 +101,8 @@ export default function NewGame() {
         (error) => {
           console.log("err post=", error);
         })
+
+    navigation.navigate("Home")
   }
 
   return (

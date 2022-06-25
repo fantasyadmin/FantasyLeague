@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, TextInput, Linking } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -12,7 +12,7 @@ import {
 import CustomButton from "../../CustomComps/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons as Icon } from "@expo/vector-icons";
-import GameMapComp from "./matchComps/GoogleMapsAPI/GameLocMap";
+import { NavigationApps, actions, googleMapsTravelModes } from "react-native-navigation-apps";
 
 
 export default function ExistingMatch() {
@@ -58,6 +58,12 @@ export default function ExistingMatch() {
       console.log(err);
     }
   }, []);
+
+
+
+
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,6 +111,16 @@ export default function ExistingMatch() {
             text="הצג מיקום על המפה"
             onPress={() => navigation.navigate("Game Location", matchData.match_location)} />
         </View>
+      </View>
+      <View style={styles.textBarLocation}>
+        <Text style={styles.text}>{'\n'}נווט למשחק</Text>
+        <NavigationApps
+          iconSize={50}
+          row
+          address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
+          waze={{address:'',lat: matchData.match_location.lat, lon: matchData.match_location.lng,action: actions.searchLocationByLatAndLon}} // specific settings for waze
+          googleMaps={{lat: matchData.match_location.lat, lon: matchData.match_location.lng,action: actions.navigateByAddress,travelMode:googleMapsTravelModes.driving}} // specific settings for google maps
+        />
       </View>
       <View style={styles.buttons}>
         <CustomButton

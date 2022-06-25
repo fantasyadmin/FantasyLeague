@@ -16,6 +16,7 @@ import {
   LeaguePlayersInfoContext,
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
+import ModalFantasyTeam from "../../../CustomComps/ModalFantasyTeam";
 
 const logos = [
   <FontAwesome5 name="crown" size={23} color="#993" />,
@@ -42,14 +43,16 @@ export default function LeagueTable(props) {
   console.log({ sortTeams });
 
   var renderTable = sortTeams.map((x, ind) => {
-    return (
+    return (<View>
       <TeamInTable
         key={ind}
         nickname={x.nickname}
         place={ind + 1}
+        user_id={x.user_id}
         points={x.player_score}
-        icon={logos[ind]}
       />
+    </View>
+
     );
   });
 

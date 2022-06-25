@@ -36,6 +36,8 @@ export default function SmartCalc(props) {
     //   ["Player Score"]: 20,
     // },
   ]);
+  const [orangeComp, setorangeComp] = useState("לא נבחר שחקן")
+  const [redComp, setredComp] = useState("לא נבחר שחקן")
 
   function SetRadarData(user_id, color, nickname) {
     const params = JSON.stringify({
@@ -57,48 +59,51 @@ export default function SmartCalc(props) {
       })
       .then((result) => {
         if (result != undefined) {
-          console.log("data received = ", result);
+          console.log("data received ============================================ ", result);
           console.log("==========================", color);
           console.log({ compareData: result });
           if (color == 1) {
             const compare1 = {};
-            if (result.attackRate > 0) {
+            if (result.attackRate >= 0) {
               compare1["Attack"] = result.attackRate;
             }
-            if (result.goalieRate > 0) {
+            if (result.goalieRate >= 0) {
               compare1["Goalie"] = result.goalieRate;
             }
-            if (result.teamPlayerRate > 0) {
+            if (result.teamPlayerRate >= 0) {
               compare1["Team Player"] = result.teamPlayerRate;
             }
-            if (result.player_score > 0) {
+            if (result.player_score >= 0) {
               compare1["Player Scrore"] = result.player_score;
             }
             if (Object.keys(compare1).length === 0)
               return alert("user don't have data");
-            alert(nickname + " was chosen to watch " + color);
+            setorangeComp(nickname)
+            alert(nickname + " נבחר להשוואה ");
+            setorangeComp(nickname)
             setPlayercomp((prevState) => {
               if (prevState.length == 2) return [compare1];
               return [...prevState, compare1];
             });
           } else {
             const compare2 = {};
-            if (result.attackRate > 0) {
+            if (result.attackRate >= 0) {
               compare2["Attack"] = result.attackRate;
             }
-            if (result.goalieRate > 0) {
+            if (result.goalieRate >= 0) {
               compare2["Goalie"] = result.goalieRate;
             }
-            if (result.teamPlayerRate > 0) {
+            if (result.teamPlayerRate >= 0) {
               compare2["Team Player"] = result.teamPlayerRate;
             }
-            if (result.player_score > 0) {
+            if (result.player_score >= 0) {
               compare2["Player Scrore"] = result.player_score;
             }
             if (Object.keys(compare2).length === 0)
               return alert("user don't have data");
 
-            alert(nickname + " was chosen to watch " + color);
+            alert(nickname + " נבחר להשוואה ");
+            setredComp(nickname)
             setPlayercomp((prevState) => {
               if (prevState.length == 2) return [compare2];
               return [...prevState, compare2];
@@ -141,7 +146,7 @@ export default function SmartCalc(props) {
         key={x.user_id}
         nickname={x.nickname}
         //points={x.player_score}
-        color={'כתום'}
+        color={1}
         //icon={logos[ind]}      // work on different icons
         user_id={x.user_id}
         tellSon={markPlayerToWatch}
@@ -163,7 +168,7 @@ export default function SmartCalc(props) {
         key={x.user_id}
         nickname={x.nickname}
         //points={x.player_score}
-        color={'אדום'}
+        color={2}
         //icon={logos[ind]}      // work on different icons
         user_id={x.user_id}
         tellSon={markPlayerToWatch}
@@ -192,11 +197,11 @@ export default function SmartCalc(props) {
       <View style={styles.top}>
         <View style={styles.scrollsShell}>
           <ScrollView style={styles.scrolls}>
-            <Text>שחקן 1</Text>
+            <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
             {renderTable1}
           </ScrollView>
           <ScrollView>
-            <Text>שחקן 2</Text>
+            <Text style={styles.player2}>שחקן 2: {redComp}</Text>
             {renderTable2}
           </ScrollView>
         </View>
@@ -247,5 +252,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: 250,
+  },
+  player1: {
+    fontWeight: "bold",
+    color: "orange",
+    fontSize: 20,
+    width: "100%"
+  },
+  player2: {
+    fontWeight: "bold",
+    color: "red",
+    fontSize: 20,
   },
 });

@@ -24,7 +24,6 @@ export default function GetPic() {
       setUrl(picUrl);
       console.log({ picUrl });
     };
-
     func();
   }, []);
 
@@ -37,7 +36,7 @@ export default function GetPic() {
       }}
     >
       <Image
-        style={{ width: 120, height: 120 }}
+        style={{ width: 120, height: 120, borderRadius: 180}}
         source={{
           uri: url,
         }}

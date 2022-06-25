@@ -58,6 +58,7 @@ export const PickDate = (props) => {
                     mode={mode}
                     is24Hour={true}
                     onChange={onChangeDate}
+                    minimumDate={new Date()}
                 />
             )}
         </View>

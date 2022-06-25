@@ -5,7 +5,7 @@ import { app } from "./firebase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 // import { LogBox } from "react-native";
 import { UserDataContext } from "../Context/UserContext";
-import { GetPic } from "./GetImage";
+import GetPic from "../FireBase/GetImage"
 // LogBox.ignoreLogs(["Setting a timer"]);
 export default function UploadPic() {
   const { userData, setUserData } = useContext(UserDataContext);
@@ -74,7 +74,7 @@ export default function UploadPic() {
   return (
     <View
       style={{
-        // flex: 1,
+        //flex: 1,
         backgroundColor: "#000000",
         alignItems: "center",
         justifyContent: "center",
@@ -82,10 +82,10 @@ export default function UploadPic() {
       }}
     >
       <View style={styles.top}>
-        {GetPic}
-        {/* <Image source={GetPic} style={styles.pic} /> */}
+        <Text>
+          <GetPic />
+        </Text>
       </View>
-
       <TouchableHighlight onPress={pickImage}>
         <Text style={{ color: "white" }}>שנה תמונת פרופיל</Text>
       </TouchableHighlight>
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: "60%",
-    // alignItems: "center",
     justifyContent: "center",
   },
 });

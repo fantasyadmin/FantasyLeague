@@ -14,7 +14,9 @@ const PlayerToApprove = ({ player, approvals }) => {
         {playerResult ? (
           <ModalResult data={playerResult} player={player} />
         ) : (
-          <Text style={styles.noResults}>אין תוצאות</Text>
+          <View style={styles.noResults}>
+            <Text style={styles.text}>  אין תוצאות</Text>
+          </View>
         )}
       </Text>
       <Text style={styles.text3}>{player.nickname}</Text>
@@ -62,6 +64,14 @@ const styles = StyleSheet.create({
   },
   noResults: {
     backgroundColor: "red",
+    borderRadius: 180,
+    color: "white",
+    width: 100,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 18,
+    paddingHorizontal: 10,
+    marginVertical: 5,
   },
 });
 

@@ -4,6 +4,7 @@ import TopProfileBar from "../MenuComponents/TopProfileBar";
 import { useNavigation } from "@react-navigation/native";
 import { LeagueInfoContext, UserDataContext } from "../Context/UserContext";
 import React, { useState, useContext } from "react";
+import GetPic from "../FireBase/GetImage";
 
 const Home = () => {
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);

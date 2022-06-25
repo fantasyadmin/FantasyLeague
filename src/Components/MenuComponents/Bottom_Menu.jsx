@@ -26,11 +26,12 @@ const Tab = createBottomTabNavigator();
 
 export default function Bottom() {
 
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator screenOptions={topBar}>
         <Tab.Screen name="תפריט ראשי"
-          component={HomeNavManager}   
+          component={HomeNavManager}
           options={{
             tabBarIcon: ({ focused, color, size }) => (<AntDesign name="home" size={size} color={color} />)
           }} />
@@ -41,7 +42,7 @@ export default function Bottom() {
           }}
         />
         <Tab.Screen name="ניהול קבוצה"
-          component={TeamManageNav} //independent navigator
+          component={TeamManageNav}
           options={{
             tabBarIcon: ({ focused, color, size }) => (<AntDesign name="team" size={size} color={color} />)
           }}

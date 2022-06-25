@@ -1,19 +1,54 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import ModalFantasyTeam from '../../../CustomComps/ModalFantasyTeam';
+import { LeagueInfoContext } from '../../../Context/UserContext.js'
 
 export default function TeamInTable(props) {
-    const onClickTeam = (teamNo) => {
-        
-        //return player / show tplayer
-    }
+    const { leagueData } = useContext(LeagueInfoContext);
+    const [teamPlayers, setteamPlayers] = useState([])
+
+
+
+
+
+
+    useEffect(() => {
+        const data = {
+            league_id: leagueData.league_id,
+        };
+        try {
+            fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/TeamsInLeague", {
+                method: "POST",
+                headers: new Headers({
+                    "Content-type": "application/json; charset=UTF-8",
+                    Accept: "application/json; charset=UTF-8",
+                }),
+                body: JSON.stringify(data),
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((result) => {
+                    console.log({ result });
+                    setteamPlayers(result);
+                });
+        } catch (err) {
+            console.log(err);
+        }
+    }, []);
+
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onClickTeam(props.key)}>{props.icon}</TouchableOpacity>
-            <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={30} color="#100" />{props.logo}</Text>
+            {teamPlayers.length > 0 ? (
+                <ModalFantasyTeam player={props.nickname} user_id={props.user_id} data={teamPlayers} /> 
+            ) : (
+                <View>
+                    <Text>  אין קבוצה</Text>
+                </View>
+            )}
             <Text style={styles.text2}>{props.points} pt.</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
             <Text style={styles.text}>{props.place}</Text>

@@ -1,55 +1,28 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import {
   UserDataContext,
   LeaguePlayersInfoContext,
 } from "../Context/UserContext";
 
-const ModalResult = ({ data, player }) => {
+const ModalFantasyTeam = ({ player, data, user_id }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const userData = useContext(UserDataContext);
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(
     LeaguePlayersInfoContext
   );
 
+  const [teamPlayers] = useMemo(
+    () => data.filter((team) => team.user_id === user_id),
+    [data],
+  );
 
-  function ApproveResults() {
-    const send = {
-      user_id: player.user_id,
-      match_id: data.match_id,
-      apporval_status: "1"
-    };
-    try {
-      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/SmartCalc", {
-        method: "POST",
-        headers: new Headers({
-          "Content-type": "application/json; charset=UTF-8",
-          Accept: "application/json; charset=UTF-8",
-        }),
-        body: JSON.stringify(send),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((result) => {
-          console.log({ result });
-          
-          setModalVisible(!modalVisible)
-        });
-    } catch (err) {
-      console.log(err);
-      alert("משהו השתבש, אנא נסה שנית")
-    }
-  }
-
-  function DenyResults() {
-    //אין אישור לתוצאות - קונטרולר גל
-
-
-
-
-    setModalVisible(!modalVisible)
-  }
+  useEffect(() => {
+    console.log("player data     1   ", teamPlayers.pl1);
+    console.log("player data     2   ", teamPlayers.pl2);
+    console.log("player data     3   ", teamPlayers.pl3);
+    console.log("player data     4   ", teamPlayers.pl4);
+  }, [])
 
 
 
@@ -68,41 +41,37 @@ const ModalResult = ({ data, player }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              אישור תוצאות של {player.nickname}
+              קבוצת הפנטזי של {player}
             </Text>
             <View>
-              <Text>
-                שערים שכבש : {data.goals_scored}
-                {"\n"}
-              </Text>
-              <Text>
-                בישולים:{data.assists}
-                {"\n"}
-              </Text>
-              <Text>
-                שערים שספג כשוער:{data.goals_recieved} {"\n"}
-              </Text>
-              <Text>
-                פנדלים שהוחמצו: {data.pen_missed}
-                {"\n"}
-              </Text>
-              <Text>
-                מספר נצחונות:{data.wins} {"\n"}
-              </Text>
+              {teamPlayers ? (
+                <Text> {teamPlayers.pl1.nickname}</Text>
+              ) : (
+                <Text style={styles.text}>  שחקן לא קיים </Text>
+              )}
+              {teamPlayers ? (
+                <Text> {teamPlayers.pl2.nickname}</Text>
+              ) : (
+                <Text style={styles.text}>  שחקן לא קיים </Text>
+              )}
+              {teamPlayers ? (
+                <Text> {teamPlayers.pl3.nickname}</Text>
+              ) : (
+                <Text style={styles.text}>  שחקן לא קיים </Text>
+              )}
+              {teamPlayers ? (
+                <Text> {teamPlayers.pl4.nickname}</Text>
+              ) : (
+                <Text style={styles.text}>  שחקן לא קיים </Text>
+              )}
             </View>
             <View style={styles.ButtonView}>
-              <Pressable
-                style={[styles.button, styles.buttonClose, styles.ApproveBtn]}
-                onPress={ApproveResults}
-              >
-                <Text style={styles.textStyle}>אשר</Text>
-              </Pressable>
               <Text>             </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose, styles.CancelBtn]}
-                onPress={DenyResults}
+                onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={styles.textStyle}>דחה</Text>
+                <Text style={styles.textStyle}>סגור</Text>
               </Pressable>
             </View>
           </View>
@@ -112,7 +81,7 @@ const ModalResult = ({ data, player }) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>צפייה בתוצאות</Text>
+        <Text style={styles.textStyle}>שחקני הקבוצה</Text>
       </Pressable>
     </View>
   );
@@ -123,7 +92,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    marginTop: 5,
+    marginBottom: 5
   },
   modalView: {
     margin: 20,
@@ -141,8 +111,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
+    borderRadius: 10,
+    padding: 5,
     elevation: 2,
   },
   buttonOpen: {
@@ -175,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalResult;
+export default ModalFantasyTeam;

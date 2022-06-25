@@ -6,6 +6,7 @@ import {
   LeagueInfoContext,
 } from "../../../Context/UserContext";
 import CustomButton from "../../../CustomComps/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const PlaceResults = () => {
   const { userData } = useContext(UserDataContext);
@@ -17,6 +18,8 @@ const PlaceResults = () => {
   const [penMiss, setPenMiss] = useState("");
   const [goalRecieved, setGoalRecieved] = useState("");
   const [lastMatch, setLastMatch] = useState(" ");
+  const [matchId, setmatchId] = useState(" ");
+  const navigation = useNavigation();
 
   useEffect(() => {
     console.log("results league_id = ", leagueData.league_id);
@@ -40,6 +43,7 @@ const PlaceResults = () => {
           console.log("Close Match is: ", result);
           var exMatch = JSON.stringify(result);
           setLastMatch(result.matchDateStr);
+          setmatchId(result.match_id)
           console.log(result.matchDateStr);
         });
     } catch (err) {
@@ -59,7 +63,7 @@ const PlaceResults = () => {
     }
     const data = {
       user_id: userData.user_id,
-      match_id: lastMatch.match_id,
+      match_id: matchId,
       league_id: leagueData.league_id,
       pen_missed: penMiss,
       wins: wins,
@@ -85,6 +89,8 @@ const PlaceResults = () => {
     } catch (err) {
       console.log(JSON.stringify(err));
     }
+    alert("התוצאות נשלחו לאישור מנהל הליגה")
+    navigation.navigate("Home")
   };
 
   return (

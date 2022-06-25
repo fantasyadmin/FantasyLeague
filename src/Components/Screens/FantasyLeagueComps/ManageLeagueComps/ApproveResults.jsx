@@ -40,24 +40,6 @@ export default function ApproveResults() {
     }
   }, []);
 
-  // const render = LeaguePlayersData.players.forEach((player) => {
-  //   approvals.map((approv) => {
-  //     if (approv.user_id == player.user_id) {
-  //       // console.log("render approv", approv.user_id);
-  //       // console.log("render player", player.user_id);
-  //       // console.log("render approv", approv);
-  //       return (
-  //         <Pressable>
-  //           <PlayerToApprove
-  //             key={player.user_id}
-  //             player={player}
-  //             data={approv}
-  //           />
-  //         </Pressable>
-  //       );
-  //     }
-  //   });
-  // });
 
   return (
     <SafeAreaView style={styles.container}>
