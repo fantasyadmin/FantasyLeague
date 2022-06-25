@@ -6,7 +6,6 @@ import {
   TouchableHighlight,
 } from "react-native";
 import React, { useContext } from "react";
-import { profilePic, image } from "../../../assets/exports";
 import CustomButton from "../CustomComps/CustomButton";
 import {
   UserDataContext,
@@ -16,7 +15,7 @@ import {
   LeagueTeamsInfoContext,
 } from "../Context/UserContext";
 import { useNavigation } from "@react-navigation/native";
-import { GetPic } from "../../Components/FireBase/GetImage";
+import GetPic from "../../Components/FireBase/GetImage";
 
 export default function TopProfileBar(props) {
   const { userData, setUserData } = useContext(UserDataContext);
@@ -40,7 +39,7 @@ export default function TopProfileBar(props) {
   return (
     <View style={styles.root}>
       <TouchableHighlight onPress={onProfileClick}>
-        <Image source={{ uri: GetPic }} style={styles.pic} />
+        <GetPic />
       </TouchableHighlight>
 
       <View>

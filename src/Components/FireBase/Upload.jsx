@@ -1,25 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableHighlight,
-} from "react-native";
+import React, { useEffect, useContext } from "react";
+import { StyleSheet, Text, View, TouchableHighlight, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import firebaseConfig from "./Config";
-import { initializeApp } from "firebase/app"; //validate yourself
+import { app } from "./firebase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import firebase from "firebase/app";
-import "firebase/storage"; //access the storage database
 // import { LogBox } from "react-native";
-import { profilePic } from "../../../assets/exports";
-import { AntDesign as Icon } from "@expo/vector-icons";
 import { UserDataContext } from "../Context/UserContext";
 import { GetPic } from "./GetImage";
 // LogBox.ignoreLogs(["Setting a timer"]);
-
-initializeApp(firebaseConfig);
 export default function UploadPic() {
   const { userData, setUserData } = useContext(UserDataContext);
 
@@ -43,21 +30,8 @@ export default function UploadPic() {
       quality: 1,
     });
 
-    // if (!result.cancelled) {
-    //   const storage = getStorage(); //the storage itself
-    //   console.log(storage);
-    //   const ref = ref(storage, "image.jpg"); //how the image will be addressed inside the storage
-
-    //   //convert image to array of bytes
-    //   const img = await fetch(result.uri);
-    //   const bytes = await img.blob();
-
-    //   await uploadBytes(ref, bytes); //upload images
-    // }
-
     if (!result.cancelled) {
-      const storage = getStorage(); //the storage itself
-      // const ref_con = ref(storage, 'image.jpg'); //how the image will be addressed inside the storage
+      const storage = getStorage(app); //the storage itself
       const picName = new Date().toISOString();
       const ref_con = ref(storage, picName); //how the image will be addressed inside the storage
       //convert image to array of bytes
@@ -109,7 +83,7 @@ export default function UploadPic() {
     >
       <View style={styles.top}>
         {GetPic}
-        {/* <Image source={profilePic} style={styles.pic} /> */}
+        {/* <Image source={GetPic} style={styles.pic} /> */}
       </View>
 
       <TouchableHighlight onPress={pickImage}>

@@ -7,62 +7,57 @@ import {
 
 const ModalResult = ({ data, player }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const userData = useContext(UserDataContext);
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
-  const [currentUser, setCurrentUser] = useState(
-    {
-      user_id: data.user_id,
-      goals_scored: data.goals_scored,
-      assists: data.assists,
-      goals_recieved: data.goals_recieved,
-      pen_missed: data.pen_missed,
-      wins: data.wins,
-    }
-  )
+  // const userData = useContext(UserDataContext);
+  // const { LeaguePlayersData, setLeaguePlayersData } = useContext(
+  //   LeaguePlayersInfoContext
+  // );
+  // const [currentUser, setCurrentUser] = useState({
+  //   user_id: data.user_id,
+  //   goals_scored: data.goals_scored,
+  //   assists: data.assists,
+  //   goals_recieved: data.goals_recieved,
+  //   pen_missed: data.pen_missed,
+  //   wins: data.wins,
+  // });
 
+  // function placeData(data) {
+  //   setCurrentUser({
+  //     user_id: data.user_id,
+  //     goals_scored: data.goals_scored,
+  //     assists: data.assists,
+  //     goals_recieved: data.goals_recieved,
+  //     pen_missed: data.pen_missed,
+  //     wins: data.wins,
+  //   });
+  // }
 
-  function placeData(data) {
-    setCurrentUser(
-      {
-        user_id: data.user_id,
-        goals_scored: data.goals_scored,
-        assists: data.assists,
-        goals_recieved: data.goals_recieved,
-        pen_missed: data.pen_missed,
-        wins: data.wins,
-      }
-    )
-  }
+  // useEffect(() => {
+  //   console.log("modal print ::::", data);
+  //   console.log(" ::::", currentUser);
+  //   for (let index = 0; index < LeaguePlayersData.players.length; index++) {
+  //     data.forEach((element) => {
+  //       if (element.user_id == player.user_id) {
+  //         console.log("checking user id = ", player.user_id);
+  //         console.log("ddddDdDdDdDdadadadadadadadadadadadadadadad ");
 
-  useEffect(() => {
-    console.log("modal print ::::", data);
-    console.log(" ::::", currentUser);
-    for (let index = 0; index < LeaguePlayersData.players.length; index++) {
-      data.forEach(element => {
-        if (element.user_id == player.user_id) {
-          console.log("checking user id = ", player.user_id);
-          console.log("ddddDdDdDdDdadadadadadadadadadadadadadadad ",);
-
-          placeData(element)
-          return console.log("found results for  ", LeaguePlayersData.players[index].user_id);
-        }
-        else{
-          placeData({
-            user_id: 0,
-            goals_scored: 0,
-            assists: 0,
-            goals_recieved: 0,
-            pen_missed: 0,
-            wins: 0,}
-          )
-        }
-      });
-
-    }
-  }, [])
-
-
-
+  //         placeData(element);
+  //         return console.log(
+  //           "found results for  ",
+  //           LeaguePlayersData.players[index].user_id
+  //         );
+  //       } else {
+  //         placeData({
+  //           user_id: 0,
+  //           goals_scored: 0,
+  //           assists: 0,
+  //           goals_recieved: 0,
+  //           pen_missed: 0,
+  //           wins: 0,
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   return (
     <View style={styles.centeredView}>
@@ -82,22 +77,22 @@ const ModalResult = ({ data, player }) => {
             </Text>
             <View>
               <Text>
-                שערים שכבש : {currentUser.goals_scored}
+                שערים שכבש : {data.goals_scored}
                 {"\n"}
               </Text>
               <Text>
-                בישולים:{currentUser.assists}
+                בישולים:{data.assists}
                 {"\n"}
               </Text>
               <Text>
-                שערים שספג כשוער:{currentUser.goals_recieved} {"\n"}
+                שערים שספג כשוער:{data.goals_recieved} {"\n"}
               </Text>
               <Text>
-                פנדלים שהוחמצו: {currentUser.pen_missed}
+                פנדלים שהוחמצו: {data.pen_missed}
                 {"\n"}
               </Text>
               <Text>
-                מספר נצחונות:{currentUser.wins} {"\n"}
+                מספר נצחונות:{data.wins} {"\n"}
               </Text>
             </View>
             <View style={styles.ButtonView}>

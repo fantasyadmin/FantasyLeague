@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Button, ScrollView, } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Button,
+  ScrollView,
+} from "react-native";
 import React, { useContext, useState, useEffect, Component } from "react";
 import {
   UserDataContext,
@@ -11,130 +19,171 @@ import {
 import SmartRadar from "./RadarBuildSmartCalc";
 import PlayersInLeague from "../ManageTeam/createPlayersList";
 
-const characterData = [
-  {
-    ["Attack"]: 1.5,
-    ["Goalie"]: 2.5,
-    ["Team Player"]: 12,
-    ["Player Score"]: 4,
-    // charisma: 50,
-  },
-];
-
 export default function SmartCalc(props) {
-  const { userData, setUserData } = useContext(UserDataContext);
-  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const { FantasyTeamData, setFantasyTeamData } = useContext(
-    FantasyTeamInfoContext
-  );
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(
-    LeaguePlayersInfoContext
-  );
-  const { matchData, setMatchData } = useContext(MatchInfoContext);
-  const { leagueTeamsData, setLeagueTeamsData } = useContext(
-    LeagueTeamsInfoContext
-  );
-  const [playercomp, setPlayercomp] = useState(characterData)
+  const { LeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const [playercomp, setPlayercomp] = useState([
+    // {
+    //   ["Attack"]: 1,
+    //   ["Goalie"]: 250,
+    //   ["Team Player"]: 1,
+    //   ["Player Score"]: 40,
+    //   // charisma: 50,
+    // },
+    // {
+    //   ["Attack"]: 2,
+    //   ["Goalie"]: 300,
+    //   ["Team Player"]: 4,
+    //   ["Player Score"]: 20,
+    // },
+  ]);
 
-  function SetRadarData(user_id, color) {
+  function SetRadarData(user_id, color, nickname) {
     const params = JSON.stringify({
-      "user_id": user_id
+      user_id: user_id,
     });
     console.log("this is params", user_id + "     " + color);
 
-    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/PlayerDiamond', {
-      method: 'POST',
+    fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/PlayerDiamond", {
+      method: "POST",
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset=UTF-8'
+        "Content-type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
       }),
-      body: params
+      body: params,
     })
-      .then(res => {
-        console.log('res=', res);
-        return res.json()
+      .then((res) => {
+        console.log("res=", res);
+        return res.json();
       })
-      .then(
-        (result) => {
-          if (result != undefined) {
-            console.log("data received = ", result);
-            console.log("==========================", color);
-            if (color == 1) {
-              const compare1 = {
-                ["Attack"]: result.attackRate,
-                ["Goalie"]: result.goalieRate,
-                ["Team Player"]: result.teamPlayerRate,
-                ["Player Score"]: result.player_score,
-              }
-              setPlayercomp(prevState => ({ ...prevState, compare1 }))
+      .then((result) => {
+        if (result != undefined) {
+          console.log("data received = ", result);
+          console.log("==========================", color);
+          console.log({ compareData: result });
+          if (color == 1) {
+            const compare1 = {};
+            if (result.attackRate > 0) {
+              compare1["Attack"] = result.attackRate;
             }
-            else {
-              const compare2 = {
-                ["Attack"]: result.attackRate,
-                ["Goalie"]: result.goalieRate,
-                ["Team Player"]: result.teamPlayerRate,
-                ["Player Score"]: result.player_score,
-              }
+            if (result.goalieRate > 0) {
+              compare1["Goalie"] = result.goalieRate;
+            }
+            if (result.teamPlayerRate > 0) {
+              compare1["Team Player"] = result.teamPlayerRate;
+            }
+            if (result.player_score > 0) {
+              compare1["Player Scrore"] = result.player_score;
+            }
+            if (Object.keys(compare1).length === 0)
+              return alert("user don't have data");
+            alert(nickname + " was chosen to watch " + color);
+            setPlayercomp((prevState) => {
+              if (prevState.length == 2) return [compare1];
+              return [...prevState, compare1];
+            });
+          } else {
+            const compare2 = {};
+            if (result.attackRate > 0) {
+              compare2["Attack"] = result.attackRate;
+            }
+            if (result.goalieRate > 0) {
+              compare2["Goalie"] = result.goalieRate;
+            }
+            if (result.teamPlayerRate > 0) {
+              compare2["Team Player"] = result.teamPlayerRate;
+            }
+            if (result.player_score > 0) {
+              compare2["Player Scrore"] = result.player_score;
+            }
+            if (Object.keys(compare2).length === 0)
+              return alert("user don't have data");
 
-              setPlayercomp(prevState => ({ ...prevState, compare2 }))
-              console.log("--------------------------------", playercomp);
-            }
+            alert(nickname + " was chosen to watch " + color);
+            setPlayercomp((prevState) => {
+              if (prevState.length == 2) return [compare2];
+              return [...prevState, compare2];
+            });
           }
-          else {
-            console.log(params);
-            alert("משהו השתבש, אנא נסה שנית");
-          }
-        })
-      .catch(
-        (error) => {
-          console.log("err post=", error);
-        })
+        } else {
+          console.log(params);
+          alert("משהו השתבש, אנא נסה שנית");
+        }
+      })
+      .catch((error) => {
+        console.log("err post=", error);
+      });
   }
 
+  function getMaxima(data) {
+    const groupedData = Object.keys(data[0]).reduce((memo, key) => {
+      memo[key] = data.map((d) => d[key]);
+      return memo;
+    }, {});
+    return Object.keys(groupedData).reduce((memo, key) => {
+      memo[key] = Math.max(...groupedData[key]);
+      return memo;
+    }, {});
+  }
+
+  function processData(data) {
+    const maxByGroup = getMaxima(data);
+    const makeDataArray = (d) => {
+      return Object.keys(d).map((key) => {
+        return { x: key, y: d[key] / maxByGroup[key] };
+      });
+    };
+    return data.map((datum) => makeDataArray(datum));
+  }
 
   var renderTable1 = LeaguePlayersData.players.map((x, ind) => {
-    return x !== null ? <PlayersInLeague
-      key={x.user_id}
-      nickname={x.nickname}
-      //points={x.player_score}
-      color={1}
-      //icon={logos[ind]}      // work on different icons
-      user_id={x.user_id}
-      tellSon={markPlayerToWatch}
-    /> : null
+    return x !== null ? (
+      <PlayersInLeague
+        key={x.user_id}
+        nickname={x.nickname}
+        //points={x.player_score}
+        color={'כתום'}
+        //icon={logos[ind]}      // work on different icons
+        user_id={x.user_id}
+        tellSon={markPlayerToWatch}
+      />
+    ) : null;
   });
 
-  function markPlayerToWatch(nickname, user_id, color) {
-    console.log("real = ", user_id);
-    console.log("side = ", color);
-
-    alert(nickname + " was chosen to watch " + color);
-    SetRadarData(user_id, color);
+  function markPlayerToWatch(x) {
+    console.log("real = ", x.nickname);
+    console.log("side = ", x.color);
+    console.log("name = ", x.nickname);
+    SetRadarData(x);
   }
-
 
   var renderTable2 = LeaguePlayersData.players.map((x, ind) => {
-    return x !== null ? <PlayersInLeague
-      key={x.user_id}
-      nickname={x.nickname}
-      //points={x.player_score}
-      color={2}
-      //icon={logos[ind]}      // work on different icons
-      user_id={x.user_id}
-      tellSon={markPlayerToWatch}
-    /> : null
+    console.log("222222222222222222222222222", x);
+    return x !== null ? (
+      <PlayersInLeague
+        key={x.user_id}
+        nickname={x.nickname}
+        //points={x.player_score}
+        color={'אדום'}
+        //icon={logos[ind]}      // work on different icons
+        user_id={x.user_id}
+        tellSon={markPlayerToWatch}
+      />
+    ) : null;
   });
+
+  let maxima = null;
+  let raderData = null;
+  if (playercomp.length == 2) {
+    console.log({ playercomp });
+    maxima = getMaxima(playercomp);
+    raderData = processData(playercomp);
+  }
 
   function markPlayerToWatch(nickname, user_id, color) {
     console.log("real = ", user_id);
     console.log("side = ", color);
-
-    alert(nickname + " was chosen to watch " + color);
-    SetRadarData(user_id, color);
+    SetRadarData(user_id, color, nickname);
   }
-
-var radarReturn = <SmartRadar data={playercomp} />;
-
 
   return (
     <View style={styles.root}>
@@ -143,21 +192,18 @@ var radarReturn = <SmartRadar data={playercomp} />;
       <View style={styles.top}>
         <View style={styles.scrollsShell}>
           <ScrollView style={styles.scrolls}>
-            <Text>
-              שחקן 1
-            </Text>
+            <Text>שחקן 1</Text>
             {renderTable1}
-          </ScrollView >
+          </ScrollView>
           <ScrollView>
-            <Text>
-              שחקן 2
-            </Text>
+            <Text>שחקן 2</Text>
             {renderTable2}
           </ScrollView>
         </View>
       </View>
-      {radarReturn}
-      {/* <SmartRadar data={playercomp} /> */}
+      {maxima && raderData ? (
+        <SmartRadar maxima={maxima} data={raderData} />
+      ) : <Text>לא נבחרו שחקנים להשוואה</Text>}
     </View>
   );
 }
@@ -193,13 +239,13 @@ const styles = StyleSheet.create({
   },
   scrolls: {
     //flex: 3,
-    flexDirection: 'row',
+    flexDirection: "row",
     width: "100%",
   },
   scrollsShell: {
     //flex: 3,
-    flexDirection: 'row',
+    flexDirection: "row",
     width: "100%",
-    height: 250
+    height: 250,
   },
 });

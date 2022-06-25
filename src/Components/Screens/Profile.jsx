@@ -43,8 +43,8 @@ export default function Profile() {
         {"\n"}
       </Text>
       <View style={styles.top}>
-        <Image source={{ uri: userData.picture }} style={styles.pic} />
         <View>
+          <GetPic />
           <Icon
             name="picture"
             style={{ fontSize: 30, color: "white" }}
