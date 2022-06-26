@@ -15,7 +15,7 @@ export default function TeamInTable(props) {
     function SetTeam() {
         setfindTeam(teamPlayers);
         console.log("players team for: ", props.nickname);
-        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2222222222222",teamPlayers);
+        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2222222222222", teamPlayers);
     }
 
 
@@ -123,5 +123,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 10,
         marginVertical: 5,
-      },
+    },
 })

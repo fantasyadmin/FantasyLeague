@@ -16,9 +16,11 @@ import {
 // import Guy from "./src/Components/FireBase/Upload.jsx";
 // import Guy2 from "./src/Components/FireBase/GetImage.jsx";
 // import Guy2 from "./src/Components/FireBase/GetImage.jsx";
+import EmailVerification from "./src/Components/Screens/EmailVerification.jsx";
 
 export default function App() {
   return (
+
     // <SmartRadar />
     //<GetContacts />
     //<ApproveResults/>

@@ -16,6 +16,7 @@ import CreateLeague from "../Screens/FantasyLeagueComps/CreateLeague";
 import ManageTeam from "../Screens/ManageTeam/ManageTeam";
 import ManageExistingGame from "../Screens/shchunaComps/matchComps/ManageGame";
 import MapComp from "../Screens/shchunaComps/matchComps/GoogleMapsAPI/map";
+import EmailVerification from "../Screens/EmailVerification";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ const Navigation = () => {
         <Stack.Screen name="Manage Team" component={ManageTeam} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Manage Game" component={ManageExistingGame} />
+        <Stack.Screen name="Email Verification" component={EmailVerification} />
       </Stack.Navigator>
     </NavigationContainer>
   );

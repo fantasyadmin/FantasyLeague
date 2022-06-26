@@ -113,33 +113,28 @@ export default function SignInScreen() {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.root}>
-        <Image source={image} style={styles.pic} />
-        <Text style={styles.text}>כניסת משתמש קיים</Text>
+    <View style={styles.root}>
+      <Image source={image} style={styles.pic} />
+      <Text style={styles.text}>כניסת משתמש קיים</Text>
 
-        <TextInput
-          value={username}
-          onChangeText={setUsername}
-          placeholder={"שם משתמש"}
-          style={styles.container}
-        />
+      <TextInput
+        value={username}
+        onChangeText={setUsername}
+        placeholder={"שם משתמש"}
+        style={styles.container}
+      />
 
-        <TextInput
-          value={password}
-          onChangeText={setPassword}
-          placeholder={"סיסמה"}
-          style={styles.container}
-          secureTextEntry
-        />
-        <CustomButton text="כניסה" onPress={onSignInPress} />
-        <CustomButton text="שכחתי סיסמה" onPress={onForgotPasswordPress} />
-        <CustomButton text="צור חשבון חדש" onPress={onCreateNewAccountPress} />
-        <Text> </Text>
-        <Text> </Text>
-        <Text> </Text>
-      </View>
-    </ScrollView>
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder={"סיסמה"}
+        style={styles.container}
+        secureTextEntry
+      />
+      <CustomButton text="כניסה" onPress={onSignInPress} />
+      <CustomButton text="שכחתי סיסמה" onPress={onForgotPasswordPress} />
+      <CustomButton text="צור חשבון חדש" onPress={onCreateNewAccountPress} />
+    </View>
   );
 }
 
@@ -155,11 +150,13 @@ const styles = StyleSheet.create({
   },
   root: {
     width: "100%",
+    height: "100%",
     alignItems: "center",
     padding: 0,
     backgroundColor: "#4472c4",
   },
   pic: {
+    marginTop: 40,
     width: "100%",
     height: 420,
   },

@@ -28,7 +28,7 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
 
 
   useEffect(() => {
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", list);
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", data);
     //setpl1(teamPlayers.map((x) => {x.pl1}))
     // setpl2()
     // setpl3()
