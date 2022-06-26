@@ -16,18 +16,7 @@ import {
   LeaguePlayersInfoContext,
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
-import ModalFantasyTeam from "../../../CustomComps/ModalFantasyTeam";
 
-const logos = [
-  <FontAwesome5 name="crown" size={23} color="#993" />,
-  <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-];
 
 export default function LeagueTable(props) {
   const { userData, setUserData } = useContext(UserDataContext);

@@ -1,17 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useContext, useState } from 'react';
-import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useEffect, useContext, useState, useMemo } from 'react';
 import ModalFantasyTeam from '../../../CustomComps/ModalFantasyTeam';
 import { LeagueInfoContext } from '../../../Context/UserContext.js'
 
 export default function TeamInTable(props) {
     const { leagueData } = useContext(LeagueInfoContext);
-    const [teamPlayers, setteamPlayers] = useState([])
+    const [findTeam, setfindTeam] = useState([])
+    const [leagueTeams, setleagueTeams] = useState([])
+    const [teamPlayers] = useMemo(
+        () => leagueTeams.filter((team) => team.user_id === props.user_id),
+        [leagueTeams],
+    );
 
-
-
-
+    function SetTeam() {
+        setfindTeam(teamPlayers);
+        console.log("players team for: ", props.nickname);
+        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2222222222222",teamPlayers);
+    }
 
 
     useEffect(() => {
@@ -31,8 +36,10 @@ export default function TeamInTable(props) {
                     return res.json();
                 })
                 .then((result) => {
-                    console.log({ result });
-                    setteamPlayers(result);
+                    //console.log({ result });
+                    setleagueTeams(result);
+                    SetTeam(result)
+                    //console.log("=========================================================", result);
                 });
         } catch (err) {
             console.log(err);
@@ -42,10 +49,10 @@ export default function TeamInTable(props) {
 
     return (
         <View style={styles.container}>
-            {teamPlayers.length > 0 ? (
-                <ModalFantasyTeam player={props.nickname} user_id={props.user_id} data={teamPlayers} /> 
+            {leagueTeams.length > 0 ? (
+                <ModalFantasyTeam player={props.nickname} user_id={props.user_id} data={findTeam} />
             ) : (
-                <View>
+                <View style={styles.noResults}>
                     <Text>  אין קבוצה</Text>
                 </View>
             )}
@@ -106,4 +113,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 5,
     },
+    noResults: {
+        backgroundColor: "red",
+        borderRadius: 180,
+        color: "white",
+        width: 100,
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 18,
+        paddingHorizontal: 10,
+        marginVertical: 5,
+      },
 })

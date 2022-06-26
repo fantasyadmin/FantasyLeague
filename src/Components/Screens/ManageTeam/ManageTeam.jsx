@@ -47,8 +47,6 @@ export default function ManageTeam() {
 
 
   function markPlayerToWatch(nickname, user_id) {
-    console.log("real = ", user_id);
-    alert(nickname + " was chosen to watch");
     //plyerProfile(user_id);
   }
 
@@ -115,9 +113,6 @@ export default function ManageTeam() {
   }
 
 
-
-
-
   return (
     <SafeAreaView style={styles.container1}>
       <View style={styles.container}>
@@ -133,7 +128,7 @@ export default function ManageTeam() {
       <Text></Text>
       <Text></Text>
       <ScrollView>
-        <View>
+        <View style={{width: '95%'}}>
           <Text style={styles.text}>שחקני הקבוצה</Text>
           {renderTable}
         </View>

@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import { MaterialIcons, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import ModalPlayerProfile from '../../CustomComps/ModalPlayerProfile';
 
 export default function PlayersInLeague(props) {
 
@@ -14,9 +12,14 @@ export default function PlayersInLeague(props) {
 
     return (
         <View style={styles.container} onStartShouldSetResponder={sendId}>
-            <TouchableOpacity>{props.icon}</TouchableOpacity>
+            {props.points > 0 ? (
+                <ModalPlayerProfile player={props.nickname} user_id={props.user_id} data={''} />
+            ) : (
+                <View style={styles.noResults}>
+                    <Text style={styles.text}>אין נתונים</Text>
+                </View>
+            )}
             <Text style={styles.text3}>pt. {props.points}</Text>
-            {/* <Text style={styles.text}> <FontAwesome name="soccer-ball-o" size={35} color="#100" />{props.logo}</Text> */}
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>
     )
@@ -45,9 +48,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 18,
-        paddingHorizontal: 10,
-        marginVertical: 5,
+        fontSize: 12,
+        marginVertical: 6,
     },
     text2: {
         flex: 1,
@@ -71,4 +73,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 5,
     },
+    noResults: {
+        backgroundColor: "red",
+        borderRadius: 180,
+        color: "white",
+        width: 79,
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 19,
+        paddingHorizontal: 17,
+        marginVertical: 4,
+        marginLeft: 11
+      },
 })

@@ -3,44 +3,31 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import {
   UserDataContext,
   LeaguePlayersInfoContext,
+  FantasyTeamInfoContext,
 } from "../Context/UserContext";
 
-const ModalFantasyTeam = ({ player, data, user_id }) => {
+const ModalPlayerProfile = ({ player, data, user_id }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const userData = useContext(UserDataContext);
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(
     LeaguePlayersInfoContext
   );
-   const [list, setlist] = useState(data)
-  // const [pl1, setpl1] = useState('null')
-  // const [pl2, setpl2] = useState('null')
-  // const [pl3, setpl3] = useState('null')
-  // const [pl4, setpl4] = useState('null')
+  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
 
-
-
+  const [userStat, setuserStat] = useState([])
 
   // const [teamPlayers] = useMemo(
   //   () => data.filter((team) => team.user_id === user_id),
   //   [data],
   // );
 
-
-
   useEffect(() => {
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", list);
-    //setpl1(teamPlayers.map((x) => {x.pl1}))
-    // setpl2()
-    // setpl3()
-    // setpl4()
-    // console.log("player data     1   ", pl1);
-    // console.log("player data     2   ", pl2);
-    // console.log("player data     3   ", pl3);
-    // console.log("player data     4   ", pl4);
-    // setlist(() => data.filter((team) => team.user_id === user_id))
-
+    const found = FantasyTeamData.players.find(obj => {
+      return obj.user_id === user_id;
+    });
+    setuserStat(found)
+    console.log("תוצאות לשחקן", found);
   }, [])
-
 
   return (
     <View style={styles.centeredView}>
@@ -56,28 +43,38 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              קבוצת הפנטזי של {player}
+              ביצועי שחקן {player}
             </Text>
             <View>
-              {data ? (
-              <Text> {data.pl1}</Text>
+              {userStat ? (
+                <Text style={styles.stats}>משחקים ששיחק: {userStat.games_played}</Text>
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>  משחקים ששיחק: 0</Text>
               )}
-              {data ? (
-                <Text> {data.pl2}</Text>
+              {userStat ? (
+                <Text style={styles.stats}>נצחונות: {userStat.total_wins}</Text>
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>  נצחונות: 0</Text>
               )}
-              {data ? (
-                <Text> {data.pl3}</Text>
+              {userStat ? (
+                <Text style={styles.stats}>שערים: {userStat.total_goals_scored}</Text>
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>   שערים: 0</Text>
               )}
-              {data ? (
-                <Text> {data.pl4}</Text>
+              {userStat ? (
+                <Text style={styles.stats}>בישולים: {userStat.total_assists}</Text>
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>   בישולים: 0</Text>
+              )}
+              {userStat ? (
+                <Text style={styles.stats}>החמצות עונשין: {userStat.total_pen_missed}</Text>
+              ) : (
+                <Text style={styles.text}>   החמצות עונשין: 0</Text>
+              )}
+              {userStat ? (
+                <Text style={styles.stats}>שערים שספג: {userStat.total_goals_recieved}</Text>
+              ) : (
+                <Text style={styles.text}>   </Text>
               )}
             </View>
             <View style={styles.ButtonView}>
@@ -96,7 +93,7 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>שחקני הקבוצה</Text>
+        <Text style={styles.textStyle}>ביצועי שחקן</Text>
       </Pressable>
     </View>
   );
@@ -158,6 +155,11 @@ const styles = StyleSheet.create({
   ApproveBtn: {
     backgroundColor: "green",
   },
+  stats: {
+    marginBottom: 15,
+    fontWeight: "bold",
+    fontSize: 17
+  }
 });
 
-export default ModalFantasyTeam;
+export default ModalPlayerProfile;
