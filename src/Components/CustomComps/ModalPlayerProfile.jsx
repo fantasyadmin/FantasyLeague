@@ -16,14 +16,19 @@ const ModalPlayerProfile = ({ player, data, user_id }) => {
 
   const [userStat, setuserStat] = useState([])
 
-  // const [teamPlayers] = useMemo(
-  //   () => data.filter((team) => team.user_id === user_id),
+  // const [found] = useMemo(
+  //   () => FantasyTeamData.players.find((team) => team.user_id === user_id),
   //   [data],
   // );
 
   useEffect(() => {
-    const found = FantasyTeamData.players.find(obj => {
-      return obj.user_id === user_id;
+    const found = FantasyTeamData.players.find((obj) => {
+      if (obj != null) {
+        return obj.user_id == user_id;
+      }
+      else {
+        setuserStat(false)
+      }
     });
     setuserStat(found)
     console.log("תוצאות לשחקן", found);

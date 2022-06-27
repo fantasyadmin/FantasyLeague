@@ -27,7 +27,7 @@ export default function LeagueTable(props) {
   //sort teams by score
   const sortTeams = []
     .concat(LeaguePlayersData.players)
-    .sort((a, b) => b.player_score - a.player_score);
+    .sort((a, b) => b.team_points - a.team_points);
 
   console.log({ sortTeams });
 
@@ -38,7 +38,7 @@ export default function LeagueTable(props) {
         nickname={x.nickname}
         place={ind + 1}
         user_id={x.user_id}
-        points={x.player_score}
+        points={x.team_points}
       />
     </View>
 

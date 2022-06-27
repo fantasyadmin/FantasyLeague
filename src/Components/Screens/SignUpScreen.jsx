@@ -14,7 +14,6 @@ import { UserDataContext } from "../Context/UserContext";
 
 export default function SignUpScreen() {
   const { userData, setUserData } = useContext(UserDataContext);
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +25,11 @@ export default function SignUpScreen() {
 
   const navigation = useNavigation();
 
+  const userEmail = JSON.stringify({
+    email: email
+  });
+
+
   const registerUser = JSON.stringify({
     nickname: username,
     email: email,
@@ -34,51 +38,40 @@ export default function SignUpScreen() {
     picture: picture,
   });
 
-  //user registration
+
+  // send verification mail
   const onSignUpPress = () => {
-    if (password == verifypassword) {
-      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/Register", {
+    console.log("registration info = ", registerUser);
+    if (password == verifypassword && email != "") {
+      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/SendEmail", {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json; charset=UTF-8",
           Accept: "application/json; charset=UTF-8",
         }),
-        body: registerUser,
+        body: userEmail
       })
         .then((res) => {
-          return res.json();
+          console.log("gotit", res);
         })
         .then(
-          (result) => {
-            setUserData({
-              league_id: result.league_id,
-            });
+          () => {
+            /// if result is ok - navigate to sign in else try again or resend verification
+            navigation.navigate("Email Verification", { registerUser: registerUser });
           },
           (error) => {
             console.log("err post=", error);
           }
         );
-      if (!league_id) {
-        setleagueId(userData.league_id);
-        navigation.navigate("Create League");
-      } else {
-        navigation.navigate("Sign In");
-      }
     } else {
       alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
     }
   };
 
+
   const onClickContinue = () => {
-    if (password == verifypassword) {
-      navigation.navigate("Email Verification", { registerUser: registerUser });
-    }
-    else {
-      alert("אימות הסיסמא אינו זהה לסיסמא שנבחרה, אנא נסה שנית")
-
-    }
+    navigation.navigate("Email Verification", { registerUser: registerUser });
   };
-
 
 
   const onClickTermsOfUse = () => {
@@ -129,7 +122,7 @@ export default function SignUpScreen() {
             style={styles.container}
             secureTextEntry
           />
-          <CustomButton text="אשר כתובת מייל והיכנס" onPress={onClickContinue} />
+          <CustomButton text="אשר כתובת מייל והיכנס" onPress={onSignUpPress} />
           <Text>
             אני מאשר כי קראתי והסכמתי
             <Text style={styles.link} onPress={onClickTermsOfUse}>
@@ -181,3 +174,42 @@ const styles = StyleSheet.create({
     height: "100%"
   }
 });
+
+
+
+
+
+
+// const onSignUpPress = () => {
+//   if (password == verifypassword) {
+//     fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/Register", {
+//       method: "POST",
+//       headers: new Headers({
+//         "Content-Type": "application/json; charset=UTF-8",
+//         Accept: "application/json; charset=UTF-8",
+//       }),
+//       body: registerUser,
+//     })
+//       .then((res) => {
+//         return res.json();
+//       })
+//       .then(
+//         (result) => {
+//           setUserData({
+//             league_id: result.league_id,
+//           });
+//         },
+//         (error) => {
+//           console.log("err post=", error);
+//         }
+//       );
+//     if (!league_id) {
+//       setleagueId(userData.league_id);
+//       navigation.navigate("Create League");
+//     } else {
+//       navigation.navigate("Sign In");
+//     }
+//   } else {
+//     alert("הסיסמאות שהזנת אינן תואמות, נסה שנית");
+//   }
+// };

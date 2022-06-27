@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
 import { image } from '../../../../assets/exports';
 import { useNavigation } from '@react-navigation/native';
-import { UserDataContext } from '../../Context/UserContext';
+import { UserDataContext, LeagueInfoContext } from '../../Context/UserContext';
 
 
 export default function CreateLeague() {
     const { userData, setUserData } = useContext(UserDataContext);
+    const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+
 
     const navigation = useNavigation();
 
@@ -22,9 +24,11 @@ export default function CreateLeague() {
         "league_id": userData.league_id
     });
 
+
+
     const onInvitePress = () => {
-        console.warn('invite friends');
-        //contacts API
+        console.log(leagueData.league_id);
+        navigation.navigate('Contacts List')
     }
 
     const onCreateLeaguePress = () => {
@@ -43,72 +47,58 @@ export default function CreateLeague() {
             })
             .then(
                 (result) => {
-                    setUserData({
-                        league_id: result.league_id
-                    })
                     console.log("fetch POST= ", result);
                 },
                 (error) => {
                     console.log("err post=", error);
                 });
-
-
-
-
-
         navigation.navigate('Sign In')
     }
 
     return (
-        <ScrollView>
-            <View style={styles.back}>
-
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-                <View style={styles.container}>
-                    <Text>                       </Text>
-                    <Image source={image} style={styles.pic} />
-                </View>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
-
-                <View style={styles.container}>
-                    <Text style={styles.text}>   שם הליגה:   </Text>
-                    <TextInput
-                        value={leagueName}
-                        placeholder={'שם הליגה'}
-                        onChangeText={setLeagueName}
-                        style={styles.container1}
-                    />
-                </View>
-
-                <View style={styles.text}>
-                    <Text style={styles.text}>     צ'אט הליגה:    </Text>
-                    <TextInput
-                        multiline
-                        numberOfLines={8}
-                        value={leagueRules}
-                        placeholder={'הזן את הקישור לקבוצת הוואצאפ '}
-                        style={styles.inputField}
-                        onChangeText={setLeagueRules}
-                    />
-                </View>
-
-                <View style={styles.container}>
-                    <Text>                     </Text>
-                    <CustomButton text="הזמן חברים" onPress={onInvitePress} />
-                    <Text>                     </Text>
-                    <CustomButton text="צור ליגה" onPress={onCreateLeaguePress} />
-                </View>
-                <Text> </Text>
-                <Text> </Text>
-                <Text> </Text>
+        <View style={styles.back}>
+            <View style={styles.container}>
+                <Text>
+                    {'\n\n\n\n'}
+                </Text>
+                <Image source={image} style={styles.pic} />
             </View>
-        </ScrollView>
+            <Text></Text>
+            <Text></Text>
+            <Text></Text>
+
+            <View style={styles.container}>
+                <Text style={styles.text}>   שם הליגה:   </Text>
+                <TextInput
+                    value={leagueName}
+                    placeholder={'שם הליגה'}
+                    onChangeText={setLeagueName}
+                    style={styles.container1}
+                />
+            </View>
+
+            <View style={styles.text}>
+                <Text style={styles.text}>     צ'אט הליגה:    </Text>
+                <TextInput
+                    multiline
+                    numberOfLines={8}
+                    value={leagueRules}
+                    placeholder={'הזן את הקישור לקבוצת הוואצאפ '}
+                    style={styles.inputField}
+                    onChangeText={setLeagueRules}
+                />
+            </View>
+
+            <View style={styles.container}>
+                <Text>                     </Text>
+                <CustomButton text="הזמן חברים" onPress={onInvitePress} />
+                <Text>                     </Text>
+                <CustomButton text="צור ליגה" onPress={onCreateLeaguePress} />
+            </View>
+            <Text> </Text>
+            <Text> </Text>
+            <Text> </Text>
+        </View>
     )
 }
 
@@ -117,6 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         backgroundColor: '#4472c4',
+        height: "100%"
     },
     container: {
         flex: 1,
@@ -142,7 +133,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputField: {
-        height: 100,
+        height: 50,
         margin: 30,
         borderWidth: 1,
         padding: 10,

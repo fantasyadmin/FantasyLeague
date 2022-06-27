@@ -7,6 +7,7 @@ import { UserDataContext, FantasyTeamInfoContext, LeaguePlayersInfoContext } fro
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import TopProfileBar from '../../MenuComponents/TopProfileBar';
 
 
 const logos = [
@@ -115,20 +116,20 @@ export default function ManageTeam() {
 
   return (
     <SafeAreaView style={styles.container1}>
-      <View style={styles.container}>
-        <Text style={styles.text}>קבוצת פנטזי</Text>
-      </View>
-
       <Text></Text>
+      <Text></Text>
+      <TopProfileBar />
+      
+      <Text></Text>
+      <Text style={styles.text}>קבוצת פנטזי</Text>
       <View style={styles.text1}>
-        <Text style={styles.text}>דירוג קבוצה בליגה:      {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
       <Text></Text>
       <Text></Text>
       <ScrollView>
-        <View style={{width: '95%'}}>
+        <View style={{ width: '95%' }}>
           <Text style={styles.text}>שחקני הקבוצה</Text>
           {renderTable}
         </View>
@@ -139,7 +140,7 @@ export default function ManageTeam() {
         </View>
         <Text></Text>
         <View style={styles.buttons1}>
-          <Text>                                   </Text>
+          <Text>                            </Text>
           <CustomButton text="השוואת שחקנים" onPress={() => navigation.navigate('SmartCalc')} />
         </View>
 
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40,
+    //paddingTop: 40,
     paddingRight: 20,
     backgroundColor: '#4472c4',
   },
@@ -185,10 +186,9 @@ const styles = StyleSheet.create({
   },
   buttons1: {
     flexDirection: 'row',
-
     flex: 1,
     alignContent: 'center',
-    width: 250,
+    width: "100%",
   },
 })
 

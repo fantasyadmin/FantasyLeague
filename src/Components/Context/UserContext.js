@@ -25,12 +25,7 @@ const leagueInfo = {
 const LeagueInfoContext = React.createContext(leagueInfo);
 
 const FantasyTeamInfo = {
-  players: [
-    //{ 'user_id': 12, 'nickname': "ahmed", 'points': 88 },
-    //{ 'user_id': 45, 'nickname': "pele", 'points': 45 },
-    //{ 'user_id': 33, 'nickname': "guy", 'points': 3 },
-    //{ 'user_id': 86, 'nickname': "dor", 'points': 34 }
-  ],
+  players: [],
   team_budget: null,
   team_id: null,
   team_points: null,
