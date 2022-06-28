@@ -12,10 +12,9 @@ export default function TeamInTable(props) {
         [leagueTeams],
     );
 
-    function SetTeam() {
+    function SetTeam(teamPlayers) {
         setfindTeam(teamPlayers);
-        console.log("players team for: ", props.nickname);
-        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2222222222222", teamPlayers);
+
     }
 
 
@@ -50,7 +49,7 @@ export default function TeamInTable(props) {
     return (
         <View style={styles.container}>
             {leagueTeams.length > 0 ? (
-                <ModalFantasyTeam player={props.nickname} user_id={props.user_id} data={findTeam} />
+                <ModalFantasyTeam player={props.nickname} user_id={props.user_id} data={teamPlayers} />
             ) : (
                 <View style={styles.noResults}>
                     <Text>  אין קבוצה</Text>

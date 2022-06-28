@@ -28,7 +28,7 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
 
 
   useEffect(() => {
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", data);
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", Object.values(data.pl1));
     //setpl1(teamPlayers.map((x) => {x.pl1}))
     // setpl2()
     // setpl3()
@@ -60,22 +60,22 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
             </Text>
             <View>
               {data ? (
-              <Text> {data.pl1}</Text>
+              <Text> {data.pl1.values('nickname')}</Text>
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
               {data ? (
-                <Text> {data.pl2}</Text>
+                <Text> {data.pl2.values('nickname')}</Text>
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
               {data ? (
-                <Text> {data.pl3}</Text>
+                <Text> {data.pl3.values('nickname')}</Text>
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
               {data ? (
-                <Text> {data.pl4}</Text>
+                <Text> {data.pl4.values('nickname')}</Text>
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}

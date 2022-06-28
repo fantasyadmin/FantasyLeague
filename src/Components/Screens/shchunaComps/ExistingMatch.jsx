@@ -18,13 +18,20 @@ import { NavigationApps, actions, googleMapsTravelModes } from "react-native-nav
 export default function ExistingMatch() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const [renderScreen, setrenderScreen] = useState(
+    <View style={styles.text}>
+      <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא קבעתם משחק ?</Text>
+      <Text style={styles.text}> נווטו למסך "משחק חדש" והזמינו את החבר'ה!</Text>
+    </View>)
+
 
   const navigation = useNavigation();
 
   useEffect(() => {
     const params = JSON.stringify({ 'league_id': leagueData.league_id })
+    console.log("33333333333333", leagueData.league_id);
     try {
-      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LastMatch', {
         method: "POST",
         headers: new Headers({
           "Content-type": "application/json; charset=UTF-8",
@@ -52,6 +59,10 @@ export default function ExistingMatch() {
               }
             );
             console.log("this is what i have = ", matchData);
+            if (matchData.match_id != undefined) {
+              console.log("got innnnnnnnnnnnnnnnnnnnnnnnnnnn", matchData.match_id);
+              setrenderScreen(gameScreen);
+            }
           })
     }
     catch (err) {
@@ -59,6 +70,68 @@ export default function ExistingMatch() {
     }
   }, []);
 
+  const gameScreen = <View>
+    <View style={styles.fieldStyle}>
+      <Text style={styles.text}> תאריך:</Text>
+      <Text style={styles.text}>{matchData.match_date}</Text>
+    </View>
+    <Text></Text>
+    <View style={styles.fieldStyle}>
+      <Text style={styles.text}> שעה: {matchData.match_time}</Text>
+    </View>
+    <View style={styles.fieldStyle}>
+    </View>
+    <View style={styles.fieldStyle}>
+      <Text style={styles.text}> צבע קבוצה 1: </Text>
+      <View style={styles.itemsLocation}>
+        <Icon
+          name="shirt"
+          style={{ fontSize: 30, color: matchData.team_color1 }}
+        />
+      </View>
+    </View>
+    <View style={styles.fieldStyle}>
+      <Text style={styles.text}> צבע קבוצה 2: </Text>
+      <View style={styles.itemsLocation}>
+        <Icon
+          name="shirt"
+          style={{ fontSize: 30, color: matchData.team_color2 }}
+        />
+      </View>
+    </View>
+    <Text></Text>
+    <Text></Text>
+    <View style={styles.fieldStyle}>
+      <Text style={styles.text}> מיקום המשחק:          </Text>
+      <View style={styles.textBarLocation}>
+        <CustomButton
+          text="הצג מיקום על המפה"
+          onPress={() => navigation.navigate("Game Location", matchData.match_location)} />
+      </View>
+    </View>
+    <View style={styles.textBarLocation}>
+      <Text style={styles.text}>{'\n'}נווט למשחק</Text>
+      <NavigationApps
+        iconSize={50}
+        row
+        address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
+        waze={{ address: '', lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.searchLocationByLatAndLon }} // specific settings for waze
+        googleMaps={{ lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.navigateByAddress, travelMode: googleMapsTravelModes.driving }} // specific settings for google maps
+      />
+    </View>
+    <View style={styles.buttons}>
+      <CustomButton
+        text="טיימר למשחק"
+        onPress={() => navigation.navigate("StopWatch")}
+      />
+    </View>
+    <Text></Text>
+  </View>
+
+  const invalidGame = <View style={styles.text}>
+    <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא קבעתם משחק ?</Text>
+    <Text style={styles.text}> נווטו למסך "משחק חדש" והזמינו את החבר'ה!</Text>
+  </View>
 
 
 
@@ -70,65 +143,10 @@ export default function ExistingMatch() {
       <View>
         <Text style={styles.text}> משחק צ'כונה</Text>
       </View>
-      <Text></Text>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> תאריך:</Text>
-        <Text style={styles.text}>{matchData.match_date}</Text>
-      </View>
-      <Text></Text>
-
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> שעה: {matchData.match_time}</Text>
-      </View>
-      <View style={styles.fieldStyle}>
+      <View>
+        {renderScreen}
       </View>
 
-
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 1: </Text>
-        <View style={styles.itemsLocation}>
-          <Icon
-            name="shirt"
-            style={{ fontSize: 30, color: matchData.team_color1 }}
-          />
-        </View>
-      </View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 2: </Text>
-        <View style={styles.itemsLocation}>
-          <Icon
-            name="shirt"
-            style={{ fontSize: 30, color: matchData.team_color2 }}
-          />
-        </View>
-      </View>
-      <Text></Text>
-      <Text></Text>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> מיקום המשחק:          </Text>
-        <View style={styles.textBarLocation}>
-          <CustomButton
-            text="הצג מיקום על המפה"
-            onPress={() => navigation.navigate("Game Location", matchData.match_location)} />
-        </View>
-      </View>
-      <View style={styles.textBarLocation}>
-        <Text style={styles.text}>{'\n'}נווט למשחק</Text>
-        <NavigationApps
-          iconSize={50}
-          row
-          address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
-          waze={{address:'',lat: matchData.match_location.lat, lon: matchData.match_location.lng,action: actions.searchLocationByLatAndLon}} // specific settings for waze
-          googleMaps={{lat: matchData.match_location.lat, lon: matchData.match_location.lng,action: actions.navigateByAddress,travelMode:googleMapsTravelModes.driving}} // specific settings for google maps
-        />
-      </View>
-      <View style={styles.buttons}>
-        <CustomButton
-          text="טיימר למשחק"
-          onPress={() => navigation.navigate("StopWatch")}
-        />
-      </View>
-      <Text></Text>
     </SafeAreaView>
   );
 }

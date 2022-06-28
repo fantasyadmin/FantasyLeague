@@ -104,7 +104,7 @@ export default function SignInScreen() {
 
   const onForgotPasswordPress = () => {
     console.warn("forgot password");
-    navigation.navigate("Forgot Password");
+    navigation.navigate("Reset Password");
   };
 
   const onCreateNewAccountPress = () => {

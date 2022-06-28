@@ -74,7 +74,7 @@ export default function EmailVerification({ route }) {
             setLeagueData({
               league_id: data.league_id,
             });
-            if (league_id == 0) {
+            if (verificationParams.league_id == 0) {
               navigation.navigate("Create League");
             } else {
               navigation.navigate("Sign In");

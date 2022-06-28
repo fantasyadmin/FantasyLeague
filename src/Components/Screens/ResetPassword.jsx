@@ -7,14 +7,35 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export default function ResetPassword() {
-    const [code, setCode] = useState('');
-    const [newPassword, setNewPassword] = useState('');
+    const [mail, setMail] = useState('');
 
     const navigation = useNavigation();
 
     const onSubmitPressed = () => {
-        console.warn('שליחת סיסמה למייל')
-        navigation.navigate('Sign Up');
+        const params = JSON.stringify({ 'email': mail })
+        try {
+            fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ForgotPassword', {
+              method: "POST",
+              headers: new Headers({
+                "Content-type": "application/json; charset=UTF-8",
+                Accept: "application/json; charset=UTF-8",
+              }),
+              body: params
+            })
+              .then(res => {
+                console.log('res=', res);
+                return res
+              })
+              .then(
+                (result) => {
+                  console.log("results are: ", result);
+                })
+          }
+          catch (err) {
+            console.log(err);
+          }
+          alert("סיסמתך החדשה נשלחה למייל שהזנת")
+        navigation.navigate('Sign In');
     }
 
     const onSignInPress = () => {
@@ -25,23 +46,16 @@ export default function ResetPassword() {
     return (
         <View style={styles.root}>
             <Image source={image} style={styles.pic} />
-            <Text>איפוס סיסמה</Text>
+            <Text style={styles.text}>איפוס סיסמה</Text>
             <TextInput
-                value={code}
-                onChangeText={setCode}
-                placeholder={'קוד אימות'}
+                value={mail}
+                onChangeText={setMail}
+                placeholder={'מייל משתמש'}
                 style={styles.container}
             />
-            <TextInput
-                value={newPassword}
-                onChangeText={setNewPassword}
-                placeholder={'סיסמה חדשה'}
-                style={styles.container}
-            />
-
             <CustomButton text="אישור" onPress={onSubmitPressed} />
             <Text>            </Text>
-            <CustomButton text="חזור לרישום" onPress={onSignInPress} />
+            <CustomButton text="רישום שחקן חדש" onPress={onSignInPress} />
         </View>
     )
 }
@@ -58,6 +72,7 @@ const styles = StyleSheet.create({
     },
     root: {
         width: '100%',
+        height: '100%',
         alignItems: 'center',
         padding: 0,
         backgroundColor: '#4472c4',
@@ -69,4 +84,9 @@ const styles = StyleSheet.create({
     link: {
         color: '#fdb075'
     },
+    text: {
+        fontWeight: "bold",
+        color: "white",
+        fontSize: 20,
+      },
 })
