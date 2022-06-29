@@ -16,6 +16,7 @@ import {
   FantasyTeamInfoContext,
   LeaguePlayersInfoContext,
   LeagueTeamsInfoContext,
+  MatchInfoContext
 } from "../Context/UserContext";
 
 export default function SignInScreen() {
@@ -23,6 +24,7 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("");
   const { userData, setUserData } = useContext(UserDataContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { FantasyTeamData, setFantasyTeamData } = useContext(
     FantasyTeamInfoContext
   );
@@ -88,7 +90,7 @@ export default function SignInScreen() {
             setLeagueTeamsData({
               teams: result.listing,
             });
-            console.log("======%%%%% ", result.picture);
+            getMatchData();
           } else {
             alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
             navigation.navigate("Sign In");
@@ -102,6 +104,51 @@ export default function SignInScreen() {
       .then(navigation.navigate("Bottom"));
   };
 
+  function getMatchData(league_id) {
+    const params = JSON.stringify({ 'league_id': league_id })
+    console.log("33333333333333", league_id);
+    try {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
+        method: "POST",
+        headers: new Headers({
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+        body: params
+      })
+        .then(res => {
+          console.log('res=', res);
+          return res.json()
+        })
+        .then(
+          (result) => {
+            console.log("results are: ", result);
+            setMatchData(
+              {
+                match_id: result.match_id,
+                match_date: result.matchDateStr,
+                match_time: result.match_time,
+                team_color1: result.color1,
+                team_color2: result.color2,
+                match_location: {
+                  lat: result.lat, lng: result.lng,
+                }
+              }
+            );
+            console.log("this is what i have = ", matchData);
+            if (matchData.match_id != undefined) {
+              console.log("printing colors========================", matchData.team_color1);
+            }
+          })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
+
   const onForgotPasswordPress = () => {
     console.warn("forgot password");
     navigation.navigate("Reset Password");
@@ -111,6 +158,14 @@ export default function SignInScreen() {
     console.warn("create new account");
     navigation.navigate("Sign Up");
   };
+
+
+
+
+
+
+
+
 
   return (
     <View style={styles.root}>

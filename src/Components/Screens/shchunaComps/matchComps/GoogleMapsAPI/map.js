@@ -88,13 +88,10 @@ export default function MapComp(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>text={text}</Text>
+      <Text style={styles.paragraph}></Text>
       <MapView
         style={styles.map}
         region={location}
-        // onPress={(pos) => {
-        //   console.log(pos.nativeEvent.coordinate);
-        // }}
         provider='google'
         onPoiClick={(e) => savelocation({ name: e.nativeEvent.name, coords: e.nativeEvent.coordinate })}
         onPress={(e) => savelocation({

@@ -31,7 +31,7 @@ export default function ExistingMatch() {
     const params = JSON.stringify({ 'league_id': leagueData.league_id })
     console.log("33333333333333", leagueData.league_id);
     try {
-      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/LastMatch', {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
         method: "POST",
         headers: new Headers({
           "Content-type": "application/json; charset=UTF-8",
@@ -51,8 +51,8 @@ export default function ExistingMatch() {
                 match_id: result.match_id,
                 match_date: result.matchDateStr,
                 match_time: result.match_time,
-                team_color1: result.team_color1,
-                team_color2: result.team_color2,
+                team_color1: result.color1,
+                team_color2: result.color2,
                 match_location: {
                   lat: result.lat, lng: result.lng,
                 }
@@ -60,7 +60,7 @@ export default function ExistingMatch() {
             );
             console.log("this is what i have = ", matchData);
             if (matchData.match_id != undefined) {
-              console.log("got innnnnnnnnnnnnnnnnnnnnnnnnnnn", matchData.match_id);
+              console.log("printing colors========================", matchData.team_color1);
               setrenderScreen(gameScreen);
             }
           })
@@ -112,14 +112,21 @@ export default function ExistingMatch() {
     <View style={styles.textBarLocation}>
       <Text style={styles.text}>{'\n'}נווט למשחק</Text>
       <NavigationApps
+        viewMode={ "sheet"}
+        //modalBtnOpenStyle={styles.buttons}
+        //modalBtnOpenTextStyle={}
+        modalContainerStyle={styles.modalView}
+        modalBtnOpenTitle={"נווט למשחק"}
         iconSize={50}
         row
         address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
         waze={{ address: '', lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.searchLocationByLatAndLon }} // specific settings for waze
-        googleMaps={{ lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.navigateByAddress, travelMode: googleMapsTravelModes.driving }} // specific settings for google maps
+        googleMaps={{}} // specific settings for google maps
+
+       // googleMaps={{ lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.navigateByAddress, travelMode: googleMapsTravelModes.driving }} // specific settings for google maps
       />
     </View>
-    <View style={styles.buttons}>
+    <View style={styles.textBarLocation}>
       <CustomButton
         text="טיימר למשחק"
         onPress={() => navigation.navigate("StopWatch")}
@@ -127,15 +134,6 @@ export default function ExistingMatch() {
     </View>
     <Text></Text>
   </View>
-
-  const invalidGame = <View style={styles.text}>
-    <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא קבעתם משחק ?</Text>
-    <Text style={styles.text}> נווטו למסך "משחק חדש" והזמינו את החבר'ה!</Text>
-  </View>
-
-
-
-
 
 
   return (
@@ -146,7 +144,6 @@ export default function ExistingMatch() {
       <View>
         {renderScreen}
       </View>
-
     </SafeAreaView>
   );
 }
@@ -158,6 +155,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     backgroundColor: "#4472c4",
     direction: "rtl",
+    height: "100%"
   },
   container2: {
     backgroundColor: "#fff",
@@ -189,7 +187,8 @@ const styles = StyleSheet.create({
   },
   textBarLocation: {
     width: "100%",
-    paddingBottom: 5
+    paddingBottom: 5,
+    paddingLeft: 5
   },
   buttons: {
     flex: 1,
@@ -197,12 +196,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 300,
     margin: "5%",
-
   },
   buttons1: {
     flexDirection: "row",
     flex: 1,
     alignContent: "center",
     width: 250,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

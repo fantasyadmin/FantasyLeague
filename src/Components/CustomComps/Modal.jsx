@@ -43,12 +43,31 @@ const ModalResult = ({ data, player }) => {
   }
 
   function DenyResults() {
-    //אין אישור לתוצאות - קונטרולר גל
-
-
-
-
-    setModalVisible(!modalVisible)
+    const send = {
+      user_id: player.user_id,
+      match_id: data.match_id,
+      apporval_status: "0"
+    };
+    try {
+      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/SmartCalc", {
+        method: "POST",
+        headers: new Headers({
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json; charset=UTF-8",
+        }),
+        body: JSON.stringify(send),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          console.log({ result });
+          setModalVisible(!modalVisible)
+        });
+    } catch (err) {
+      console.log(err);
+      alert("משהו השתבש, אנא נסה שנית")
+    }
   }
 
 

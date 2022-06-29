@@ -11,36 +11,7 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(
     LeaguePlayersInfoContext
   );
-   const [list, setlist] = useState(data)
-  // const [pl1, setpl1] = useState('null')
-  // const [pl2, setpl2] = useState('null')
-  // const [pl3, setpl3] = useState('null')
-  // const [pl4, setpl4] = useState('null')
-
-
-
-
-  // const [teamPlayers] = useMemo(
-  //   () => data.filter((team) => team.user_id === user_id),
-  //   [data],
-  // );
-
-
-
-  useEffect(() => {
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ", Object.values(data.pl1));
-    //setpl1(teamPlayers.map((x) => {x.pl1}))
-    // setpl2()
-    // setpl3()
-    // setpl4()
-    // console.log("player data     1   ", pl1);
-    // console.log("player data     2   ", pl2);
-    // console.log("player data     3   ", pl3);
-    // console.log("player data     4   ", pl4);
-    // setlist(() => data.filter((team) => team.user_id === user_id))
-
-  }, [])
-
+  const [list, setlist] = useState(data)
 
   return (
     <View style={styles.centeredView}>
@@ -60,22 +31,38 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
             </Text>
             <View>
               {data ? (
-              <Text> {data.pl1.values('nickname')}</Text>
+
+                Object.keys(data.pl1).map((keys) => {
+                  return <Text style={styles.playersStyle}>{data.pl1[keys].nickname} </Text>
+                })
+
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
               {data ? (
-                <Text> {data.pl2.values('nickname')}</Text>
+
+                Object.keys(data.pl1).map((keys) => {
+                  return <Text style={styles.playersStyle}>{data.pl2[keys].nickname} </Text>
+                })
+
+              ) : (
+                <Text style={styles.text}>  שחקן לא קיים </Text>
+              )}
+              {data != null ? (
+
+                Object.keys(data.pl1).map((keys) => {
+                  return <Text style={styles.playersStyle}>{data.pl3[keys].nickname} </Text>
+                })
+
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
               {data ? (
-                <Text> {data.pl3.values('nickname')}</Text>
-              ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
-              )}
-              {data ? (
-                <Text> {data.pl4.values('nickname')}</Text>
+
+                Object.keys(data.pl1).map((keys) => {
+                  return <Text style={styles.playersStyle}>{data.pl4[keys].nickname} </Text>
+                })
+
               ) : (
                 <Text style={styles.text}>  שחקן לא קיים </Text>
               )}
@@ -158,6 +145,10 @@ const styles = StyleSheet.create({
   ApproveBtn: {
     backgroundColor: "green",
   },
+  playersStyle: {
+    fontWeight: "bold",
+    fontSize: 17,
+  }
 });
 
 export default ModalFantasyTeam;

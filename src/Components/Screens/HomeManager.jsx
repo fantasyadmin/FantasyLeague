@@ -2,14 +2,18 @@ import { StyleSheet, Text, View, Image, Linking } from "react-native";
 import CustomButton from "../CustomComps/CustomButton";
 import TopProfileBar from "../MenuComponents/TopProfileBar";
 import { useNavigation } from "@react-navigation/native";
-import { LeagueInfoContext, UserDataContext } from "../Context/UserContext";
-import React, { useState, useContext } from "react";
+import { LeagueInfoContext, UserDataContext, MatchInfoContext } from "../Context/UserContext";
+import React, { useState, useContext, useEffect } from "react";
 import GetPic from "../FireBase/GetImage";
 
 const Home = () => {
-  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const navigation = useNavigation();
   const { userData } = useContext(UserDataContext);
+  const { matchData, setMatchData } = useContext(MatchInfoContext);
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const [lastMatch, setLastMatch] = useState();
+  const [matchId, setmatchId] = useState();
+  const navigation = useNavigation();
+
 
   const onPressChat = () => {
     try {
@@ -18,6 +22,7 @@ const Home = () => {
       alert("לא קיימת קבוצה");
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -47,12 +52,12 @@ const Home = () => {
       {userData.league_manager && (
         <>
           <CustomButton
-            text="נהל שחקנים"
-            onPress={() => navigation.navigate("Manage Players")}
-          />
-          <CustomButton
             text="אשר תוצאות משחקים"
             onPress={() => navigation.navigate("Approve Results")}
+          />
+          <CustomButton
+            text="הגדרות הליגה"
+            onPress={() => navigation.navigate("Edit League")}
           />
         </>
       )}

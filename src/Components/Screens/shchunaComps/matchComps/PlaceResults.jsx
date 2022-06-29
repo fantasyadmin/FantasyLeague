@@ -5,24 +5,34 @@ import {
   UserDataContext,
   LeagueInfoContext,
 } from "../../../Context/UserContext";
+import { TempUserDataContext } from "../../../Context/TempUserContext";
 import CustomButton from "../../../CustomComps/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
-const PlaceResults = () => {
+export default function PlaceResults({ route }) {
   const { userData } = useContext(UserDataContext);
   const { matchData } = useContext(MatchInfoContext);
   const { leagueData } = useContext(LeagueInfoContext);
-  const [wins, setWins] = useState("");
-  const [goals, setGoals] = useState("");
-  const [assists, setAssists] = useState("");
-  const [penMiss, setPenMiss] = useState("");
-  const [goalRecieved, setGoalRecieved] = useState("");
-  const [lastMatch, setLastMatch] = useState(" ");
-  const [matchId, setmatchId] = useState(" ");
+  const { TempMatch, setTempMatch } = useContext(TempUserDataContext);
+  const [matchId, setMatchId] = useState()
+  const [lastMatch, setLastMatch] = useState()
+  const [wins, setWins] = useState();
+  const [goals, setGoals] = useState();
+  const [assists, setAssists] = useState();
+  const [penMiss, setPenMiss] = useState();
+  const [goalRecieved, setGoalRecieved] = useState();
+  const [renderScreen, setrenderScreen] = useState(
+    <View style={styles.text}>
+      <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא התקיים משחק</Text>
+      <Text style={styles.text}> הזנת תוצאות זמינה לאחר משחקי צ'כונה בלבד</Text>
+    </View>)
   const navigation = useNavigation();
 
+  //const { lastMatchDate, lastMatchId } = route.params;
+
+
   useEffect(() => {
-    console.log("results league_id = ", leagueData.league_id);
+    //console.log("ffffffffffffffffffffffffff", lastMatchDate, lastMatchId);
     const data = JSON.stringify({
       league_id: leagueData.league_id,
     });
@@ -40,24 +50,29 @@ const PlaceResults = () => {
           return res.json();
         })
         .then((result) => {
-          console.log("Close Match is: ", result);
-          var exMatch = JSON.stringify(result);
-          setLastMatch(result.matchDateStr);
-          setmatchId(result.match_id)
-          console.log(result.matchDateStr);
+          console.log("Close Match is//////////////////////////////: ", result);
+          let date = result.matchDateStr
+          setLastMatch(date);
+          let id = result.match_id
+          setMatchId(id);
+          if (result.matchDateStr) {
+            return setrenderScreen(gameScreen);
+          }
         });
     } catch (err) {
       console.log(err);
     }
   }, []);
 
+
   const submitResultsHandler = async () => {
     if (
-      wins === "" ||
-      goals === "" ||
-      assists === "" ||
-      penMiss === "" ||
-      goalRecieved === ""
+      wins === "" || wins < 0 ||
+      goals === "" || goals < 0 ||
+      assists === "" || assists < 0 ||
+      penMiss === "" || penMiss < 0 ||
+      goalRecieved === "" || goalRecieved < 0
+
     ) {
       return alert("נא למלא את כל השדות");
     }
@@ -93,77 +108,85 @@ const PlaceResults = () => {
     navigation.navigate("Home")
   };
 
+
+  const gameScreen = <View>
+    <View>
+      <Text style={styles.title2}>הזנת תוצאות למשחק מ: {lastMatch} </Text>
+    </View>
+    <View style={styles.form}>
+      <View style={styles.inputArea}>
+        <Text style={styles.label}>נצחונות </Text>
+        <TextInput
+          type={"cc-number"}
+          keyboardType={"numeric"}
+          style={styles.input}
+          value={wins}
+          onChangeText={setWins}
+        />
+      </View>
+      <View style={styles.inputArea}>
+        <Text style={styles.label}>שערים שהבקעתי </Text>
+        <TextInput
+          type={"cc-number"}
+          keyboardType={"numeric"}
+          style={styles.input}
+          value={goals}
+          onChangeText={setGoals}
+        />
+      </View>
+      <View style={styles.inputArea}>
+        <Text style={styles.label}>בישולים שלי </Text>
+        <TextInput
+          type={"cc-number"}
+          keyboardType={"numeric"}
+          style={styles.input}
+          value={assists}
+          onChangeText={setAssists}
+        />
+      </View>
+      <View style={styles.inputArea}>
+        <Text style={styles.label}>החמצות פנדלים </Text>
+        <TextInput
+          type={"cc-number"}
+          keyboardType={"numeric"}
+          style={styles.input}
+          value={penMiss}
+          onChangeText={setPenMiss}
+        />
+      </View>
+      <View style={styles.inputArea}>
+        <Text style={styles.label}>שערים שקיבלתי כשוער </Text>
+        <TextInput
+          type={"cc-number"}
+          keyboardType={"numeric"}
+          style={styles.input}
+          value={goalRecieved}
+          onChangeText={setGoalRecieved}
+        />
+      </View>
+      <View style={styles.button}>
+        <CustomButton
+          onPress={submitResultsHandler}
+          text="שליחת תוצאות"
+        ></CustomButton>
+      </View>
+    </View>
+
+
+  </View>
+
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.title}>הזן תוצאות</Text>
       </View>
-      <View>
-        <Text style={styles.title2}>הזנת תוצאות למשחק מ: {lastMatch} </Text>
-      </View>
-      <View style={styles.form}>
-        <View style={styles.inputArea}>
-          <Text style={styles.label}>נצחונות </Text>
-          <TextInput
-            type={"cc-number"}
-            keyboardType={"numeric"}
-            style={styles.input}
-            value={wins}
-            onChangeText={setWins}
-          />
-        </View>
-        <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שהבקעתי </Text>
-          <TextInput
-            type={"cc-number"}
-            keyboardType={"numeric"}
-            style={styles.input}
-            value={goals}
-            onChangeText={setGoals}
-          />
-        </View>
-        <View style={styles.inputArea}>
-          <Text style={styles.label}>בישולים שלי </Text>
-          <TextInput
-            type={"cc-number"}
-            keyboardType={"numeric"}
-            style={styles.input}
-            value={assists}
-            onChangeText={setAssists}
-          />
-        </View>
-        <View style={styles.inputArea}>
-          <Text style={styles.label}>החמצות פנדלים </Text>
-          <TextInput
-            type={"cc-number"}
-            keyboardType={"numeric"}
-            style={styles.input}
-            value={penMiss}
-            onChangeText={setPenMiss}
-          />
-        </View>
-        <View style={styles.inputArea}>
-          <Text style={styles.label}>שערים שקיבלתי כשוער </Text>
-          <TextInput
-            type={"cc-number"}
-            keyboardType={"numeric"}
-            style={styles.input}
-            value={goalRecieved}
-            onChangeText={setGoalRecieved}
-          />
-        </View>
-        <View style={styles.button}>
-          <CustomButton
-            onPress={submitResultsHandler}
-            text="שליחת תוצאות"
-          ></CustomButton>
-        </View>
-      </View>
+      {renderScreen}
     </SafeAreaView>
   );
 };
-
-export default PlaceResults;
 
 const styles = StyleSheet.create({
   container: {
