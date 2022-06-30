@@ -17,7 +17,7 @@ const Home = () => {
 
   const onPressChat = () => {
     try {
-      Linking.openURL(leagueData.league_rules);
+      Linking.openURL(leagueData.Invite_url);
     } catch (error) {
       alert("לא קיימת קבוצה");
     }
@@ -27,10 +27,6 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <TopProfileBar />
-      <CustomButton
-        text="Fantasy ליגת"
-        onPress={() => navigation.navigate("League Table")}
-      />
       <CustomButton
         text="משחק הצ'כונה הבא"
         onPress={() => navigation.navigate("Existing Match")}

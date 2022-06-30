@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import ModalPlayerProfile from '../../CustomComps/ModalPlayerProfile';
 
 export default function PlayersInLeague(props) {
+    const [icon, setIcon] = useState()
 
     function sendId() {
-        //alert(props.nickname)
         props.tellSon(props.nickname, props.user_id, props.color);
     }
 
-
     return (
         <View style={styles.container} onStartShouldSetResponder={sendId}>
+            {props.icon}
             {props.points > 0 ? (
                 <ModalPlayerProfile player={props.nickname} user_id={props.user_id} data={''} />
             ) : (
@@ -19,7 +19,7 @@ export default function PlayersInLeague(props) {
                     <Text style={styles.text}>אין נתונים</Text>
                 </View>
             )}
-            <Text style={styles.text3}>pt. {props.points}</Text>
+            <Text style={styles.text3}>           נק': {props.points}</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
         </View>
     )
@@ -33,12 +33,10 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'baseline',
         justifyContent: 'space-around',
-        padding: 0,
         backgroundColor: '#4472c4',
         borderColor: '#e8e8e8',
         borderWidth: 1,
-        paddingHorizontal: 5,
-        marginVertical: 5,
+        marginVertical: 9,
         width: "100%",
     },
     text: {
@@ -63,26 +61,26 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     text3: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'row',
         alignItems: 'baseline',
         justifyContent: 'flex-end',
         fontWeight: 'bold',
         color: 'white',
         fontSize: 18,
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         marginVertical: 5,
     },
     noResults: {
-        backgroundColor: "red",
+        backgroundColor: "red", 
         borderRadius: 180,
         color: "white",
         width: 79,
         textAlign: "center",
         fontWeight: "bold",
-        fontSize: 19,
+        fontSize: 18,
         paddingHorizontal: 17,
-        marginVertical: 4,
+        marginVertical: 1,
         marginLeft: 11
-      },
+    },
 })

@@ -20,7 +20,7 @@ const leagueInfo = {
   league_id: null,
   league_rules: null,
   league_pic: null,
-  Invite_Contacts: [null],
+  Invite_url: null,
 };
 const LeagueInfoContext = React.createContext(leagueInfo);
 

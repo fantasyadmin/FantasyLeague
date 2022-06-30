@@ -36,7 +36,7 @@ export default function ManageTeam() {
 
 
   var renderTable = sortplayers.map((x, ind) => {
-    return x !== null ? <PlayersInLeague
+    return x ? <PlayersInLeague
       key={x.user_id}
       nickname={x.nickname}
       points={x.player_score}
@@ -49,55 +49,6 @@ export default function ManageTeam() {
 
   function markPlayerToWatch(nickname, user_id) {
     //plyerProfile(user_id);
-  }
-
-  const plyerProfile = (user_id) => {
-    const params = JSON.stringify({
-      "user_id": user_id
-    });
-    console.log(params);
-
-    //fetch - get user data from DB
-    fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/EditPlayer/5', {
-      method: 'GET',
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset=UTF-8'
-      }),
-      params
-    })
-      .then(res => {
-        console.log('res=', res);
-        return res.json()
-      })
-      .then(
-        (result) => {
-          console.log(result)
-          if (result.nickname != undefined) {
-            setTempUserData({
-              nickname: result.nickname,
-              picture: result.picture,
-              user_id: result.user_id,
-              games_played: result.games_played,
-              player_score: result.player_score,
-              total_assists: result.total_assists,
-              total_goals_recieved: result.total_goals_recieved,
-              total_goals_scored: result.total_goals_scored,
-              total_pen_missed: result.total_pen_missed,
-              total_wins: result.total_wins,
-            })
-            console.log("data received = ", result);
-            console.log("==========================");
-            console.log("user id = ", result.user_id);
-            navigation.navigate('Player Profile');
-          }
-          else {
-            alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
-          }
-        },
-        (error) => {
-          console.log("err post=", error);
-        })
   }
 
 

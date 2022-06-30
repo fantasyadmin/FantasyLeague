@@ -7,17 +7,6 @@ import { UserDataContext, LeaguePlayersInfoContext, FantasyTeamInfoContext } fro
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
 
-const logos = [
-  <FontAwesome5 name="crown" size={23} color="#993" />,
-  <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-]
-
 
 export default function SellPlayers() {
   const [toSell, setToSell] = useState()
@@ -33,7 +22,6 @@ export default function SellPlayers() {
       key={x.user_id}
       nickname={x.nickname}
       points={x.player_score}
-      icon={logos[ind]}
       user_id={x.user_id}
       tellSon={markPlayerToSell}
     />: null

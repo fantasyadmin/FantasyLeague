@@ -29,7 +29,7 @@ export default function ManagePlayers() {
     FantasyTeamInfoContext
   );
 
-  const logos = <AntDesign name="deleteuser" size={29} color="#900" />;
+  const logos = <AntDesign name="deleteuser" size={29} color="#900"/>;
 
   const sortplayers = []
     .concat(LeaguePlayersData.players)

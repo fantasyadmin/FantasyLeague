@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useEffect, useContext, useState, useMemo } from 'react';
 import ModalFantasyTeam from '../../../CustomComps/ModalFantasyTeam';
 import { LeagueInfoContext } from '../../../Context/UserContext.js'
+import { image } from '../../../../../assets/exports';
 
 export default function TeamInTable(props) {
     const { leagueData } = useContext(LeagueInfoContext);
@@ -14,7 +15,6 @@ export default function TeamInTable(props) {
 
     function SetTeam(teamPlayers) {
         setfindTeam(teamPlayers);
-
     }
 
 
@@ -55,9 +55,16 @@ export default function TeamInTable(props) {
                     <Text>  אין קבוצה</Text>
                 </View>
             )}
-            <Text style={styles.text2}>{props.points} pt.</Text>
+            <Text style={styles.text2}>נק': {props.points}</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
-            <Text style={styles.text}>{props.place}</Text>
+            {props.picture ? (
+                <Image source={{uri:"https://firebasestorage.googleapis.com/v0/b/fantasyleagueneighborhoo-fe0e1.appspot.com/o/" + props.picture + "?alt=media&token=e96a14e8-36bf-4c1b-b58d-a75e1863a590"}}
+                    style={styles.profilePic} />
+            ) : (
+                <Image source={image} style={styles.profilePic} />
+
+            )}
+            <Text style={styles.text}>   {props.place}  </Text>
         </View>
     )
 }
@@ -69,26 +76,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'baseline',
-        justifyContent: 'space-around',
+        //justifyContent: 'space-around',
         padding: 0,
         backgroundColor: '#4472c4',
         borderColor: '#e8e8e8',
         borderWidth: 1,
         paddingHorizontal: 5,
         marginVertical: 5,
-        width: 320,
-
+        width: 360,
     },
     text: {
-        flex: 1,
         flexDirection: 'row',
-        alignItems: 'baseline',
-        justifyContent: 'center',
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 18,
-        paddingHorizontal: 10,
-        marginVertical: 5,
+        fontSize: 35,
     },
     text2: {
         flex: 1,
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: 'baseline',
         fontWeight: 'bold',
         color: 'white',
-        width: 80,
+        width: 90,
         fontSize: 20,
         paddingHorizontal: 5,
         marginVertical: 5,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 18,
+        fontSize: 22,
         paddingHorizontal: 10,
         marginVertical: 5,
     },
@@ -122,5 +123,15 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 10,
         marginVertical: 5,
+    },
+    profilePic: {
+        marginTop: 10,
+        width: 60,
+        height: 60,
+        borderColor: '#000000',
+        borderWidth: 2,
+        //borderWidth: 1,
+        borderRadius: 100,
+        overflow: 'hidden',
     },
 })

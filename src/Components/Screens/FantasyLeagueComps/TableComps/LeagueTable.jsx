@@ -32,6 +32,7 @@ export default function LeagueTable(props) {
   console.log({ sortTeams });
 
   var renderTable = sortTeams.map((x, ind) => {
+    console.log("i prinfffff", x);
     return (<View>
       <TeamInTable
         key={ind}
@@ -39,9 +40,9 @@ export default function LeagueTable(props) {
         place={ind + 1}
         user_id={x.user_id}
         points={x.team_points}
+        picture={x.picture}
       />
     </View>
-
     );
   });
 
@@ -49,8 +50,7 @@ export default function LeagueTable(props) {
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>טבלת הליגה</Text>
       <Image source={image} style={styles.pic} />
-      <Text> </Text>
-      <Text style={styles.text}>טבלת הקבוצות</Text>
+      <Text style={styles.text1}> נבחרת            ניקוד                בעלים             מקום</Text>
       <ScrollView>{renderTable}</ScrollView>
     </SafeAreaView>
   );
@@ -66,11 +66,17 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     color: "white",
-    fontSize: 20,
+    fontSize: 30,
   },
   pic: {
-    width: "70%",
+    width: "50%",
     borderRadius: 300,
-    height: 300,
+    height: 200,
+  },
+  text1: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 20,
+    textDecorationLine: 'underline'
   },
 });

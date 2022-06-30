@@ -14,13 +14,13 @@ export default function PlaceResults({ route }) {
   const { matchData } = useContext(MatchInfoContext);
   const { leagueData } = useContext(LeagueInfoContext);
   const { TempMatch, setTempMatch } = useContext(TempUserDataContext);
-  const [matchId, setMatchId] = useState()
-  const [lastMatch, setLastMatch] = useState()
-  const [wins, setWins] = useState();
-  const [goals, setGoals] = useState();
-  const [assists, setAssists] = useState();
-  const [penMiss, setPenMiss] = useState();
-  const [goalRecieved, setGoalRecieved] = useState();
+  const [matchId, setMatchId] = useState(0)
+  const [lastMatch, setLastMatch] = useState("")
+  const [wins, setWins] = useState("");
+  const [goals, setGoals] = useState("");
+  const [assists, setAssists] = useState("");
+  const [penMiss, setPenMiss] = useState("");
+  const [goalRecieved, setGoalRecieved] = useState("");
   const [renderScreen, setrenderScreen] = useState(
     <View style={styles.text}>
       <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא התקיים משחק</Text>
@@ -28,11 +28,9 @@ export default function PlaceResults({ route }) {
     </View>)
   const navigation = useNavigation();
 
-  //const { lastMatchDate, lastMatchId } = route.params;
-
 
   useEffect(() => {
-    //console.log("ffffffffffffffffffffffffff", lastMatchDate, lastMatchId);
+    console.log("ffffffffffffffffffffffffff");
     const data = JSON.stringify({
       league_id: leagueData.league_id,
     });
@@ -65,47 +63,62 @@ export default function PlaceResults({ route }) {
   }, []);
 
 
-  const submitResultsHandler = async () => {
+  const submitResultsHandler = () => {
     if (
       wins === "" || wins < 0 ||
       goals === "" || goals < 0 ||
       assists === "" || assists < 0 ||
       penMiss === "" || penMiss < 0 ||
       goalRecieved === "" || goalRecieved < 0
-
     ) {
-      return alert("נא למלא את כל השדות");
+      alert("נא למלא את כל השדות");
     }
-    const data = {
-      user_id: userData.user_id,
-      match_id: matchId,
-      league_id: leagueData.league_id,
-      pen_missed: penMiss,
-      wins: wins,
-      goals_scored: goals,
-      goals_recieved: goalRecieved,
-      assists: assists,
-      match_color: "blue",
-    };
-    console.log(data);
-    try {
-      const result = await fetch(
-        "https://proj.ruppin.ac.il/bgroup89/prod/api/MatchResults",
-        {
-          method: "POST",
-          headers: new Headers({
-            "Content-type": "application/json; charset=UTF-8",
-            Accept: "application/json; charset=UTF-8",
-          }),
-          body: JSON.stringify(data),
-        }
-      );
-      console.log(JSON.stringify(result));
-    } catch (err) {
-      console.log(JSON.stringify(err));
+    else {
+      const data = {
+        user_id: userData.user_id,
+        match_id: matchId,
+        league_id: leagueData.league_id,
+        pen_missed: penMiss,
+        wins: wins,
+        goals_scored: goals,
+        goals_recieved: goalRecieved,
+        assists: assists,
+        match_color: "blue",
+      };
+      console.log("fucking problemmmmmmm", data);
+      try {
+        fetch(
+          "https://proj.ruppin.ac.il/bgroup89/prod/api/MatchResults",
+          {
+            method: "POST",
+            headers: new Headers({
+              "Content-type": "application/json; charset=UTF-8",
+              Accept: "application/json; charset=UTF-8",
+            }),
+            body: JSON.stringify(data),
+          }
+        ).then((res) => {
+          const statusCode = res.status
+          const data = res.json();
+          return Promise.all([statusCode, data]);
+        }).then(
+          ([res, data]) => {
+            console.log("i got this: ", [res, data]);
+            /// if result is ok - navigate to sign in else try again or resend verification
+            if (res == 400 && data == "Can't submit more than 1 Match Results form. Please wait for League Manager's approval, or Edit your existing form") {
+              return alert("לא ניתן להגיש תוצאות מספר פעמים לאותו משחק, \n המתן שמנהל הליגה יאשר או ידחה את התוצאות הקיימות")
+            } if (res == 400) {
+              return alert("התוצאות נשלחו לאישור מנהל הליגה")
+            }
+            else{
+              alert("משהו השתבש, נסה שוב מאוחר יותר")
+            }
+          })
+      } catch (err) {
+        console.log(JSON.stringify(err));
+      }
+      navigation.navigate("Home")
     }
-    alert("התוצאות נשלחו לאישור מנהל הליגה")
-    navigation.navigate("Home")
   };
 
 
@@ -171,8 +184,6 @@ export default function PlaceResults({ route }) {
         ></CustomButton>
       </View>
     </View>
-
-
   </View>
 
 
@@ -183,8 +194,20 @@ export default function PlaceResults({ route }) {
       <View>
         <Text style={styles.title}>הזן תוצאות</Text>
       </View>
-      {renderScreen}
-    </SafeAreaView>
+
+      {matchId != 0 ? (
+        gameScreen
+      ) : (
+        <View style={styles.text}>
+          <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא התקיים משחק</Text>
+          <Text style={styles.text}> הזנת תוצאות זמינה לאחר משחקי צ'כונה בלבד</Text>
+        </View>
+      )
+      }
+
+
+
+    </SafeAreaView >
   );
 };
 

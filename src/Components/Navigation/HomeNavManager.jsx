@@ -17,6 +17,7 @@ import GameMapComp from "../Screens/shchunaComps/matchComps/GoogleMapsAPI/GameLo
 import UploadPic from "../FireBase/Upload";
 import GetPic from "../FireBase/GetImage";
 import EditLeague from "../Screens/FantasyLeagueComps/ManageLeagueComps/EditLeague";
+import EditLeagueDetails from "../Screens/FantasyLeagueComps/ManageLeagueComps/EditLeagueDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ const HomeNavManager = () => {
       <Stack.Screen name="Upload Picture" component={UploadPic} />
       <Stack.Screen name="Get Picture" component={GetPic} />
       <Stack.Screen name="Edit League" component={EditLeague} />
+      <Stack.Screen name="Edit League Details" component={EditLeagueDetails} />
     </Stack.Navigator>
   );
 

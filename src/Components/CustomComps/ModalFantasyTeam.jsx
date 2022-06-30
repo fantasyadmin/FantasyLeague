@@ -30,41 +30,60 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
               קבוצת הפנטזי של {player}
             </Text>
             <View>
-              {data ? (
-
+              {data.pl1 ? (
                 Object.keys(data.pl1).map((keys) => {
-                  return <Text style={styles.playersStyle}>{data.pl1[keys].nickname} </Text>
+                  let player = " "
+                  if (data.pl1) {
+                    return <Text style={styles.playersStyle}>{data.pl1[keys].nickname} </Text>
+                  }
+                  else {
+                    return player
+                  }
                 })
-
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>   </Text>
               )}
-              {data ? (
-
-                Object.keys(data.pl1).map((keys) => {
-                  return <Text style={styles.playersStyle}>{data.pl2[keys].nickname} </Text>
+              {data.pl2 ? (
+                Object.keys(data.pl2).map((keys) => {
+                  let player = " "
+                  if (data.pl2) {
+                    return <Text style={styles.playersStyle}>{data.pl2[keys].nickname} </Text>
+                  }
+                  else {
+                    return player
+                  }
                 })
-
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>  </Text>
               )}
-              {data != null ? (
-
-                Object.keys(data.pl1).map((keys) => {
-                  return <Text style={styles.playersStyle}>{data.pl3[keys].nickname} </Text>
+              {data.pl3 ? (
+                Object.keys(data.pl3).map((keys) => {
+                  let player = " "
+                  if (data.pl3) {
+                    return <Text style={styles.playersStyle}>{data.pl3[keys].nickname} </Text>
+                  }
+                  else {
+                    return player
+                  }
                 })
 
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>   </Text>
               )}
-              {data ? (
+              {data.pl4 ? (
 
-                Object.keys(data.pl1).map((keys) => {
-                  return <Text style={styles.playersStyle}>{data.pl4[keys].nickname} </Text>
+                Object.keys(data.pl4).map((keys) => {
+                  let player = " "
+                  if (data.pl4) {
+                    return <Text style={styles.playersStyle}>{data.pl4[keys].nickname} </Text>
+                  }
+                  else {
+                    return player
+                  }
                 })
 
               ) : (
-                <Text style={styles.text}>  שחקן לא קיים </Text>
+                <Text style={styles.text}>   </Text>
               )}
             </View>
             <View style={styles.ButtonView}>

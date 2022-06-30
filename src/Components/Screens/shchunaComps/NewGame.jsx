@@ -101,8 +101,6 @@ export default function NewGame() {
         (error) => {
           console.log("err post=", error);
         })
-
-    navigation.navigate("Home")
   }
 
   return (

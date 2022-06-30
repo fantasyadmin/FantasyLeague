@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Linking } from "react-native";
+import { StyleSheet, Text, View, Image, Linking, Alert } from "react-native";
 import CustomButton from "../../../CustomComps/CustomButton";
 import TopProfileBar from "../../../MenuComponents/TopProfileBar";
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import React, { useState, useContext, useEffect } from "react";
 import GetPic from "../../../FireBase/GetImage";
 import { image } from "../../../../../assets/exports";
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import RulesModal from "./RulesModal";
 
 const EditLeague = () => {
   const { userData } = useContext(UserDataContext);
@@ -14,7 +15,52 @@ const EditLeague = () => {
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
   const [lastMatch, setLastMatch] = useState();
   const [matchId, setmatchId] = useState();
+
   const navigation = useNavigation();
+
+  function DelAllData() {
+    Alert.alert(
+      "שים לב! ",
+      "האם אתה בטוח שברצונך לאפס את נתוני הליגה?\n" +
+      "לחיצה על כפתור האישור תמחק את הנתונים הבאים:\n" +
+      "כל המשחקים שהתקיימו, ציוני כל השחקנים, ואת כל קבוצות הפנטזי.",
+      [
+        {
+          text: "ביטול",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "         " },
+        {
+          text: "איפוס נתוני ליגה",
+          onPress: () => ResetLeagueInformation(leagueData.league_id),
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  function ResetLeagueInformation(league) {
+    const data = JSON.stringify({
+      league_id: league,
+    });
+    //fetch - delete player
+    fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/ResetLeague", {
+      method: "POST",
+      headers: new Headers({
+        "Content-type": "application/json; charset=UTF-8",
+        Accept: "application/json; charset=UTF-8",
+      }),
+      body: data,
+    })
+      .then((res) => {
+        console.log("res=", res);
+        return res.json();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  }
 
   return (
     <View style={styles.container}>
@@ -23,17 +69,14 @@ const EditLeague = () => {
 
       <CustomButton
         text="הוסף / שנה כתובת צ'אט"
-        onPress={() => navigation.navigate("League Table")}
+        onPress={() => navigation.navigate("Edit League Details")}
       />
       <CustomButton
         text="הסרת שחקן מהליגה"
-        onPress={() => navigation.navigate("Existing Match")}
+        onPress={() => navigation.navigate("Manage Players")}
       />
-      <CustomButton
-        text="הסבר על ניהול ליגה"
-        onPress={() => navigation.navigate("Place Results")}
-      />
-      <Pressable onPress={() => navigation.navigate("Contacts List")} style={styles.container2}>
+      <RulesModal />
+      <Pressable onPress={() => DelAllData()} style={styles.container2}>
         <Text style={styles.text2}>איפוס תוצאות הליגה</Text>
       </Pressable>
     </View>
@@ -58,7 +101,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
     borderRadius: 5,
-},
+  },
   text: {
     fontWeight: "bold",
     color: "white",
@@ -72,5 +115,5 @@ const styles = StyleSheet.create({
   text2: {
     fontWeight: 'bold',
     color: 'white',
-},
+  },
 });

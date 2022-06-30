@@ -13,7 +13,6 @@ import Profile from "../Screens/Profile";
 import NewGame from "../Screens/shchunaComps/NewGame";
 import CreateLeague from "../Screens/FantasyLeagueComps/CreateLeague";
 import ManageTeam from "../Screens/ManageTeam/ManageTeam";
-import ManageExistingGame from "../Screens/shchunaComps/matchComps/ManageGame";
 import MapComp from "../Screens/shchunaComps/matchComps/GoogleMapsAPI/map";
 import EmailVerification from "../Screens/EmailVerification";
 import ContactsList from "../Screens/FantasyLeagueComps/ManageLeagueComps/Contacts";
@@ -37,7 +36,6 @@ const Navigation = () => {
         <Stack.Screen name="League Table" component={LeagueTable} />
         <Stack.Screen name="Manage Team" component={ManageTeam} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Manage Game" component={ManageExistingGame} />
         <Stack.Screen name="Email Verification" component={EmailVerification} />
         <Stack.Screen name="Contacts List" component={ContactsList} />
       </Stack.Navigator>
