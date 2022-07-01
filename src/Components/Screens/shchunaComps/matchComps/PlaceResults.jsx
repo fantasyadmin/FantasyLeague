@@ -85,7 +85,6 @@ export default function PlaceResults({ route }) {
         assists: assists,
         match_color: "blue",
       };
-      console.log("fucking problemmmmmmm", data);
       try {
         fetch(
           "https://proj.ruppin.ac.il/bgroup89/prod/api/MatchResults",
@@ -102,12 +101,12 @@ export default function PlaceResults({ route }) {
           const data = res.json();
           return Promise.all([statusCode, data]);
         }).then(
-          ([res, data]) => {
+          ([statusCode, data]) => {
             console.log("i got this: ", [res, data]);
             /// if result is ok - navigate to sign in else try again or resend verification
-            if (res == 400 && data == "Can't submit more than 1 Match Results form. Please wait for League Manager's approval, or Edit your existing form") {
+            if (statusCode == 400 && data == "Can't submit more than 1 Match Results form. Please wait for League Manager's approval, or Edit your existing form") {
               return alert("לא ניתן להגיש תוצאות מספר פעמים לאותו משחק, \n המתן שמנהל הליגה יאשר או ידחה את התוצאות הקיימות")
-            } if (res == 400) {
+            } if (statusCode == 400) {
               return alert("התוצאות נשלחו לאישור מנהל הליגה")
             }
             else{

@@ -125,7 +125,7 @@ export default function NewGame() {
       <View style={styles.fieldStyle}>
         <Text style={styles.text}> מיקום:          </Text>
         <View style={styles.textBarLocation}>
-          <CustomButton onPress={showMap} />
+          <CustomButton onPress={showMap} text={'בחר מיקום במפה'}/>
         </View>
 
       </View>

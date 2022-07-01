@@ -1,12 +1,16 @@
 import MapView from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions, Alert } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Alert, Pressable } from "react-native";
 import { Marker } from "react-native-maps";
 import React, { useState, useEffect, useContext } from "react";
 import * as Location from "expo-location";
 import { MatchInfoContext } from "../../../../Context/UserContext";
-
+import CustomButton from "../../../../CustomComps/CustomButton";
+import { useNavigation } from "@react-navigation/native";
+import { image } from "../../../../../../assets/exports";
+import logoTransparent from "../../../../../../assets/logoTransparent.png"
 
 export default function MapComp(props) {
+  const navigation = useNavigation()
   const [location, setLocation] = useState({
     latitude: 32.343190083930146,
     longitude: 34.91241507999918,
@@ -35,12 +39,16 @@ export default function MapComp(props) {
           style: 'cancel',
         },
         { text: '         ' },
-        { text: 'בחר מיקום למשחק', onPress: () => setGameLocation(locationData.coords) },
+        {
+          text: 'בחר מיקום למשחק', onPress: () => {
+            setGameLocation(locationData.coords)
+            navigation.goBack();
+          }
+        },
       ],
       { cancelable: false },
     );
   }
-
 
   function setGameLocation(locationData) {
     console.log("location received: ", locationData);
@@ -50,12 +58,8 @@ export default function MapComp(props) {
       )
     }
     console.log("tell papa===", location);
-    //props.matchLocationFunc(locationData.coords.latitude, locationData.coords.longitude)
-    setMatchData(prevState => ({ ...prevState, match_location: {latitude: locationData.latitude, longitude: locationData.longitude} }))
+    setMatchData(prevState => ({ ...prevState, match_location: { latitude: locationData.latitude, longitude: locationData.longitude } }))
     console.log("print context = ", matchData);
-
-
-    //Navigate.goBack();
   }
 
   useEffect(() => {
@@ -68,7 +72,6 @@ export default function MapComp(props) {
 
       let locationLocal = await Location.getCurrentPositionAsync({});
 
-      //console.log(locationLocal);
       let obj = {
         latitude: locationLocal.coords.latitude,
         longitude: locationLocal.coords.longitude,
@@ -79,6 +82,10 @@ export default function MapComp(props) {
     })();
   }, []);
 
+  const handleGoBack = () => {
+    return navigation.goBack();
+  }
+
   let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
@@ -86,25 +93,32 @@ export default function MapComp(props) {
     text = JSON.stringify(location);
   }
 
+
+  function pressed(data) {
+    savelocation({
+      coords: {
+        latitude: data.nativeEvent.coordinate.latitude,
+        longitude: data.nativeEvent.coordinate.longitude
+      }
+    })
+    setMarker({ markers: [{ name: data.name }, { description: data.name }, { latlng: data.nativeEvent.coordinate }] })
+  }
+
+
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}></Text>
+      <Pressable style={styles.mapBtn} onPress={handleGoBack}>
+        <View>
+          <Text style={styles.text}>חזור</Text>
+        </View>
+      </Pressable>
       <MapView
         style={styles.map}
         region={location}
         provider='google'
         onPoiClick={(e) => savelocation({ name: e.nativeEvent.name, coords: e.nativeEvent.coordinate })}
-        onPress={(e) => savelocation({
-          coords: {
-            latitude: e.nativeEvent.coordinate.latitude,
-            longitude: e.nativeEvent.coordinate.longitude
-          }
-        })
-        }
-      // onPress={(e) => setMarker({ markers: [...this.state.markers, { latlng: e.nativeEvent.coordinate }] })}
-      >
-        {/* <MapView.Marker coordinate={location} key={i} /> */}
-        <Marker coordinate={location} title="avi" description="desc1" />
+        onPress={(e) => pressed(e)} >
+        <MapView.Marker coordinate={location} />
       </MapView>
     </View>
   );
@@ -118,13 +132,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: Dimensions.get("window").width - 20,
-    height: Dimensions.get("window").height - 20,
+    marginTop: 35,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height - 50,
+    zIndex: 1
+  },
+  mapBtn: {
+    zIndex: 10,
+    position: 'absolute',
+    top: "90%",
+    backgroundColor: '#1b91f3',
+    width: '30%',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
   },
   paragraph: {
     margin: 20,
     fontSize: 28,
     textAlign: "center",
+  },
+  text: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 17
   },
 });
 

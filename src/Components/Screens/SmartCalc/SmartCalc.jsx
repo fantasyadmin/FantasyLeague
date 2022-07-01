@@ -21,6 +21,7 @@ import PlayersInLeague from "../ManageTeam/createPlayersList";
 
 export default function SmartCalc(props) {
   const { LeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const [colorNumState, setColorNumState] = useState(1);
   const [playercomp, setPlayercomp] = useState([
     // {
     //   ["Attack"]: 1,
@@ -78,9 +79,9 @@ export default function SmartCalc(props) {
             }
             if (Object.keys(compare1).length === 0)
               return alert("user don't have data");
-            setorangeComp(nickname)
             alert(nickname + " נבחר להשוואה ");
             setorangeComp(nickname)
+            setColorNumState(2);
             setPlayercomp((prevState) => {
               if (prevState.length == 2) return [compare1];
               return [...prevState, compare1];
@@ -104,6 +105,7 @@ export default function SmartCalc(props) {
 
             alert(nickname + " נבחר להשוואה ");
             setredComp(nickname)
+            setColorNumState(1)
             setPlayercomp((prevState) => {
               if (prevState.length == 2) return [compare2];
               return [...prevState, compare2];
@@ -140,35 +142,34 @@ export default function SmartCalc(props) {
     return data.map((datum) => makeDataArray(datum));
   }
 
-  var renderTable1 = LeaguePlayersData.players.map((x, ind) => {
-    return x !== null ? (
-      <PlayersInLeague
-        key={x.user_id}
-        nickname={x.nickname}
-        //points={x.player_score}
-        color={1}
-        //icon={logos[ind]}      // work on different icons
-        user_id={x.user_id}
-        tellSon={markPlayerToWatch}
-      />
-    ) : null;
-  });
+  // var renderTable1 = LeaguePlayersData.players.map((x, ind) => {
+  //   return x !== null ? (
+  //     <PlayersInLeague
+  //       key={x.user_id}
+  //       nickname={x.nickname}
+  //       //points={x.player_score}
+  //       color={1}
+  //       //icon={logos[ind]}      // work on different icons
+  //       user_id={x.user_id}
+  //       tellSon={markPlayerToWatch}
+  //     />
+  //   ) : null;
+  // });
 
-  function markPlayerToWatch(x) {
-    console.log("real = ", x.nickname);
-    console.log("side = ", x.color);
-    console.log("name = ", x.nickname);
-    SetRadarData(x);
-  }
+  // function markPlayerToWatch(x) {
+  //   console.log("real = ", x.nickname);
+  //   console.log("side = ", x.color);
+  //   console.log("name = ", x.nickname);
+  //   SetRadarData(x);
+  // }
 
   var renderTable2 = LeaguePlayersData.players.map((x, ind) => {
-    console.log("222222222222222222222222222", x);
     return x !== null ? (
       <PlayersInLeague
         key={x.user_id}
         nickname={x.nickname}
         //points={x.player_score}
-        color={2}
+        color={colorNumState}
         //icon={logos[ind]}      // work on different icons
         user_id={x.user_id}
         tellSon={markPlayerToWatch}
@@ -196,12 +197,13 @@ export default function SmartCalc(props) {
       <Text style={styles.text1}>השוואת שחקנים</Text>
       <View style={styles.top}>
         <View style={styles.scrollsShell}>
-          <ScrollView style={styles.scrolls}>
+          {/* <ScrollView style={styles.scrolls}>
             <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
             {renderTable1}
-          </ScrollView>
+          </ScrollView> */}
           <ScrollView>
-            <Text style={styles.player2}>שחקן 2: {redComp}</Text>
+          <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
+          <Text style={styles.player2}>שחקן 2: {redComp}</Text>
             {renderTable2}
           </ScrollView>
         </View>

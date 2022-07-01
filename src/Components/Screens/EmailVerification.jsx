@@ -70,12 +70,13 @@ export default function EmailVerification({ route }) {
           /// if result is ok - navigate to sign in else try again or resend verification
           console.log("eeeeeeeeeeeeeeeeeeee", data.league_id);
           if (res = 200) {
-            console.log("eeeee6666e", data.league_id);
+            console.log("eeeee6666e", data.user_id);
             setLeagueData({
               league_id: data.league_id,
             });
+            setUserData({ user_id: data.user_id })
             if (verificationParams.league_id == 0) {
-              navigation.navigate("Create League");
+              navigation.navigate("Create League", { registerUser: registerUser, user_id: data.user_id });
             } else {
               navigation.navigate("Sign In");
             }

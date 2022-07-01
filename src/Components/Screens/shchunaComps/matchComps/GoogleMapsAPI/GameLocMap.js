@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import { MatchInfoContext } from "../../../../Context/UserContext";
 import { NavigationContainer } from '@react-navigation/native';
 import { Navigate } from "react-router-dom";
+import locationLogo from "../../../../../../assets/locationLogo.png"
 
 export default function GameLocMap(props) {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
@@ -53,34 +54,10 @@ export default function GameLocMap(props) {
       })
     }
     console.log("tell papa===", location);
-    //props.matchLocationFunc(locationData.coords.latitude, locationData.coords.longitude)
     setMatchData(prevState => ({ ...prevState, match_location: location }))
     console.log("print context = ", matchData);
-
-
-    //Navigate.goBack();
   }
 
-  // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
-
-  //     let locationLocal = await Location.getCurrentPositionAsync({});
-
-  //     //console.log(locationLocal);
-  //     let obj = {
-  //       latitude: locationLocal.coords.latitude,
-  //       longitude: locationLocal.coords.longitude,
-  //       latitudeDelta: 0.08,
-  //       longitudeDelta: 0.08,
-  //     };
-  //     setLocation(obj);
-  //   })();
-  // }, []);
 
   let text = "Waiting..";
   if (errorMsg) {
@@ -95,14 +72,9 @@ export default function GameLocMap(props) {
       <MapView
         style={styles.map}
         region={location}
-        // onPress={(pos) => {
-        //   console.log(pos.nativeEvent.coordinate);
-        // }}
         provider='google'
-      // onPress={(e) => setMarker({ markers: [...this.state.markers, { latlng: e.nativeEvent.coordinate }] })}
       >
-        {/* <MapView.Marker coordinate={location} key={i} /> */}
-        <Marker coordinate={location} title="מיקום המשחק" description="   " />
+        <Marker coordinate={location}  image={locationLogo} title="מיקום המשחק" description="   " />
       </MapView>
     </View>
   );

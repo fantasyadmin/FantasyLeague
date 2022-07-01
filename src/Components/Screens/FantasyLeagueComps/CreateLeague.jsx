@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Alert } from 'react-native';
 import React, { useState, useContext, useEffect } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import CustomButton from '../../CustomComps/CustomButton';
@@ -7,34 +7,36 @@ import { useNavigation } from '@react-navigation/native';
 import { UserDataContext, LeagueInfoContext } from '../../Context/UserContext';
 
 
-export default function CreateLeague() {
+export default function CreateLeague({ registerUser, user_id }) {
     const { userData, setUserData } = useContext(UserDataContext);
     const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-
+    const [leagueName, setLeagueName] = useState('');
+    const [leagueRules, setLeagueRules] = useState('');
+    const [invite_url, setInvite_url] = useState('');
 
     const navigation = useNavigation();
 
-    const [leagueName, setLeagueName] = useState('');
-    const [leagueRules, setLeagueRules] = useState('');
 
     const data = JSON.stringify({
+        "user_id": userData.user_id,
         "league_name": leagueName,
         "league_picture": '',
         "league_rules": leagueRules,
-        "league_id": userData.league_id
+        "league_id": leagueData.league_id,
+        "invite_url": invite_url
     });
 
-
-
     const onInvitePress = () => {
-        console.log(leagueData.league_id);
+        console.log("llllllllllllllllllllleeeeaaaagggguuueeeeee", leagueData.league_id);
+        console.log("llllllllllllllllllllleeeeaaaagggguuueeeeee3333333", userData.user_id);
+
         navigation.navigate('Contacts List')
     }
 
     const onCreateLeaguePress = () => {
         console.log("create league = ", data);
-        fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/ManageLeague/5', {
-            method: 'PUT',
+        fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CreateNewLeague', {
+            method: 'POST',
             headers: new Headers({
                 'Content-type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json; charset=UTF-8'
@@ -52,6 +54,16 @@ export default function CreateLeague() {
                 (error) => {
                     console.log("err post=", error);
                 });
+        Alert.alert(
+            "ברוכים הבאים ל-Fantasy League צ'כונה! ",
+            " עכשיו מה שנשאר לעשות זה להיכנס באמצעות הפרטים שהזנת ולהזמין את החבר'ה דרך מסך הבית",
+            [
+                {
+                    text: "אישור",
+                },
+            ],
+            { cancelable: false }
+        );
         navigation.navigate('Sign In')
     }
 
@@ -82,13 +94,23 @@ export default function CreateLeague() {
                 <TextInput
                     multiline
                     numberOfLines={8}
-                    value={leagueRules}
+                    value={invite_url}
                     placeholder={'הזן את הקישור לקבוצת הוואצאפ '}
+                    style={styles.inputField}
+                    onChangeText={setInvite_url}
+                />
+            </View>
+            <View style={styles.text}>
+                <Text style={styles.text}>     חוקי הליגה:    </Text>
+                <TextInput
+                    multiline
+                    numberOfLines={8}
+                    value={leagueRules}
+                    placeholder={'הזן את חוקי הליגה'}
                     style={styles.inputField}
                     onChangeText={setLeagueRules}
                 />
             </View>
-
             <View style={styles.container}>
                 <Text>                     </Text>
                 <CustomButton text="הזמן חברים" onPress={onInvitePress} />

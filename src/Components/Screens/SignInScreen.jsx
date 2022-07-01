@@ -43,6 +43,11 @@ export default function SignInScreen() {
   });
 
   const onSignInPress = () => {
+    setUserData({});
+    setLeagueData({});
+    setFantasyTeamData({});
+    setLeaguePlayersData({});
+    setLeagueTeamsData({});
     fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/LogIn/5", {
       method: "POST",
       headers: new Headers({

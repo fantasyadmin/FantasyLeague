@@ -70,14 +70,11 @@ export default function ManageTeam() {
       <Text></Text>
       <Text></Text>
       <TopProfileBar />
-      
-      <Text></Text>
       <Text style={styles.text}>קבוצת פנטזי</Text>
       <View style={styles.text1}>
         <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
-      <Text></Text>
       <Text></Text>
       <ScrollView>
         <View style={{ width: '95%' }}>

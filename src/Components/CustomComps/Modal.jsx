@@ -71,8 +71,6 @@ const ModalResult = ({ data, player }) => {
   }
 
 
-
-
   return (
     <View style={styles.centeredView}>
       <Modal

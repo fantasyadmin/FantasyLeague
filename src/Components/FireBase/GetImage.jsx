@@ -16,16 +16,13 @@ export default function GetPic() {
   );
   const { userData } = useContext(UserDataContext);
 
-  useEffect(() => {
-    const func = async () => {
+  useEffect(async () => {
+    if(userData.picture === null) return;
       const storage = getStorage(app);
       const reference = ref(storage, userData.picture);
       const picUrl = await getDownloadURL(reference);
       setUrl(picUrl);
-      console.log({ picUrl });
-    };
-    func();
-  }, []);
+  }, [userData.picture]);
 
   return (
     <View

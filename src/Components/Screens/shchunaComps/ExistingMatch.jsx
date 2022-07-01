@@ -18,18 +18,14 @@ import { NavigationApps, actions, googleMapsTravelModes } from "react-native-nav
 export default function ExistingMatch() {
   const { matchData, setMatchData } = useContext(MatchInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const [renderScreen, setrenderScreen] = useState(
-    <View style={styles.text}>
-      <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא קבעתם משחק ?</Text>
-      <Text style={styles.text}> נווטו למסך "משחק חדש" והזמינו את החבר'ה!</Text>
-    </View>)
+  const [getData, setGetData] = useState(matchData)
+  const [renderScreen, setrenderScreen] = useState(false)
 
 
   const navigation = useNavigation();
 
   useEffect(() => {
     const params = JSON.stringify({ 'league_id': leagueData.league_id })
-    console.log("33333333333333", leagueData.league_id);
     try {
       fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
         method: "POST",
@@ -45,7 +41,6 @@ export default function ExistingMatch() {
         })
         .then(
           (result) => {
-            console.log("results are: ", result);
             setMatchData(
               {
                 match_id: result.match_id,
@@ -58,17 +53,17 @@ export default function ExistingMatch() {
                 }
               }
             );
-            console.log("this is what i have = ", matchData);
-            if (matchData.match_id != undefined) {
-              console.log("printing colors========================", matchData.team_color1);
-              setrenderScreen(gameScreen);
+            console.log("this is what i have = ", result);
+            if (result.match_id != undefined) {
+              console.log("printing colors========================", result.color1);
+              setrenderScreen(true);
             }
           })
     }
     catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [gameScreen, leagueData]);
 
   const gameScreen = <View>
     <View style={styles.fieldStyle}>
@@ -99,40 +94,43 @@ export default function ExistingMatch() {
         />
       </View>
     </View>
-    <Text></Text>
-    <Text></Text>
+    <Text>
+      {"\n\n\n"}
+    </Text>
     <View style={styles.fieldStyle}>
-      <Text style={styles.text}> מיקום המשחק:          </Text>
       <View style={styles.textBarLocation}>
         <CustomButton
-          text="הצג מיקום על המפה"
+          text="מיקום המשחק"
           onPress={() => navigation.navigate("Game Location", matchData.match_location)} />
       </View>
     </View>
-    <View style={styles.textBarLocation}>
-      <Text style={styles.text}>{'\n'}נווט למשחק</Text>
-      <NavigationApps
-        viewMode={ "sheet"}
-        //modalBtnOpenStyle={styles.buttons}
-        //modalBtnOpenTextStyle={}
-        modalContainerStyle={styles.modalView}
-        modalBtnOpenTitle={"נווט למשחק"}
-        iconSize={50}
-        row
-        address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
-        waze={{ address: '', lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.searchLocationByLatAndLon }} // specific settings for waze
-        googleMaps={{}} // specific settings for google maps
-
-       // googleMaps={{ lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.navigateByAddress, travelMode: googleMapsTravelModes.driving }} // specific settings for google maps
-      />
-    </View>
+    <Text>
+      {"\n\n\n"}
+    </Text>
     <View style={styles.textBarLocation}>
       <CustomButton
         text="טיימר למשחק"
         onPress={() => navigation.navigate("StopWatch")}
       />
     </View>
-    <Text></Text>
+    <Text>
+      {"\n\n\n"}
+    </Text>
+    <View style={[styles.container3, styles.text3, styles.btnModal]}>
+      <NavigationApps
+        viewMode={"modal"}
+        modalContainerStyle={styles.modalView}
+        modalBtnOpenTitle={"הפעל ניווט"}
+        modalBtnOpenTextStyle={[styles.textStyle]}
+        modalBtnCloseTitle={"סגור"}
+        modalBtnCloseTextStyle={[styles.button, styles.buttonClose, styles.CancelBtn]}
+        iconSize={75}
+        row
+        address={matchData.match_location.lat + ',' + matchData.match_location.lng} // address to navigate by for all apps 
+        waze={{ address: '', lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.searchLocationByLatAndLon }} // specific settings for waze
+        googleMaps={{ lat: matchData.match_location.lat, lon: matchData.match_location.lng, action: actions.navigateByLatAndLon, travelMode: googleMapsTravelModes.driving }} // specific settings for google maps
+      />
+    </View>
   </View>
 
 
@@ -142,7 +140,10 @@ export default function ExistingMatch() {
         <Text style={styles.text}> משחק צ'כונה</Text>
       </View>
       <View>
-        {renderScreen}
+        {!renderScreen ? <View style={styles.text}>
+          <Text style={styles.text}>{'\n\n\n\n\n\n\n\n\n'}                     עדיין לא קבעתם משחק ?</Text>
+          <Text style={styles.text}> נווטו למסך "משחק חדש" והזמינו את החבר'ה!</Text>
+        </View> : gameScreen}
       </View>
     </SafeAreaView>
   );
@@ -166,6 +167,22 @@ const styles = StyleSheet.create({
     textAlign: "right",
     alignItems: "center",
   },
+  btnModal: {
+    width: 135,
+    marginLeft: 140
+  },
+  container3: {
+    backgroundColor: '#1b91f3',
+    width: '50%',
+    padding: 15,
+    marginVertical: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  text3: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
   text: {
     fontWeight: "bold",
     color: "white",
@@ -188,7 +205,7 @@ const styles = StyleSheet.create({
   textBarLocation: {
     width: "100%",
     paddingBottom: 5,
-    paddingLeft: 5
+    paddingLeft: 140
   },
   buttons: {
     flex: 1,
@@ -202,6 +219,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     width: 250,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -217,5 +240,42 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "green",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+    marginTop: 10,
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 25
+  },
+  ButtonView: {
+    textAlign: "center",
+    flexDirection: "row",
+    margin: 45,
+  },
+  CancelBtn: {
+    backgroundColor: "red",
+  },
+  ApproveBtn: {
+    backgroundColor: "green",
   },
 });

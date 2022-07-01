@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, Image, Linking, Alert } from "react-native";
 import CustomButton from "../../../CustomComps/CustomButton";
-import TopProfileBar from "../../../MenuComponents/TopProfileBar";
 import { useNavigation } from "@react-navigation/native";
 import { LeagueInfoContext, UserDataContext, MatchInfoContext } from "../../../Context/UserContext";
 import React, { useState, useContext, useEffect } from "react";
-import GetPic from "../../../FireBase/GetImage";
 import { image } from "../../../../../assets/exports";
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import RulesModal from "./RulesModal";

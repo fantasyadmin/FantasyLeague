@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View, Image, ScrollView, Alert } from "react-native";
 import React, { useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { image } from "../../../../assets/exports";
-import Icon from "react-native-vector-icons/FontAwesome";
 import {
   MaterialIcons,
   AntDesign,
