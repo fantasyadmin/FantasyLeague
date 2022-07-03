@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Navigation from "./src/Components/Navigation/Navigation.jsx";
 import {
   UserDatacontextProvider,
@@ -13,10 +14,10 @@ import {
   TempUserDataContextProvider,
 } from "./src/Components/Context/TempUserContext.js";
 
-
 export default function App() {
-  return (
 
+
+  return (
     // <SmartRadar />
     //<GetContacts />
     //<ApproveResults/>
@@ -40,7 +41,6 @@ export default function App() {
         </LeagueInfoContextProvider>
       </UserDatacontextProvider>
     </TempUserDataContextProvider>
-
     //     //<StopWatch/>
     //     //<NewGame/>
     //     //<ColorPicking />
@@ -60,17 +60,6 @@ export default function App() {
     //     //<ManageExistingGame />
     //     //<PickDate/>
     //     //<PickTime/>
-    //     //<LeagueInfoContextProvider>
-    //     //<FantasyTeamInfoContextProvider>
-    //     //  <LeaguePlayersInfoContextProvider>
-    //     //    <MatchInfoContextProvider>
-    //     //      <LeagueTeamsInfoContextProvider>
-    //     //        <Navigation />
-    //     //      </LeagueTeamsInfoContextProvider>
-    //     //    </MatchInfoContextProvider>
-    //     //  </LeaguePlayersInfoContextProvider>
-    //     //</FantasyTeamInfoContextProvider>
-    //     //</LeagueInfoContextProvider>
     // <MapComp/>
   );
 }

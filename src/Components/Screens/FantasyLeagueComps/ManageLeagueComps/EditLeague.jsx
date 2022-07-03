@@ -70,6 +70,10 @@ const EditLeague = () => {
         onPress={() => navigation.navigate("Edit League Details")}
       />
       <CustomButton
+        text="הפוך שחקן למנהל ליגה"
+        onPress={() => navigation.navigate("Nominate Manager")}
+      />
+      <CustomButton
         text="הסרת שחקן מהליגה"
         onPress={() => navigation.navigate("Manage Players")}
       />

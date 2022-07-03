@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LeagueInfoContext, UserDataContext, MatchInfoContext } from "../Context/UserContext";
 import React, { useState, useContext, useEffect } from "react";
 import GetPic from "../FireBase/GetImage";
+import PushPage from "../PushNotifications/PushNotifications";
 
 const Home = () => {
   const { userData } = useContext(UserDataContext);
@@ -26,6 +27,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <PushPage />
       <TopProfileBar />
       <CustomButton
         text="משחק הצ'כונה הבא"

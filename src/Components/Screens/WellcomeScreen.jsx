@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const WellcomeScreen = () => {
-     
+
     const navigation = useNavigation();
 
     const onSignInPress = () => {
@@ -23,7 +23,7 @@ const WellcomeScreen = () => {
                 <View style={styles.Button}>
                     <CustomButton text="משתמש חדש" onPress={onSignUpPress} />
                     <Text>      </Text>
-                    <CustomButton text="משתמש קיים" onPress={onSignInPress} />     
+                    <CustomButton text="משתמש קיים" onPress={onSignInPress} />
                 </View>
             </View >
         </ImageBackground>

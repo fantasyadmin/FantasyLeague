@@ -17,18 +17,14 @@ import {
 import PlayersInLeague from "../ManageTeam/createPlayersList";
 import GlobalPlayersList from "../ManageTeam/GlobalPlayersList";
 
-export default function ManagePlayers() {
+export default function NominateManager() {
   const [toDel, setToDel] = useState();
   const { userData, setUserData } = useContext(UserDataContext);
-  const { LeaguePlayersData, setLeaguePlayersData } = useContext(
-    LeaguePlayersInfoContext
-  );
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
   const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
-  const { FantasyTeamData, setFantasyTeamData } = useContext(
-    FantasyTeamInfoContext
-  );
+  const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
 
-  const logos = <AntDesign name="deleteuser" size={29} color="#900"/>;
+  const logos = <AntDesign name="key" size={29} color="yellow" />;
 
   const sortplayers = []
     .concat(LeaguePlayersData.players)
@@ -43,20 +39,20 @@ export default function ManagePlayers() {
           points={x.player_score}
           icon={logos}
           user_id={x.user_id}
-          tellSon={markPlayerToDelete}
+          tellSon={markPlayerToNominate}
         />
       </View>
     );
   });
 
-  function markPlayerToDelete(nickname, user_id) {
+  function markPlayerToNominate(nickname, user_id) {
     console.log("deletion Candidate = ", user_id);
 
     Alert.alert(
       "שים לב! ",
-      "האם אתה בטוח שברצונך למחוק את  " +
-        nickname +
-        "  מהליגה? \n\nברגע שתלחץ על כפתור האישור לא תוכל לשחזר את הנתונים וכרטיס השחקן יימחק! ",
+      "אתה הולך למנות את   " +
+      nickname +
+      "  למנהל ליגה \n\nעם כוח גדול - באה אחריות גדולה! ",
       [
         {
           text: "ביטול",
@@ -65,41 +61,38 @@ export default function ManagePlayers() {
         },
         { text: "         " },
         {
-          text: "מחק שחקן מהליגה",
-          onPress: () => deletePlayerAPI(user_id, leagueData.league_id),
+          text: "מנה למנהל",
+          onPress: () => nominatePlayerAPI(user_id, leagueData.league_id),
         },
       ],
       { cancelable: false }
     );
   }
 
-  function deletePlayerAPI(id, league) {
+  function nominatePlayerAPI(id, league) {
     console.log({ id, league });
     const data = JSON.stringify({
       user_id: id,
-      league_id: league,
     });
     if (id) {
       //fetch - delete player
-      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/DeletePL", {
+      fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/ChangeManager", {
         method: "POST",
         headers: new Headers({
           "Content-type": "application/json; charset=UTF-8",
           Accept: "application/json; charset=UTF-8",
         }),
-        body: data,
+        body: JSON.stringify( data )
       })
         .then((res) => {
           console.log("res=", res);
           return res.json();
         })
         .then((result) => {
-          return setLeaguePlayersData((prevState) => ({
-            players: prevState.players.filter((user) => user.user_id !== id),
-          }));
+          alert("מנהל ליגה חדש מונה בהצלחה!")
         });
     } else {
-      alert("לא נבחר שחקן למחיקה");
+      alert("משהו השתבש, נסה במועד מאוחר יותר");
     }
   }
 
@@ -110,8 +103,8 @@ export default function ManagePlayers() {
           <Text style={styles.text}>ניהול שחקני הליגה</Text>
         </View>
         <Text>{"\n\n\n"}</Text>
-        <View style={styles.text1}> 
-          <Text style={styles.text}>         הסרת שחקן מהליגה            </Text>
+        <View style={styles.text1}>
+          <Text style={styles.text}>בחר שחקן למינוי לדרגת מנהל ליגה</Text>
         </View>
         <View>{renderTable}</View>
       </ScrollView>

@@ -18,6 +18,7 @@ import UploadPic from "../FireBase/Upload";
 import GetPic from "../FireBase/GetImage";
 import EditLeague from "../Screens/FantasyLeagueComps/ManageLeagueComps/EditLeague";
 import EditLeagueDetails from "../Screens/FantasyLeagueComps/ManageLeagueComps/EditLeagueDetails";
+import NominateManager from "../Screens/shchunaComps/NominateManager";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ const HomeNavManager = () => {
       <Stack.Screen name="Get Picture" component={GetPic} />
       <Stack.Screen name="Edit League" component={EditLeague} />
       <Stack.Screen name="Edit League Details" component={EditLeagueDetails} />
+      <Stack.Screen name="Nominate Manager" component={NominateManager} />
     </Stack.Navigator>
   );
 

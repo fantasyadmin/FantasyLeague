@@ -27,7 +27,7 @@ export default function ExistingMatch() {
   useEffect(() => {
     const params = JSON.stringify({ 'league_id': leagueData.league_id })
     try {
-      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
+      fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/NextMatch', {
         method: "POST",
         headers: new Headers({
           "Content-type": "application/json; charset=UTF-8",
