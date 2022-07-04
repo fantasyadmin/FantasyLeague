@@ -78,9 +78,12 @@ const EditLeague = () => {
         onPress={() => navigation.navigate("Manage Players")}
       />
       <RulesModal />
-      <Pressable onPress={() => DelAllData()} style={styles.container2}>
-        <Text style={styles.text2}>איפוס תוצאות הליגה</Text>
-      </Pressable>
+      <CustomButton
+        text="איפוס תוצאות הליגה"
+        onPress={() => DelAllData()}
+        color={"#990000"}
+        txt={"white"}
+      />
     </View>
   );
 };

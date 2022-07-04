@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
   fieldStyle: {
     flexDirection: 'row',
     marginTop: 15,
+    
   },
   itemsLocation: {
     paddingLeft: 10,

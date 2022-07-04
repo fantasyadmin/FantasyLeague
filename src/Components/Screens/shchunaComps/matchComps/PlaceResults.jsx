@@ -48,7 +48,7 @@ export default function PlaceResults({ route }) {
           return res.json();
         })
         .then((result) => {
-          console.log("Close Match is//////////////////////////////: ", result);
+          console.log("Close Match is: ", result);
           let date = result.matchDateStr
           setLastMatch(date);
           let id = result.match_id
@@ -109,7 +109,7 @@ export default function PlaceResults({ route }) {
             } if (statusCode == 400) {
               return alert("התוצאות נשלחו לאישור מנהל הליגה")
             }
-            else{
+            else {
               alert("משהו השתבש, נסה שוב מאוחר יותר")
             }
           })
@@ -121,9 +121,9 @@ export default function PlaceResults({ route }) {
   };
 
 
-  const gameScreen = <View>
+  const gameScreen = <View style={{ width: "95%" }}>
     <View>
-      <Text style={styles.title2}>הזנת תוצאות למשחק מ: {lastMatch} </Text>
+      <Text style={styles.title2}>הזנת תוצאות למשחק מ:  {lastMatch} </Text>
     </View>
     <View style={styles.form}>
       <View style={styles.inputArea}>
@@ -146,6 +146,7 @@ export default function PlaceResults({ route }) {
           onChangeText={setGoals}
         />
       </View>
+      
       <View style={styles.inputArea}>
         <Text style={styles.label}>בישולים שלי </Text>
         <TextInput
@@ -186,15 +187,13 @@ export default function PlaceResults({ route }) {
   </View>
 
 
-
-
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.title}>הזן תוצאות</Text>
       </View>
 
-      {matchId != 0 ? (
+      {matchId != 0 && matchData.date != null ? (
         gameScreen
       ) : (
         <View style={styles.text}>
@@ -203,9 +202,6 @@ export default function PlaceResults({ route }) {
         </View>
       )
       }
-
-
-
     </SafeAreaView >
   );
 };
@@ -235,8 +231,8 @@ const styles = StyleSheet.create({
   },
   inputArea: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    width: "100%",
+    justifyContent:"space-between",
+    width: "80%",
     margin: 20,
   },
   label: {
@@ -248,10 +244,14 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#fff",
-    width: "10%",
+    width: "20%",
     borderColor: "#e8e8e8",
     borderWidth: 1,
     textAlign: "center",
+    direction: "ltr",
+    borderColor: '#e8e8e8',
+    borderRadius: 10,
+    borderWidth: 1,
   },
   text: {
     fontWeight: "bold",
@@ -262,5 +262,6 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     fontSize: 20,
+    top: 40 
   },
 });

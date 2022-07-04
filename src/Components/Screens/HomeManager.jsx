@@ -27,7 +27,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <PushPage />
       <TopProfileBar />
       <CustomButton
         text="משחק הצ'כונה הבא"

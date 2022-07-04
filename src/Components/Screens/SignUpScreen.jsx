@@ -133,16 +133,14 @@ export default function SignUpScreen() {
 
           <CustomButton text="אשר כתובת מייל והיכנס" onPress={onSignUpPress} />
           <Text>
-            ברישומי לאפליקציה אני מאשר כי קראתי והסכמתי {"\n"}
+            {"\n"}ברישומי לאפליקציה אני מאשר כי קראתי והסכמתי {"\n"}
             <TermsModal />
             <Text style={styles.link}>
-              {" "}
               לתנאי השימוש ומדיניות הפרטיות
             </Text>
             {" "} באפליקציית Fantasy League צ'כונה{" "}
           </Text>
-          <Text onPress={onExistingAcount}>כבר יש לי חשבון</Text>
-          <Text></Text>
+          <Text onPress={onExistingAcount} style={{fontWeight: "bold"}}>כבר יש לי חשבון</Text>
           <Text></Text>
         </View>
       </ScrollView>
@@ -159,6 +157,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 5,
     textAlign: "right",
+    borderRadius: 20,
+    borderColor: "grey",
+
   },
   root: {
     width: "100%",

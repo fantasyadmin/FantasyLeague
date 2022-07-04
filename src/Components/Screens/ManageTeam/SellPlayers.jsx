@@ -30,7 +30,7 @@ export default function SellPlayers() {
   function markPlayerToSell(nickname, user_id) {
     setToSell(user_id);
     console.log("real = ", user_id);
-    alert(nickname + " was chosen for sale");
+    alert(" בחרת למכור את  "+ nickname + " \nלהשלמת המכירה לחץ על כפתור המכירה");
   }
 
   function sellPlayersAPI() {
@@ -70,7 +70,7 @@ export default function SellPlayers() {
               console.log("user data3 = ", result.player1);
             }
             else {
-              alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+              alert("הפעולה אינה חוקית");
             }
           },
           (error) => {
@@ -96,7 +96,7 @@ export default function SellPlayers() {
       <Text></Text>
       <Text></Text>
       <ScrollView>
-        <View>
+        <View style={{width: "95%"}}>
           <Text style={styles.text}>שחקני הקבוצה</Text>
           {renderTable}
         </View>

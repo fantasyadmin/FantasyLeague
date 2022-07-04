@@ -39,38 +39,28 @@ export default function ContactsList(props) {
                         ],
                     }
                 );
-                if (data.length > 0) {
-                    console.log("=============sorting============");
-                    const sortContacts = [].concat(data).sort();
-                    sortContacts.forEach(a => {
-                        if (a.name !== undefined || a.phoneNumbers[1].number !== undefined) {
-                            setRend(
-                                prevState => [...prevState, <ContactField
-                                    //key={ind}
-                                    name={a.name}
-                                    phone={a.phoneNumbers[0].number}
-                                    tellSon={(phone) => markPlayerToWatch(phone)}
-                                    selected={markedSelect}
-                                />]
-                            )
-                        }
-                        else { console.log("empty....."); }
-                    });
-                }
+                // if (data.length > 0) {
+                //     console.log("=============sorting============");
+                //     const sortContacts = [].concat(data).sort();
+                //     sortContacts.forEach(a => {
+                //         if (a.name !== undefined || a.phoneNumbers[1].number !== undefined) {
+                //             setRend(
+                //                 prevState => [...prevState, <ContactField
+                //                     //key={ind}
+                //                     name={a.name}
+                //                     //phone={a.phoneNumbers[0].number}
+                //                     tellSon={(phone) => markPlayerToWatch(phone)}
+                //                     selected={markedSelect}
+                //                 />]
+                //             )
+                //         }
+                //         else { console.log("empty....."); }
+                //     });
+                // }
             }
         })(
         );
     }, []);
-
-    function markedSelect() {
-        if (select) {
-            setSelect(false);
-        }
-        else {
-            setSelect(true);
-        }
-        return select
-    }
 
     function markPlayerToWatch(phone) {
         console.log("number added: ", phone);

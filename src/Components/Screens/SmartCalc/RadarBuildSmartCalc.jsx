@@ -53,7 +53,7 @@ class Radar extends React.Component {
                 axis: { stroke: "white", strokeWidth: 0.25, opacity: 0.4 },
                 grid: { stroke: "white", strokeWidth: 0.25, opacity: 0.4 },
               }}
-              tickLabelComponent={<VictoryLabel labelPlacement="vertical" />}
+              tickLabelComponent={<VictoryLabel labelPlacement="vertical"/>}
               labelPlacement="perpendicular"
               axisValue={i + 1}
               label={key}

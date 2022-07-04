@@ -43,11 +43,10 @@ export default function TopProfileBar(props) {
       </TouchableHighlight>
 
       <View>
-        <Text style={styles.text}> {userData.nickname}</Text>
+        <Text style={styles.text}> משתמש: <Text style={{ color: "black" }}> {userData.nickname}</Text></Text>
         <Text></Text>
-        <Text style={styles.text}> שם הליגה: {leagueData.league_name}</Text>
-        <Text style={styles.text}> מספר משחקים: {userData.games_played}</Text>
-        <Text style={styles.text}> ציון שחקן: {userData.player_score}</Text>
+        <Text style={styles.text}> שם הליגה: <Text style={{ color: "black" }}> {leagueData.league_name}</Text></Text>
+        <Text style={styles.text}> ציון שחקן: <Text style={{ color: "black" }}> {userData.player_score}</Text></Text>
       </View>
     </View>
   );

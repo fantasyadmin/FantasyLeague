@@ -55,12 +55,9 @@ export default function EditLeagueDetails() {
             <View style={styles.container}>
                 <Image source={image} style={styles.pic} />
             </View>
-            <Text></Text>
-            <Text></Text>
-            <Text></Text>
-            <View style={styles.text}>
+            <View style={{bottom: 90}}>
                 <Text style={styles.text}>        צ'אט הליגה:    </Text>
-                <Text>            הזן את הקישור לקבוצת הוואצאפ שתרצה לשייך לליגה. {"\n"}            דרכו יוכלו החברים בליגה להיכנס לקבוצה</Text>
+                <Text style={{fontWeight: "bold"}}>            הזן את הקישור לקבוצת הוואצאפ שתרצה לשייך לליגה. {"\n"}            דרכו יוכלו החברים בליגה להיכנס לקבוצה</Text>
                 <TextInput
                     multiline
                     numberOfLines={8}
@@ -70,10 +67,10 @@ export default function EditLeagueDetails() {
                     onChangeText={setLeagueChat}
                 />
             </View>
-            <View style={styles.container}>
+            <View style={styles.bottom}>
                 <CustomButton text="שמור נתונים" onPress={onCreateLeaguePress} />
             </View>
-            <View style={styles.container}>
+            <View style={styles.bottom}>
                 <CustomButton text="חזור ללא שמירה" onPress={() => navigation.navigate('Home')
                 } />
             </View>
@@ -93,7 +90,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: "100%",
-        padding: 5
+        justifyContent: 'center',
+        bottom: 60
     },
     pic: {
         width: '70%',
@@ -103,7 +101,7 @@ const styles = StyleSheet.create({
     text: {
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 20
+        fontSize: 20,
     },
     text2: {
         fontWeight: 'bold',
@@ -117,6 +115,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         color: 'white',
+        borderColor: '#e8e8e8',
+        borderRadius: 10,
+        borderWidth: 1,
     },
     container1: {
         backgroundColor: '#fff',
@@ -127,4 +128,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'right'
     },
+    bottom: {
+        bottom: 90
+    }
 })

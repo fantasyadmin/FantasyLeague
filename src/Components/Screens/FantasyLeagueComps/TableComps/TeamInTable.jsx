@@ -58,11 +58,10 @@ export default function TeamInTable(props) {
             <Text style={styles.text2}>נק': {props.points}</Text>
             <Text style={styles.text3}>{props.nickname}</Text>
             {props.picture ? (
-                <Image source={{uri:"https://firebasestorage.googleapis.com/v0/b/fantasyleagueneighborhoo-fe0e1.appspot.com/o/" + props.picture + "?alt=media&token=e96a14e8-36bf-4c1b-b58d-a75e1863a590"}}
+                <Image source={{ uri: "https://firebasestorage.googleapis.com/v0/b/fantasyleagueneighborhoo-fe0e1.appspot.com/o/" + props.picture + "?alt=media&token=e96a14e8-36bf-4c1b-b58d-a75e1863a590" }}
                     style={styles.profilePic} />
             ) : (
                 <Image source={image} style={styles.profilePic} />
-
             )}
             <Text style={styles.text}>   {props.place}  </Text>
         </View>
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         alignItems: 'baseline',
-        //justifyContent: 'space-around',
         padding: 0,
         backgroundColor: '#4472c4',
         borderColor: '#e8e8e8',
@@ -84,6 +82,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         marginVertical: 5,
         width: 360,
+        borderColor: '#e8e8e8',
+        borderRadius: 10,
+        borderWidth: 1,
+        marginVertical: 3,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+        elevation: 8,
     },
     text: {
         flexDirection: 'row',
@@ -98,7 +108,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         width: 90,
-        fontSize: 20,
+        fontSize: 18,
         paddingHorizontal: 5,
         marginVertical: 5,
     },

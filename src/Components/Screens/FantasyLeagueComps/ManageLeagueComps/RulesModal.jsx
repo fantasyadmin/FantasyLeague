@@ -6,9 +6,6 @@ import CustomButton from "../../../CustomComps/CustomButton";
 const RulesModal = ({ data, player }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-
-
-
   return (
     <View>
       <View style={styles.centeredView}>
@@ -48,14 +45,9 @@ const RulesModal = ({ data, player }) => {
         </Modal >
       </View >
       <CustomButton
-        text="              הסבר על ניהול ליגה               "
+        text="הסבר על ניהול ליגה"
         onPress={() => setModalVisible(true)}
       />
-      {/* <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>צפייה בתוצאות</Text>
-      </Pressable> */}
     </View>
 
   );

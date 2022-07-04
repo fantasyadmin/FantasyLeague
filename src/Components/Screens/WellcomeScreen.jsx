@@ -22,7 +22,7 @@ const WellcomeScreen = () => {
             <View style={styles.container}>
                 <View style={styles.Button}>
                     <CustomButton text="משתמש חדש" onPress={onSignUpPress} />
-                    <Text>      </Text>
+                    <Text>  </Text>
                     <CustomButton text="משתמש קיים" onPress={onSignInPress} />
                 </View>
             </View >
@@ -45,8 +45,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 500,
-        width: 200
+        marginTop: "145%",
+        width: "50%",
+        justifyContent: 'center'
     },
     image: {
         flex: 1,

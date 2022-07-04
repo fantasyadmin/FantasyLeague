@@ -110,50 +110,6 @@ export default function SignInScreen() {
       .then(navigation.navigate("Bottom"));
   };
 
-  // function getMatchData(league_id) {
-  //   const params = JSON.stringify({ 'league_id': league_id })
-  //   console.log("33333333333333", league_id);
-  //   try {
-  //     fetch('https://proj.ruppin.ac.il/bgroup89/prod/api/CloseMatch', {
-  //       method: "POST",
-  //       headers: new Headers({
-  //         "Content-type": "application/json; charset=UTF-8",
-  //         Accept: "application/json; charset=UTF-8",
-  //       }),
-  //       body: params
-  //     })
-  //       .then(res => {
-  //         console.log('res=', res);
-  //         return res.json()
-  //       })
-  //       .then(
-  //         (result) => {
-  //           console.log("results are: ", result);
-  //           setMatchData(
-  //             {
-  //               match_id: result.match_id,
-  //               match_date: result.matchDateStr,
-  //               match_time: result.match_time,
-  //               team_color1: result.color1,
-  //               team_color2: result.color2,
-  //               match_location: {
-  //                 lat: result.lat, lng: result.lng,
-  //               }
-  //             }
-  //           );
-  //           console.log("this is what i have = ", matchData);
-  //           if (matchData.match_id != undefined) {
-  //             console.log("printing colors========================", matchData.team_color1);
-  //           }
-  //         })
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-
-
 
   const onForgotPasswordPress = () => {
     console.warn("forgot password");
@@ -164,12 +120,6 @@ export default function SignInScreen() {
     console.warn("create new account");
     navigation.navigate("Sign Up");
   };
-
-
-
-
-
-
 
 
 
@@ -203,11 +153,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     width: "70%",
-    borderColor: "#e8e8e8",
     borderWidth: 1,
     paddingHorizontal: 10,
     marginVertical: 5,
     textAlign: "right",
+    borderRadius: 20,
+    borderColor: "grey",
   },
   root: {
     width: "100%",

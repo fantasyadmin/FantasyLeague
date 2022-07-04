@@ -10,16 +10,6 @@ import { useNavigation } from '@react-navigation/native';
 import TopProfileBar from '../../MenuComponents/TopProfileBar';
 
 
-const logos = [
-  <FontAwesome5 name="crown" size={23} color="#993" />,
-  <MaterialCommunityIcons name="weight-lifter" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-  <Icon name="rocket" size={29} color="#900" />,
-]
 
 
 export default function ManageTeam() {
@@ -40,8 +30,8 @@ export default function ManageTeam() {
       key={x.user_id}
       nickname={x.nickname}
       points={x.player_score}
-      icon={logos[ind]}      // work on different icons
       user_id={x.user_id}
+      picture={x.picture}
       tellSon={markPlayerToWatch}
     /> : null
   });
@@ -67,31 +57,26 @@ export default function ManageTeam() {
 
   return (
     <SafeAreaView style={styles.container1}>
-      <Text></Text>
-      <Text></Text>
       <TopProfileBar />
       <Text style={styles.text}>קבוצת פנטזי</Text>
       <View style={styles.text1}>
         <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
-      <Text></Text>
       <ScrollView>
         <View style={{ width: '95%' }}>
           <Text style={styles.text}>שחקני הקבוצה</Text>
           {renderTable}
         </View>
         <View style={styles.buttons}>
-          <CustomButton text="קנה שחקן" onPress={() => navigation.navigate('Buy Players')} />
-          <Text>                </Text>
-          <CustomButton text="מכור שחקן" onPress={() => navigation.navigate('Sell Players')} />
+          <CustomButton text="קנה שחקן" onPress={() => navigation.navigate('Buy Players')} color={"green"} txt={"white"}/>
+          <Text>         </Text>
+          <CustomButton text="מכור שחקן" onPress={() => navigation.navigate('Sell Players')} color={"#990000"} txt={"white"}/>
         </View>
-        <Text></Text>
         <View style={styles.buttons1}>
           <Text>                            </Text>
           <CustomButton text="השוואת שחקנים" onPress={() => navigation.navigate('SmartCalc')} />
         </View>
-
       </ScrollView>
     </SafeAreaView>
   )
@@ -114,7 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     fontSize: 20,
-    marginVertical: 10
+    marginVertical: 5
   },
   text1: {
     marginRight: 0,
@@ -129,14 +114,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    width: 200,
-    marginHorizontal: "12%"
+    justifyContent: 'center',
+    marginRight: 19
   },
   buttons1: {
     flexDirection: 'row',
     flex: 1,
     alignContent: 'center',
-    width: "100%",
+    width: "77%",
+    justifyContent: 'center'
   },
 })
 

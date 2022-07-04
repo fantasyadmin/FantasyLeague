@@ -3,14 +3,6 @@ import React, { useState, useContext } from "react";
 import TeamInTable from "./TeamInTable";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { image } from "../../../../../assets/exports";
-import Icon from "react-native-vector-icons/FontAwesome";
-import {
-  MaterialIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 import {
   UserDataContext,
   LeaguePlayersInfoContext,
@@ -51,7 +43,9 @@ export default function LeagueTable(props) {
       <Text style={styles.text}>טבלת הליגה</Text>
       <Image source={image} style={styles.pic} />
       <Text style={styles.text1}> נבחרת            ניקוד                בעלים             מקום</Text>
-      <ScrollView>{renderTable}</ScrollView>
+      <ScrollView>
+        {renderTable}
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -42,6 +42,7 @@
     "react-native": "0.64.3",
     "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-input-style": "^1.0.2",
     "react-native-location": "^2.5.0",
     "react-native-maps": "0.29.4",
     "react-native-navigation-apps": "^1.0.27",

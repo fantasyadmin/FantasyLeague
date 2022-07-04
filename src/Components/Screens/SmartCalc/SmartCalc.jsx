@@ -142,35 +142,13 @@ export default function SmartCalc(props) {
     return data.map((datum) => makeDataArray(datum));
   }
 
-  // var renderTable1 = LeaguePlayersData.players.map((x, ind) => {
-  //   return x !== null ? (
-  //     <PlayersInLeague
-  //       key={x.user_id}
-  //       nickname={x.nickname}
-  //       //points={x.player_score}
-  //       color={1}
-  //       //icon={logos[ind]}      // work on different icons
-  //       user_id={x.user_id}
-  //       tellSon={markPlayerToWatch}
-  //     />
-  //   ) : null;
-  // });
-
-  // function markPlayerToWatch(x) {
-  //   console.log("real = ", x.nickname);
-  //   console.log("side = ", x.color);
-  //   console.log("name = ", x.nickname);
-  //   SetRadarData(x);
-  // }
-
   var renderTable2 = LeaguePlayersData.players.map((x, ind) => {
     return x !== null ? (
       <PlayersInLeague
         key={x.user_id}
         nickname={x.nickname}
-        //points={x.player_score}
+        points={x.player_score}
         color={colorNumState}
-        //icon={logos[ind]}      // work on different icons
         user_id={x.user_id}
         tellSon={markPlayerToWatch}
       />
@@ -193,24 +171,22 @@ export default function SmartCalc(props) {
 
   return (
     <View style={styles.root}>
-      <Text></Text>
       <Text style={styles.text1}>השוואת שחקנים</Text>
-      <View style={styles.top}>
-        <View style={styles.scrollsShell}>
-          {/* <ScrollView style={styles.scrolls}>
-            <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
-            {renderTable1}
-          </ScrollView> */}
-          <ScrollView>
-          <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
-          <Text style={styles.player2}>שחקן 2: {redComp}</Text>
-            {renderTable2}
-          </ScrollView>
-        </View>
-      </View>
+
       {maxima && raderData ? (
         <SmartRadar maxima={maxima} data={raderData} />
-      ) : <Text>לא נבחרו שחקנים להשוואה</Text>}
+      ) : <Text>{"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"}</Text>}
+
+      <View style={styles.top}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.player1}>שחקן 1: {orangeComp}</Text>
+          <Text style={styles.player2}>שחקן 2: {redComp}</Text>
+        </View>
+      </View>
+      <ScrollView style={{ width: "90%", marginHorizontal: 20, height: "20%" }}>
+        {renderTable2}
+      </ScrollView>
+
     </View>
   );
 }
@@ -241,8 +217,10 @@ const styles = StyleSheet.create({
     paddingRight: "35%",
   },
   top: {
+    //flex: 1,
     flexDirection: "row",
-    width: "100%",
+    width: "30%",
+    marginHorizontal: 30
   },
   scrolls: {
     //flex: 3,

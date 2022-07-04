@@ -31,7 +31,7 @@ export default function BuyPlayers() {
     setToBuy(user_id);
     //console.log(toBuy);
     console.log("real = ", user_id);
-    alert(nickname + " was chosen to buy");
+    alert(" בחרת לקנות את  "+ nickname + " \nלהשלמת הרכישה לחץ על כפתור הקניה");
   }
 
   function buyPlayersAPI() {
@@ -68,10 +68,9 @@ export default function BuyPlayers() {
               console.log("data received = ", result);
               console.log("==========================");
               console.log("user data3 = ", result.player1);
-
             }
             else {
-              alert("אחד או יותר מהפרטים שהזנת אינם נכונים, נסה שנית");
+              alert("הפעולה אינה חוקית, בדוק אם השחקן נמצא כבר בקבוצת הפנטזי שלך");
             }
           },
           (error) => {
@@ -91,7 +90,7 @@ export default function BuyPlayers() {
       </View>
       <Text></Text>
       <View style={styles.text1}>
-        <Text style={styles.text}>דירוג קבוצה בליגה:</Text>
+        <Text style={styles.text}>קניית שחקן לקבוצת הפנטזי</Text>
         <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
         <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       </View>
@@ -99,7 +98,7 @@ export default function BuyPlayers() {
       <Text></Text>
       <Text style={styles.text}>שחקני הליגה</Text>
       <ScrollView>
-        <View>
+        <View style={{width: "95%", justifyContent: "center"}}>
           {renderTable}
         </View>
       </ScrollView>
