@@ -6,6 +6,7 @@ import { LeagueInfoContext, UserDataContext, MatchInfoContext } from "../Context
 import React, { useState, useContext, useEffect } from "react";
 import GetPic from "../FireBase/GetImage";
 import PushPage from "../PushNotifications/PushNotifications";
+import LeagueRulesModal from "../CustomComps/LeagueRules";
 
 const Home = () => {
   const { userData } = useContext(UserDataContext);
@@ -37,7 +38,7 @@ const Home = () => {
         text="הזן תוצאות משחק"
         onPress={() => navigation.navigate("Place Results")}
       />
-
+      <LeagueRulesModal />
       <Text></Text>
       <Text></Text>
 

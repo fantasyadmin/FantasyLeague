@@ -2,8 +2,6 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { image } from '../../../../assets/exports';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { MaterialIcons, AntDesign, FontAwesome5, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { UserDataContext, LeaguePlayersInfoContext, FantasyTeamInfoContext } from '../../Context/UserContext';
 import PlayersInLeague from './createPlayersList';
 import CustomButton from '../../CustomComps/CustomButton';
@@ -31,7 +29,7 @@ export default function BuyPlayers() {
     setToBuy(user_id);
     //console.log(toBuy);
     console.log("real = ", user_id);
-    alert(" בחרת לקנות את  "+ nickname + " \nלהשלמת הרכישה לחץ על כפתור הקניה");
+    alert(" בחרת לקנות את  " + nickname + " \nלהשלמת הרכישה לחץ על כפתור הקניה");
   }
 
   function buyPlayersAPI() {
@@ -85,20 +83,14 @@ export default function BuyPlayers() {
 
   return (
     <SafeAreaView style={styles.container1}>
-      <View style={styles.container}>
-        <Text style={styles.text}>קנה שחקן</Text>
-      </View>
-      <Text></Text>
-      <View style={styles.text1}>
-        <Text style={styles.text}>קניית שחקן לקבוצת הפנטזי</Text>
-        <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
-        <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
-      </View>
+      <Text style={styles.text1}>קניית שחקן לקבוצת הפנטזי</Text>
+      <Image source={image} style={styles.pic} />
+      <Text style={styles.text}>סה"כ נקודות:    {FantasyTeamData.team_points}</Text>
+      <Text style={styles.text}>תקציב:     {FantasyTeamData.team_budget}</Text>
       <CustomButton text="קנה שחקן" onPress={buyPlayersAPI} />
       <Text></Text>
-      <Text style={styles.text}>שחקני הליגה</Text>
       <ScrollView>
-        <View style={{width: "95%", justifyContent: "center"}}>
+        <View style={{ width: "95%", justifyContent: "center" }}>
           {renderTable}
         </View>
       </ScrollView>
@@ -111,8 +103,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 40,
-    paddingRight: 20,
     backgroundColor: '#4472c4',
+    justifyContent: 'center'
   },
   container1: {
     flex: 1,
@@ -123,17 +115,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     fontSize: 20,
-    marginVertical: 10
-
   },
   text1: {
-    marginRight: 0,
-    direction: 'rtl',
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 30,
+    marginVertical: 10,
+    paddingTop: 20,
   },
   pic: {
-    width: '70%',
+    width: "10%",
     borderRadius: 300,
-    height: 300,
+    height: 200,
+    paddingHorizontal: 150,
+    paddingVertical: 130
   },
   buttons: {
     flex: 1,

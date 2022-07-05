@@ -69,7 +69,7 @@ export default function EmailVerification({ route }) {
           console.log("i got this: ", [res, data]);
           /// if result is ok - navigate to sign in else try again or resend verification
           console.log("eeeeeeeeeeeeeeeeeeee", data.league_id);
-          if (res = 200) {
+          if (res == 200) {
             console.log("eeeee6666e", data.user_id);
             setLeagueData({
               league_id: data.league_id,

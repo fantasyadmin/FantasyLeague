@@ -9,7 +9,6 @@ import {
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
 
-
 export default function LeagueTable(props) {
   const { userData, setUserData } = useContext(UserDataContext);
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(
@@ -25,16 +24,17 @@ export default function LeagueTable(props) {
 
   var renderTable = sortTeams.map((x, ind) => {
     console.log("i prinfffff", x);
-    return (<View>
-      <TeamInTable
-        key={ind}
-        nickname={x.nickname}
-        place={ind + 1}
-        user_id={x.user_id}
-        points={x.team_points}
-        picture={x.picture}
-      />
-    </View>
+    return (
+      <View>
+        <TeamInTable
+          key={ind}
+          nickname={x.nickname}
+          place={ind + 1}
+          user_id={x.user_id}
+          points={x.team_points}
+          picture={x.picture}
+        />
+      </View>
     );
   });
 
@@ -42,10 +42,13 @@ export default function LeagueTable(props) {
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>טבלת הליגה</Text>
       <Image source={image} style={styles.pic} />
-      <Text style={styles.text1}> נבחרת            ניקוד                בעלים             מקום</Text>
-      <ScrollView>
-        {renderTable}
-      </ScrollView>
+      <View style={styles.row}>
+        <Text style={styles.text1}>נבחרת</Text>
+        <Text style={styles.text1}>ניקוד</Text>
+        <Text style={styles.text1}>בעלים</Text>
+        <Text style={styles.text1}>מקום</Text>
+      </View>
+      <ScrollView>{renderTable}</ScrollView>
     </SafeAreaView>
   );
 }
@@ -71,6 +74,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontSize: 20,
-    textDecorationLine: 'underline'
+    padding: 20,
+    textDecorationLine: "underline",
+  },
+  row: {
+    flexDirection: "row",
   },
 });

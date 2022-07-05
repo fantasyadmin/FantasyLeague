@@ -55,9 +55,9 @@ export default function EditLeagueDetails() {
             <View style={styles.container}>
                 <Image source={image} style={styles.pic} />
             </View>
-            <View style={{bottom: 90}}>
+            <View style={{ bottom: 90 }}>
                 <Text style={styles.text}>        צ'אט הליגה:    </Text>
-                <Text style={{fontWeight: "bold"}}>            הזן את הקישור לקבוצת הוואצאפ שתרצה לשייך לליגה. {"\n"}            דרכו יוכלו החברים בליגה להיכנס לקבוצה</Text>
+                <Text style={{ fontWeight: "bold" }}>            הזן את הקישור לקבוצת הוואצאפ שתרצה לשייך לליגה. {"\n"}            דרכו יוכלו החברים בליגה להיכנס לקבוצה</Text>
                 <TextInput
                     multiline
                     numberOfLines={8}
@@ -67,13 +67,16 @@ export default function EditLeagueDetails() {
                     onChangeText={setLeagueChat}
                 />
             </View>
-            <View style={styles.bottom}>
-                <CustomButton text="שמור נתונים" onPress={onCreateLeaguePress} />
+            <View style={{ justifyContent: 'center' }}>
+                <View style={styles.bottom}>
+                    <CustomButton text="שמור נתונים" onPress={onCreateLeaguePress} />
+                </View>
+                <View style={styles.bottom}>
+                    <CustomButton text="חזור ללא שמירה" onPress={() => navigation.navigate('Home')
+                    } />
+                </View>
             </View>
-            <View style={styles.bottom}>
-                <CustomButton text="חזור ללא שמירה" onPress={() => navigation.navigate('Home')
-                } />
-            </View>
+
         </View>
     )
 }
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     bottom: {
-        bottom: 90
+        bottom: 90,
+        marginHorizontal: 120
     }
 })

@@ -37,40 +37,42 @@ export default function TopProfileBar(props) {
   };
 
   return (
-    <View style={styles.root}>
+    <View style={styles.top}>
       <TouchableHighlight onPress={onProfileClick}>
         <GetPic />
       </TouchableHighlight>
 
-      <View>
-        <Text style={styles.text}> משתמש: <Text style={{ color: "black" }}> {userData.nickname}</Text></Text>
-        <Text></Text>
-        <Text style={styles.text}> שם הליגה: <Text style={{ color: "black" }}> {leagueData.league_name}</Text></Text>
-        <Text style={styles.text}> ציון שחקן: <Text style={{ color: "black" }}> {userData.player_score}</Text></Text>
+      <View style={{ paddingTop: 45, alignItems: 'center', }}>
+        <Text style={styles.text1}> שחקן <Text style={styles.varStyle}>{userData.nickname}</Text></Text>
+        <Text style={styles.text1}> שם הליגה <Text style={styles.varStyle}>{leagueData.league_name}</Text></Text>
+        <Text style={styles.text1}> ציון שחקן <Text style={styles.varStyle}>{userData.player_score}</Text></Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  root: {
+  text1: {
+    fontWeight: "bold",
+    color: "#2554C7",
+    fontSize: 22,
+    paddingRight: 30,
+  },
+  top: {
     flexDirection: "row",
-    width: "100%",
+    width: "95%",
+    marginBottom: 10,
+    borderColor: "grey",
+    borderWidth: 3,
+    borderRadius: 50,
+    backgroundColor: "#F5FFFA",
     alignItems: "flex-start",
     padding: 10,
-    backgroundColor: "#4472c4",
     height: "25%",
     marginTop: 10,
-    borderRadius: 100,
   },
-  pic: {
-    width: 100,
-    borderRadius: 100,
-    height: 100,
-  },
-  text: {
-    fontWeight: "bold",
-    color: "white",
-    fontSize: 20,
+  varStyle: {
+    fontSize: 18,
+    color: "#2554C7",
   },
 });
