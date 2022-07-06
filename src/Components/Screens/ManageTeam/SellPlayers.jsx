@@ -10,27 +10,45 @@ import CustomButton from '../../CustomComps/CustomButton';
 
 export default function SellPlayers() {
   const [toSell, setToSell] = useState()
+  const [info, setInfo] = useState('')
   const { userData, setUserData } = useContext(UserDataContext);
   const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
   const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
+
+
+
+
 
   const sortplayers = [].concat(FantasyTeamData.players).sort();
 
 
   var renderTable = sortplayers.map((x, ind) => {
+    //find Team Players in league data - for performance
+    const sortplayers = [].concat(LeaguePlayersData.players).sort();
+
+    var info
+
+    sortplayers.forEach(player => {
+      if (player.user_id == x.user_id) {
+        info = player
+      }
+    });
+
+
     return x !== null ? <PlayersInLeague
-      key={x.user_id}
+      key={ind}
       nickname={x.nickname}
       points={x.player_score}
       user_id={x.user_id}
+      data={info}
       tellSon={markPlayerToSell}
-    />: null
+    /> : null
   });
 
   function markPlayerToSell(nickname, user_id) {
     setToSell(user_id);
     console.log("real = ", user_id);
-    alert(" בחרת למכור את  "+ nickname + " \nלהשלמת המכירה לחץ על כפתור המכירה");
+    alert(" בחרת למכור את  " + nickname + " \nלהשלמת המכירה לחץ על כפתור המכירה");
   }
 
   function sellPlayersAPI() {
@@ -56,15 +74,15 @@ export default function SellPlayers() {
         })
         .then(
           (result) => {
-            console.log({result});
+            console.log({ result });
             if (result.team_id != undefined) {
               const players = [
                 result.player1,
                 result.player2,
                 result.player3,
                 result.player4,
-                ]
-                setFantasyTeamData(prevState => ({...prevState, players, team_budget: result.team_budget, team_points: result.team_points}))
+              ]
+              setFantasyTeamData(prevState => ({ ...prevState, players, team_budget: result.team_budget, team_points: result.team_points }))
               console.log("data received = ", result);
               console.log("==========================");
               console.log("user data3 = ", result.player1);
@@ -96,7 +114,7 @@ export default function SellPlayers() {
       <Text></Text>
       <Text></Text>
       <ScrollView>
-        <View style={{width: "95%"}}>
+        <View style={{ width: "95%" }}>
           <Text style={styles.text}>שחקני הקבוצה</Text>
           {renderTable}
         </View>

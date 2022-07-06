@@ -55,9 +55,8 @@ export default function ExistingMatch() {
           await Notifications.cancelAllScheduledNotificationsAsync();
           const time = result.match_time.split(":");
           const lastDatearr = result.matchDateStr.split("/");
-          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${
-            lastDatearr[2]
-          } ${+time[0] - 1}:${time[1]}`;
+          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${lastDatearr[2]
+            } ${+time[0] - 1}:${time[1]}`;
           const trigger = new Date(newDate);
           console.log(new Date());
           console.log(trigger);
@@ -96,90 +95,90 @@ export default function ExistingMatch() {
 
   const gameScreen = (
     <View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> תאריך:</Text>
-        <Text style={styles.text}>{matchData.match_date}</Text>
+      <View style={styles.top1}>
+        <View style={styles.fieldStyle}>
+          <Text style={styles.text}> תאריך {matchData.match_date}</Text>
+        </View>
+        <View style={styles.fieldStyle}>
+          <Text style={styles.text}> שעה {matchData.match_time}</Text>
+        </View>
       </View>
-      <Text></Text>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> שעה: {matchData.match_time}</Text>
-      </View>
-      <View style={styles.fieldStyle}></View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 1: </Text>
-        <View style={styles.itemsLocation}>
+      <Text style={styles.body}>מה ללבוש?</Text>
+      <View style={styles.top1}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Icon
             name="shirt"
-            style={{ fontSize: 30, color: matchData.team_color1 }}
+            style={{ fontSize: 40, color: matchData.team_color1 }}
+          />
+          <Text style={{ fontSize: 35, marginHorizontal: 20, color: "#2554C7", fontWeight: 'bold' }}>או</Text>
+          <Icon
+            name="shirt"
+            style={{ fontSize: 40, color: matchData.team_color2 }}
           />
         </View>
       </View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 2: </Text>
-        <View style={styles.itemsLocation}>
-          <Icon
-            name="shirt"
-            style={{ fontSize: 30, color: matchData.team_color2 }}
-          />
-        </View>
-      </View>
-      <Text>{"\n\n\n"}</Text>
-      <View style={styles.fieldStyle}>
-        <View style={styles.textBarLocation}>
+
+
+      <Text style={styles.body}>לאן לבוא?</Text>
+      <View style={styles.top1}>
+        <View>
           <CustomButton
             text="מיקום המשחק"
             onPress={() =>
-              navigation.navigate("Game Location", matchData.match_location)
-            }
+              navigation.navigate("Game Location", matchData.match_location)}
+          />
+        </View>
+
+        <View style={[styles.container3, styles.text3, styles.btnModal]}>
+          <NavigationApps
+            viewMode={"modal"}
+            modalContainerStyle={styles.modalView}
+            modalBtnOpenTitle={"הפעל ניווט"}
+            modalBtnOpenTextStyle={[styles.textStyle]}
+            modalBtnCloseTitle={"סגור"}
+            modalBtnCloseTextStyle={[
+              styles.button,
+              styles.buttonClose,
+              styles.CancelBtn,
+            ]}
+            iconSize={50}
+            row
+            address={
+              matchData.match_location.lat + "," + matchData.match_location.lng
+            } // address to navigate by for all apps
+            waze={{
+              address: "",
+              lat: matchData.match_location.lat,
+              lon: matchData.match_location.lng,
+              action: actions.searchLocationByLatAndLon,
+            }} // specific settings for waze
+            googleMaps={{
+              lat: matchData.match_location.lat,
+              lon: matchData.match_location.lng,
+              action: actions.navigateByLatAndLon,
+              travelMode: googleMapsTravelModes.driving,
+            }} // specific settings for google maps
           />
         </View>
       </View>
-      <Text>{"\n\n\n"}</Text>
-      <View style={styles.textBarLocation}>
-        <CustomButton
-          text="טיימר למשחק"
-          onPress={() => navigation.navigate("StopWatch")}
-        />
+
+      <Text style={styles.body}>עזרים</Text>
+      <View style={styles.top1}>
+        <View style={styles.textBarLocation}>
+          <CustomButton
+            text="טיימר למשחק"
+            onPress={() => navigation.navigate("StopWatch")}
+          />
+        </View>
       </View>
-      <Text>{"\n\n\n"}</Text>
-      <View style={[styles.container3, styles.text3, styles.btnModal]}>
-        <NavigationApps
-          viewMode={"modal"}
-          modalContainerStyle={styles.modalView}
-          modalBtnOpenTitle={"הפעל ניווט"}
-          modalBtnOpenTextStyle={[styles.textStyle]}
-          modalBtnCloseTitle={"סגור"}
-          modalBtnCloseTextStyle={[
-            styles.button,
-            styles.buttonClose,
-            styles.CancelBtn,
-          ]}
-          iconSize={75}
-          row
-          address={
-            matchData.match_location.lat + "," + matchData.match_location.lng
-          } // address to navigate by for all apps
-          waze={{
-            address: "",
-            lat: matchData.match_location.lat,
-            lon: matchData.match_location.lng,
-            action: actions.searchLocationByLatAndLon,
-          }} // specific settings for waze
-          googleMaps={{
-            lat: matchData.match_location.lat,
-            lon: matchData.match_location.lng,
-            action: actions.navigateByLatAndLon,
-            travelMode: googleMapsTravelModes.driving,
-          }} // specific settings for google maps
-        />
-      </View>
-    </View>
+
+    </View >
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.text}> משחק צ'כונה</Text>
+        <Text style={styles.body}> משחק צ'כונה</Text>
       </View>
       <View>
         {!renderScreen ? (
@@ -219,8 +218,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnModal: {
-    width: 135,
-    marginLeft: 140,
+    backgroundColor: '#C9DFEC',
+    width: 170,
+    padding: 15,
+    marginVertical: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+    elevation: 8,
   },
   container3: {
     backgroundColor: "#1b91f3",
@@ -236,6 +247,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "bold",
+    color: "#2554C7",
+    fontSize: 22,
+  },
+  text5: {
+    fontWeight: "bold",
     color: "white",
     fontSize: 20,
     paddingRight: 5,
@@ -247,16 +263,18 @@ const styles = StyleSheet.create({
   },
   fieldStyle: {
     flexDirection: "row",
-    marginTop: 20,
+    marginTop: 10,
+    justifyContent: 'center'
   },
   itemsLocation: {
     paddingLeft: 10,
     width: "10%",
   },
   textBarLocation: {
-    width: "100%",
+    //width: "100%",
     paddingBottom: 5,
-    paddingLeft: 140,
+    justifyContent: 'center',
+    alignContent: 'center'
   },
   buttons: {
     flex: 1,
@@ -279,6 +297,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
+    //backfaceVisibility: 'visible',
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -308,9 +327,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   textStyle: {
-    color: "white",
+    color: '#2554C7',
     fontWeight: "bold",
     textAlign: "center",
+
   },
   modalText: {
     marginBottom: 15,
@@ -328,5 +348,21 @@ const styles = StyleSheet.create({
   },
   ApproveBtn: {
     backgroundColor: "green",
+  },
+  top1: {
+    paddingHorizontal: 120,
+    paddingVertical: 10,
+    marginBottom: 10,
+    borderColor: "grey",
+    borderWidth: 3,
+    borderRadius: 50,
+    backgroundColor: "#F5FFFA",
+  },
+  body: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 25,
+    padding: 16,
+    textAlign: 'center'
   },
 });

@@ -106,43 +106,50 @@ export default function NewGame() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.text}>                            צור משחק חדש</Text>
+        <Text style={styles.body}>צור משחק חדש</Text>
       </View>
-      <Text></Text>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}>  בחר תאריך:</Text>
-        <PickDate uplift={(data) => matchDateFunc(data)} />
-
-      </View>
-      <Text></Text>
-      <Text></Text>
-
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}>  בחר שעה:   </Text>
-        <PickTime uplift={(data) => matchTimeFunc(data)} />
-      </View>
-
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> מיקום:          </Text>
-        <View style={styles.textBarLocation}>
-          <CustomButton onPress={showMap} text={'בחר מיקום במפה'}/>
+      <View style={styles.top1}>
+        <View style={styles.fieldStyle}>
+          <Text style={styles.text}>בחר תאריך</Text>
+          <PickDate uplift={(data) => matchDateFunc(data)} />
         </View>
-
       </View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 1:        </Text>
-        <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={getColorFromChild} team={1} />
+      <View style={styles.top1}>
+        <View style={styles.fieldStyle}>
+          <Text style={styles.text}>בחר שעה   </Text>
+          <PickTime uplift={(data) => matchTimeFunc(data)} />
         </View>
-
       </View>
-      <View style={styles.fieldStyle}>
-        <Text style={styles.text}> צבע קבוצה 2:        </Text>
-        <View style={styles.itemsLocation}>
-          <ColorPicking tellPapa={getColorFromChild} team={2} />
+
+      <View style={styles.top1}>
+        <View style={styles.fieldStyle}>
+          <Text style={styles.text}> מיקום         </Text>
+          
+            <CustomButton onPress={showMap} text={'בחר מיקום במפה'} />
+          
         </View>
-
       </View>
+
+      <View style={styles.top1}>
+        <View style={[styles.fieldStyle, {paddingVertical: 10}]}>
+          <Text style={styles.text}> צבע קבוצה 1           </Text>
+          <View style={styles.itemsLocation}>
+            <ColorPicking tellPapa={getColorFromChild} team={1} />
+          </View>
+        </View>
+      </View>
+
+
+      <View style={styles.top1}>
+        <View style={[styles.fieldStyle, {paddingVertical: 10}]}>
+          <Text style={styles.text}> צבע קבוצה 2           </Text>
+          <View style={styles.itemsLocation}>
+            <ColorPicking tellPapa={getColorFromChild} team={2} />
+          </View>
+        </View>
+      </View>
+
+
       <View style={styles.buttons}>
         <CustomButton text="קבע משחק" onPress={setMatchApi} />
       </View>
@@ -168,11 +175,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   text: {
-    fontWeight: 'bold',
-    color: 'white',
-    fontSize: 20,
-    paddingRight: 5,
-    marginLeft: 7
+    fontWeight: "bold",
+    color: "#2554C7",
+    fontSize: 22,
   },
   text1: {
     marginRight: 0,
@@ -181,7 +186,6 @@ const styles = StyleSheet.create({
   fieldStyle: {
     flexDirection: 'row',
     marginTop: 15,
-    
   },
   itemsLocation: {
     paddingLeft: 10,
@@ -192,10 +196,23 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   buttons: {
-    flex: 1,
-    flexDirection: 'row',
     alignItems: 'center',
-    width: 300,
-    margin: '30%'
+    paddingTop: 50
+  },
+  top1: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginBottom: 10,
+    borderColor: "grey",
+    borderWidth: 3,
+    borderRadius: 50,
+    backgroundColor: "#F5FFFA",
+  },
+  body: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 25,
+    padding: 16,
+    textAlign: 'center'
   },
 })

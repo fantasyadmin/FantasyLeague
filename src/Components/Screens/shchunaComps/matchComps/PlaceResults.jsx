@@ -193,7 +193,7 @@ export default function PlaceResults({ route }) {
         <Text style={styles.title}>הזן תוצאות</Text>
       </View>
 
-      {matchId != 0 && matchData.date != null ? (
+      {matchId != 0  ? (
         gameScreen
       ) : (
         <View style={styles.text}>

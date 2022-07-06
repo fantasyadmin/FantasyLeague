@@ -49,16 +49,16 @@ class Radar extends React.Component {
               key={i}
               dependentAxis
               style={{
-                axisLabel: { padding: 10 },
+                axisLabel: { padding: 16, fill: "white", fontSize: 18 },
                 axis: { stroke: "white", strokeWidth: 0.25, opacity: 0.4 },
                 grid: { stroke: "white", strokeWidth: 0.25, opacity: 0.4 },
               }}
-              tickLabelComponent={<VictoryLabel labelPlacement="vertical"/>}
+              tickLabelComponent={<VictoryLabel labelPlacement="vertical" />}
               labelPlacement="perpendicular"
               axisValue={i + 1}
               label={key}
               tickFormat={(t) => Math.ceil(t * this.props.maxima[key])}
-            //tickValues={[0.25, 0.5, 0.75]}
+              //tickValues={[0.25, 0.5, 0.75]}
             />
           );
         })}

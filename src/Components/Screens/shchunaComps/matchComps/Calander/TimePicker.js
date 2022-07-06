@@ -45,7 +45,7 @@ export const PickTime = (props) => {
             <View>
                 <Icon
                     name="time-outline"
-                    style={{ fontSize: 30, color: 'white' }}
+                    style={{ fontSize: 30, color: 'black', paddingLeft:30 }}
                     onPress={showTimepicker}
                 />
             </View>

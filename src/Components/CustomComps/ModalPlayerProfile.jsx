@@ -14,7 +14,7 @@ const ModalPlayerProfile = ({ player, data, user_id }) => {
   );
   const { FantasyTeamData, setFantasyTeamData } = useContext(FantasyTeamInfoContext);
 
-  const [userStat, setuserStat] = useState([])
+  const [userStat, setuserStat] = useState(data)
 
   // const [found] = useMemo(
   //   () => FantasyTeamData.players.find((team) => team.user_id === user_id),
@@ -22,16 +22,17 @@ const ModalPlayerProfile = ({ player, data, user_id }) => {
   // );
 
   useEffect(() => {
-    const found = FantasyTeamData.players.find((obj) => {
-      if (obj != null) {
-        return obj.user_id == user_id;
-      }
-      else {
-        setuserStat(false)
-      }
-    });
-    setuserStat(found)
-    console.log("תוצאות לשחקן", found);
+    console.log("wwwwwiiishshhhhhh = ", userStat);
+    // const found = FantasyTeamData.players.find((obj) => {
+    //   if (obj != null) {
+    //     return obj.user_id == user_id;
+    //   }
+    //   else {
+    //     setuserStat(false)
+    //   }
+    // });
+    // setuserStat(found)
+    // console.log("תוצאות לשחקן", found);
   }, [])
 
   return (
@@ -73,7 +74,7 @@ const ModalPlayerProfile = ({ player, data, user_id }) => {
               {userStat ? (
                 <Text style={styles.stats}>החמצות עונשין: {userStat.total_pen_missed}</Text>
               ) : (
-                <Text style={styles.text}>   החמצות עונשין: 0</Text>
+                <Text style={styles.text}>   החמצות עונשין-- 0</Text>
               )}
               {userStat ? (
                 <Text style={styles.stats}>שערים שספג: {userStat.total_goals_recieved}</Text>

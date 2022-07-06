@@ -35,7 +35,7 @@ export default class ColorPicking extends Component {
       <View style={styles.container}>
         <Icon
           name="shirt"
-          style={{ fontSize: 30, color: this.state.selectedColor }}
+          style={{ fontSize: 40, color: this.state.selectedColor, borderColor: 'black', borderWidth: 21, borderRadius: 20, padding: 5 }}
           onPress={() => this.setState({ visible: true })}
         />
         <StatusColorPicker

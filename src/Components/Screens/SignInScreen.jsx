@@ -62,7 +62,10 @@ export default function SignInScreen() {
       })
       .then(
         (result) => {
+          console.log("parrrraaaaaa ", params);
           console.log(result);
+          console.log("usersssssssss ===", result.usres_in_league);
+
           if (result.nickname != undefined) {
             setUserData({
               nickname: result.nickname,
@@ -178,3 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+
+

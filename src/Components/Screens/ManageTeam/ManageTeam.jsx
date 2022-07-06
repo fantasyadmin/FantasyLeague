@@ -26,12 +26,25 @@ export default function ManageTeam() {
 
 
   var renderTable = sortplayers.map((x, ind) => {
+
+    //find Team Players in league data - for performance
+    const sortplayers = [].concat(LeaguePlayersData.players).sort();
+
+    var info
+
+    sortplayers.forEach(player => {
+      if (player.user_id == x.user_id) {
+        info = player
+      }
+    });
+
     return x ? <PlayersInLeague
-      key={x.user_id}
+      key={ind}
       nickname={x.nickname}
       points={x.player_score}
       user_id={x.user_id}
       picture={x.picture}
+      data={info}
       tellSon={markPlayerToWatch}
     /> : null
   });
@@ -69,9 +82,9 @@ export default function ManageTeam() {
           {renderTable}
         </View>
         <View style={styles.buttons}>
-          <CustomButton text="קנה שחקן" onPress={() => navigation.navigate('Buy Players')} color={"green"} txt={"white"}/>
+          <CustomButton text="קנה שחקן" onPress={() => navigation.navigate('Buy Players')} color={"green"} txt={"white"} />
           <Text>         </Text>
-          <CustomButton text="מכור שחקן" onPress={() => navigation.navigate('Sell Players')} color={"#990000"} txt={"white"}/>
+          <CustomButton text="מכור שחקן" onPress={() => navigation.navigate('Sell Players')} color={"#990000"} txt={"white"} />
         </View>
         <View style={styles.buttons1}>
           <Text>                            </Text>

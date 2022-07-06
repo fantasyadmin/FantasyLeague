@@ -47,7 +47,7 @@ export const PickDate = (props) => {
             <View >
                 <Icon
                     name="calendar-outline"
-                    style={{ fontSize: 30, color: 'white' }}
+                    style={{ fontSize: 30, color: 'black', paddingRight:40 }}
                     onPress={showDatepicker}
                 />
             </View>

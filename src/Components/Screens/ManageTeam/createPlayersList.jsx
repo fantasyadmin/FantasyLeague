@@ -5,7 +5,7 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { image } from '../../../../assets/exports';
 
 export default function PlayersInLeague(props) {
-    const [icon, setIcon] = useState()
+    const [playerDetails, setPlayerDetails] = useState(props.data)
 
     function sendId() {
         props.tellSon(props.nickname, props.user_id, props.color);
@@ -15,7 +15,7 @@ export default function PlayersInLeague(props) {
         <Pressable style={styles.container} onPress={sendId} >
             {props.icon}
             {props.points > 0 ? (
-                <ModalPlayerProfile player={props.nickname} user_id={props.user_id} data={''} />
+                <ModalPlayerProfile player={props.nickname} user_id={props.user_id} data={playerDetails} />
             ) : (
                 <View style={[styles.button, styles.buttonOpen]}>
                     <Text style={styles.textStyle}> אין{"\n"}נתונים</Text>

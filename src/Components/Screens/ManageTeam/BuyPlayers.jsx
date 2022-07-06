@@ -17,10 +17,11 @@ export default function BuyPlayers() {
 
   var renderTable = sortplayers.map((x, ind) => {
     return <PlayersInLeague
-      key={x.user_id}
+      key={ind}
       nickname={x.nickname}
       points={x.player_score}
       user_id={x.user_id}
+      data={x}
       tellSon={markPlayerToBuy}
     />
   });

@@ -145,11 +145,12 @@ export default function SmartCalc(props) {
   var renderTable2 = LeaguePlayersData.players.map((x, ind) => {
     return x !== null ? (
       <PlayersInLeague
-        key={x.user_id}
+        key={ind}
         nickname={x.nickname}
         points={x.player_score}
         color={colorNumState}
         user_id={x.user_id}
+        data={x}
         tellSon={markPlayerToWatch}
       />
     ) : null;
