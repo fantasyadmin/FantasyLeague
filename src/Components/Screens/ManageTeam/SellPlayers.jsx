@@ -29,7 +29,7 @@ export default function SellPlayers() {
     var info
 
     sortplayers.forEach(player => {
-      if (player.user_id == x.user_id) {
+      if (x != null && player.user_id == x.user_id) {
         info = player
       }
     });

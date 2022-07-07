@@ -2,20 +2,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  ScrollView,
-  TextInput,
-  Linking,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  UserDataContext,
   LeagueInfoContext,
-  FantasyTeamInfoContext,
-  LeaguePlayersInfoContext,
   MatchInfoContext,
-  LeagueTeamsInfoContext,
 } from "../../Context/UserContext";
 import CustomButton from "../../CustomComps/CustomButton";
 import { useNavigation } from "@react-navigation/native";
@@ -55,15 +47,14 @@ export default function ExistingMatch() {
           await Notifications.cancelAllScheduledNotificationsAsync();
           const time = result.match_time.split(":");
           const lastDatearr = result.matchDateStr.split("/");
-          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${lastDatearr[2]
-            } ${+time[0] - 1}:${time[1]}`;
+          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${lastDatearr[2]} ${+time[0] - 1}:${time[1]}`;
           const trigger = new Date(newDate);
-          console.log(new Date());
+          //console.log(new Date());
           console.log(trigger);
           await Notifications.scheduleNotificationAsync({
             content: {
-              title: "Your Next Game",
-              body: "Be ready for your next game",
+              title: "משחק הפנטזי הבא מתקרב!",
+              body: "צפה בפרטים בחלונית 'משחק הצ'כונה הבא' ",
               data: { data: result.matchDateStr },
             },
             trigger,
@@ -171,7 +162,6 @@ export default function ExistingMatch() {
           />
         </View>
       </View>
-
     </View >
   );
 
@@ -182,11 +172,11 @@ export default function ExistingMatch() {
       </View>
       <View>
         {!renderScreen ? (
-          <View style={styles.text}>
-            <Text style={styles.text}>
+          <View>
+            <Text style={styles.body}>
               {"\n\n\n\n\n\n\n\n\n"} עדיין לא קבעתם משחק ?
             </Text>
-            <Text style={styles.text}>
+            <Text style={styles.body}>
               {" "}
               נווטו למסך "משחק חדש" והזמינו את החבר'ה!
             </Text>

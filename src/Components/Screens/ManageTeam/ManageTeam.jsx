@@ -30,10 +30,10 @@ export default function ManageTeam() {
     //find Team Players in league data - for performance
     const sortplayers = [].concat(LeaguePlayersData.players).sort();
 
-    var info
+    var info;
 
     sortplayers.forEach(player => {
-      if (player.user_id == x.user_id) {
+      if (x != null && player.user_id == x.user_id) {
         info = player
       }
     });
@@ -54,18 +54,6 @@ export default function ManageTeam() {
     //plyerProfile(user_id);
   }
 
-
-  function TeamPlace() {
-    const sortTeams = []
-      .concat(LeaguePlayersData.players)
-      .sort((a, b) => b.player_score - a.player_score);
-
-    for (let index = 1; index < sortTeams.length; index++) {
-      if (condition) {
-        return index
-      }
-    }
-  }
 
 
   return (

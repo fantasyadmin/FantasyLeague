@@ -76,7 +76,7 @@ const FantasyTeamInfoContextProvider = ({ children }) => {
   const { userData } = useContext(UserDataContext);
 
   useEffect(() => {
-    console.log("preparing fetch.....=========================");
+    console.log("preparing fetch.....========================= team id ", FantasyTeamData.team_id);
     fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/GetFantasyTeam", {
       method: "POST",
       headers: new Headers({
