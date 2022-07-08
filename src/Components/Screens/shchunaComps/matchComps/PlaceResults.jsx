@@ -102,11 +102,11 @@ export default function PlaceResults({ route }) {
           return Promise.all([statusCode, data]);
         }).then(
           ([statusCode, data]) => {
-            console.log("i got this: ", [res, data]);
+            console.log("i got this: ", [statusCode, data]);
             /// if result is ok - navigate to sign in else try again or resend verification
             if (statusCode == 400 && data == "Can't submit more than 1 Match Results form. Please wait for League Manager's approval, or Edit your existing form") {
               return alert("לא ניתן להגיש תוצאות מספר פעמים לאותו משחק, \n המתן שמנהל הליגה יאשר או ידחה את התוצאות הקיימות")
-            } if (statusCode == 400) {
+            } if (statusCode == 200) {
               return alert("התוצאות נשלחו לאישור מנהל הליגה")
             }
             else {
@@ -261,7 +261,6 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    fontSize: 20,
-    top: 40 
+    marginTop: 40
   },
 });

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Fantasy_League",
-    "slug": "Fantasy_League",
+    "name": "Fantasy League צ'כונה",
+    "slug": "Fantasy_League_Hood",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,15 +24,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "packagename": "com.FantasyLeagueHoodApp",
+      "versioncode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.dor99.Fantasy_League_Hood"
     },
     "web": {
       "favicon": "./assets/favicon.png"
