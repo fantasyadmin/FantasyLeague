@@ -47,9 +47,12 @@ export default function ExistingMatch() {
           await Notifications.cancelAllScheduledNotificationsAsync();
           const time = result.match_time.split(":");
           const lastDatearr = result.matchDateStr.split("/");
-          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${lastDatearr[2]} ${+time[0] - 1}:${time[1]}`;
+          const hours = +time[0] === "00" ? 23 : +time[0] - 1;
+          const newDate = `${lastDatearr[1]}/${+lastDatearr[0]}/${
+            lastDatearr[2]
+          } ${hours}:${time[1]}`;
           const trigger = new Date(newDate);
-          //console.log(new Date());
+          console.log(new Date());
           console.log(trigger);
           await Notifications.scheduleNotificationAsync({
             content: {
@@ -116,7 +119,7 @@ export default function ExistingMatch() {
           <CustomButton
             text="מיקום המשחק"
             onPress={() =>
-              navigation.navigate("Game Location", matchData.match_location)}
+              navigation.navigate("Game Location")}
           />
         </View>
 
@@ -138,7 +141,7 @@ export default function ExistingMatch() {
               matchData.match_location.lat + "," + matchData.match_location.lng
             } // address to navigate by for all apps
             waze={{
-              address: "",
+              address: " ",
               lat: matchData.match_location.lat,
               lon: matchData.match_location.lng,
               action: actions.searchLocationByLatAndLon,

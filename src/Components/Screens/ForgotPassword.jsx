@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React from 'react';
 import { image } from '../../../assets/exports';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from "react";
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -16,43 +14,28 @@ export default function ForgotPassword() {
 
 
     const onSendPressed = () => {
-        console.warn('שליחת סיסמה למייל')
         navigation.navigate('Mail Confirmation');
     }
 
     const onSignInPress = () => {
-        console.warn('חזרה לרישום')
         navigation.navigate('Sign Up');
     }
 
 
     return (
-        <ScrollView>
-            <View style={styles.root}>
-                <Image source={image} style={styles.pic} />
-                <Text style={styles.text}> שחזור סיסמה</Text>
-                <TextInput
-                    value={username}
-                    onChangeText={setUsername}
-                    placeholder={'שם משתמש'}
-                    style={styles.container}
-                />
-                <CustomButton text="שלח" onPress={onSendPressed} />
-                <Text>            </Text>
-                <CustomButton text="חזור לרישום" onPress={onSignInPress} />
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-                <Text>     </Text>
-            </View>
-        </ScrollView>
-
+        <View style={styles.root}>
+            <Image source={image} style={styles.pic} />
+            <Text style={styles.text}> שחזור סיסמה</Text>
+            <TextInput
+                value={username}
+                onChangeText={setUsername}
+                placeholder={'שם משתמש'}
+                style={styles.container}
+            />
+            <CustomButton text="שלח" onPress={onSendPressed} />
+            <Text>            </Text>
+            <CustomButton text="חזור לרישום" onPress={onSignInPress} />
+        </View>
     )
 }
 
@@ -71,8 +54,9 @@ const styles = StyleSheet.create({
     root: {
         width: '100%',
         alignItems: 'center',
-        padding: 0,
+        paddingTop: 0,
         backgroundColor: '#4472c4',
+        marginTop: 10
     },
     pic: {
         width: '100%',

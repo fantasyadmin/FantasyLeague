@@ -14,7 +14,6 @@ import ColorPicking from '../../CustomComps/ColorPicker';
 import { PickTime } from './matchComps/Calander/TimePicker';
 import { PickDate } from './matchComps/Calander/datePicker';
 import { useNavigation } from '@react-navigation/native';
-import { back } from 'react-native/Libraries/Animated/Easing';
 
 
 export default function NewGame() {
@@ -52,11 +51,6 @@ export default function NewGame() {
     setMatchData(prevState => ({ ...prevState, match_location: { latitude: data.coords.latitude, longitude: data.coords.longitude } }));
   }
 
-  const showMap = () => {
-    //console.log(data)
-    //setMatchData(prevState => ({ ...prevState, match_date: data }));
-    navigation.navigate('Map', matchLocationFunc)
-  }
 
   function setMatchApi() {
     const params = JSON.stringify({
@@ -124,14 +118,14 @@ export default function NewGame() {
       <View style={styles.top1}>
         <View style={styles.fieldStyle}>
           <Text style={styles.text}> מיקום         </Text>
-          
-            <CustomButton onPress={showMap} text={'בחר מיקום במפה'} />
-          
+
+          <CustomButton onPress={() => navigation.navigate('Map', matchLocationFunc)} text={'בחר מיקום במפה'} />
+
         </View>
       </View>
 
       <View style={styles.top1}>
-        <View style={[styles.fieldStyle, {paddingVertical: 10}]}>
+        <View style={[styles.fieldStyle, { paddingVertical: 10 }]}>
           <Text style={styles.text}> צבע קבוצה 1           </Text>
           <View style={styles.itemsLocation}>
             <ColorPicking tellPapa={getColorFromChild} team={1} />
@@ -141,7 +135,7 @@ export default function NewGame() {
 
 
       <View style={styles.top1}>
-        <View style={[styles.fieldStyle, {paddingVertical: 10}]}>
+        <View style={[styles.fieldStyle, { paddingVertical: 10 }]}>
           <Text style={styles.text}> צבע קבוצה 2           </Text>
           <View style={styles.itemsLocation}>
             <ColorPicking tellPapa={getColorFromChild} team={2} />

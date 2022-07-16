@@ -41,6 +41,7 @@ export default function SellPlayers() {
       points={x.player_score}
       user_id={x.user_id}
       data={info}
+      picture={x.picture}
       tellSon={markPlayerToSell}
     /> : null
   });

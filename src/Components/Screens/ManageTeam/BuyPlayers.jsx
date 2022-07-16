@@ -22,6 +22,7 @@ export default function BuyPlayers() {
       points={x.player_score}
       user_id={x.user_id}
       data={x}
+      picture={x.picture}
       tellSon={markPlayerToBuy}
     />
   });
@@ -69,7 +70,7 @@ export default function BuyPlayers() {
               console.log("user data3 = ", result.player1);
             }
             else {
-              alert("הפעולה אינה חוקית, בדוק אם השחקן נמצא כבר בקבוצת הפנטזי שלך");
+              alert("  הפעולה אינה חוקית, בדוק אם השחקן נמצא כבר בקבוצת הפנטזי שלך או שהתקציב שלך מאפשר קניה");
             }
           },
           (error) => {

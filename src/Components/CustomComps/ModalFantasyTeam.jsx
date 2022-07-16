@@ -13,6 +13,64 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
   );
   const [list, setlist] = useState(data)
 
+  const playersList = <View>
+    {data.pl1? (
+      Object.keys(data.pl1).map((keys) => {
+        let player = " "
+        if (data.pl1) {
+          return <Text style={styles.playersStyle}>{data.pl1[keys].nickname} </Text>
+        }
+        else {
+          return player
+        }
+      })
+    ) : (
+      <Text style={styles.text}>   </Text>
+    )}
+    {data.pl2 ? (
+      Object.keys(data.pl2).map((keys) => {
+        let player = " "
+        if (data.pl2) {
+          return <Text style={styles.playersStyle}>{data.pl2[keys].nickname} </Text>
+        }
+        else {
+          return player
+        }
+      })
+    ) : (
+      <Text style={styles.text}>  </Text>
+    )}
+    {data.pl3 ? (
+      Object.keys(data.pl3).map((keys) => {
+        let player = " "
+        if (data.pl3) {
+          return <Text style={styles.playersStyle}>{data.pl3[keys].nickname} </Text>
+        }
+        else {
+          return player
+        }
+      })
+
+    ) : (
+      <Text style={styles.text}>   </Text>
+    )}
+    {data.pl4 ? (
+
+      Object.keys(data.pl4).map((keys) => {
+        let player = " "
+        if (data.pl4) {
+          return <Text style={styles.playersStyle}>{data.pl4[keys].nickname} </Text>
+        }
+        else {
+          return player
+        }
+      })
+    ) : (
+      <Text style={styles.text}>   </Text>
+    )}
+  </View>
+
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -28,7 +86,16 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
             <Text style={styles.modalText}>
               קבוצת הפנטזי של {player}
             </Text>
-            <View>
+
+
+            {list.pl1 ? (
+              playersList
+            ) : (
+              <Text style={styles.text}>לא נבחרו שחקנים לקבוצה </Text>
+            )}
+
+
+            {/* <View>
               {data.pl1 ? (
                 Object.keys(data.pl1).map((keys) => {
                   let player = " "
@@ -84,7 +151,11 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
               ) : (
                 <Text style={styles.text}>   </Text>
               )}
-            </View>
+            </View> */}
+
+
+
+
             <View style={styles.ButtonView}>
               <Text>             </Text>
               <Pressable
@@ -96,16 +167,24 @@ const ModalFantasyTeam = ({ player, data, user_id }) => {
             </View>
           </View>
         </View>
-      </Modal>
+      </Modal >
       <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.textStyle}>שחקני הקבוצה</Text>
       </Pressable>
-    </View>
+    </View >
   );
 };
+
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   centeredView: {

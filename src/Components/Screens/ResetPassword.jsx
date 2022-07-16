@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React from 'react';
 import { image } from '../../../assets/exports';
-import { useState } from 'react/cjs/react.development';
+import React, { useState } from "react";
 import CustomButton from '../CustomComps/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
@@ -39,7 +38,6 @@ export default function ResetPassword() {
     }
 
     const onSignInPress = () => {
-        console.warn('חזרה לרישום')
         navigation.navigate('Sign Up');
     }
 
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        padding: 0,
+        paddingTop: 50,
         backgroundColor: '#4472c4',
     },
     pic: {

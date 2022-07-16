@@ -6,8 +6,6 @@ import * as Location from "expo-location";
 import { MatchInfoContext } from "../../../../Context/UserContext";
 import CustomButton from "../../../../CustomComps/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { image } from "../../../../../../assets/exports";
-import logoTransparent from "../../../../../../assets/logoTransparent.png"
 
 export default function MapComp(props) {
   const navigation = useNavigation()

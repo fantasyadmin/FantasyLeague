@@ -1,24 +1,35 @@
-import { StyleSheet, Text, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { image } from "../../../../../assets/exports";
 import {
+  UserDataContext,
   LeagueInfoContext,
   LeaguePlayersInfoContext,
+  InviteContactsContext
 } from "../../../Context/UserContext";
 import { ScrollView } from "react-native-gesture-handler";
 import PlayerToApprove from "../../ManageTeam/PlayerToApprove";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 export default function ApproveResults() {
-  const { LeaguePlayersData } = useContext(LeaguePlayersInfoContext);
-  const { leagueData } = useContext(LeagueInfoContext);
-  const [approvals, setApprovals] = useState([]);
+  const { LeaguePlayersData, setLeaguePlayersData } = useContext(LeaguePlayersInfoContext);
+  const { leagueData, setLeagueData } = useContext(LeagueInfoContext);
+  const { TempUserData, setTempUserData } = useContext(InviteContactsContext);
+  const [approvals, setApprovals] = useState([])
+  const [rendering, setRendering] = useState([])
+
+
+  function CalcRes(result) {
+    setApprovals(result)
+  }
 
   //fetch שמקבל את רשימת התוצאות שצריך לאשר
   useEffect(() => {
     const data = {
       league_id: leagueData.league_id,
     };
+    console.log(data);
     try {
       fetch("https://proj.ruppin.ac.il/bgroup89/prod/api/MatchActiveInLeague", {
         method: "POST",
@@ -32,13 +43,15 @@ export default function ApproveResults() {
           return res.json();
         })
         .then((result) => {
-          console.log({ result: result.m1 });
-          setApprovals(result.m1);
+          console.log("reeeeeees===============================================", result);
+          CalcRes(result.m1)
+          console.log("check state for approval ", approvals);
         });
     } catch (err) {
       console.log(err);
     }
   }, []);
+
 
 
   return (
@@ -58,6 +71,8 @@ export default function ApproveResults() {
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -74,5 +89,16 @@ const styles = StyleSheet.create({
     width: "70%",
     borderRadius: 300,
     height: 300,
+  },
+  noResults: {
+    backgroundColor: "red",
+    borderRadius: 180,
+    color: "white",
+    width: 100,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 18,
+    paddingHorizontal: 10,
+    marginVertical: 5,
   },
 });

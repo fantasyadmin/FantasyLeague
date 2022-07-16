@@ -13,6 +13,10 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android":{
+        "serviceAccountKeyPath": "../FantasyLeague-master/pc-api-8175627350088414354-584-3f6cd54047aa.json"
+      }
+    }
   }
 }

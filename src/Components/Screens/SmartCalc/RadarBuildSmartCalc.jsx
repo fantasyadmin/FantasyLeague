@@ -32,7 +32,7 @@ class Radar extends React.Component {
 
   render() {
     return (
-      <VictoryChart polar theme={VictoryTheme.material} domain={{ y: [0, 1] }}>
+      <VictoryChart polar theme={VictoryTheme.material} domain={{ y: [0, 1] }}  domainPadding={{}}>
         <VictoryGroup
           colorScale={["orange", "tomato"]}
           style={{

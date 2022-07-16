@@ -2,7 +2,7 @@
   "expo": {
     "name": "Fantasy League צ'כונה",
     "slug": "Fantasy_League_Hood",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -31,8 +31,11 @@
       "supportsTablet": true
     },
     "android": {
-      "packagename": "com.FantasyLeagueHoodApp",
-      "versioncode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD62Jx7fjQNq4I-f_-bEzC8LMLMIVnT_rc"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

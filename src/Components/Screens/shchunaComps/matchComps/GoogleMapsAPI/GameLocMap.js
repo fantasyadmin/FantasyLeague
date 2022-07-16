@@ -2,10 +2,7 @@ import MapView from "react-native-maps";
 import { StyleSheet, Text, View, Dimensions, Alert } from "react-native";
 import { Marker } from "react-native-maps";
 import React, { useState, useEffect, useContext } from "react";
-import * as Location from "expo-location";
 import { MatchInfoContext } from "../../../../Context/UserContext";
-import { NavigationContainer } from '@react-navigation/native';
-import { Navigate } from "react-router-dom";
 import locationLogo from "../../../../../../assets/locationLogo.png"
 
 export default function GameLocMap(props) {
@@ -17,46 +14,6 @@ export default function GameLocMap(props) {
     longitudeDelta: 0.08,
   });
   const [errorMsg, setErrorMsg] = useState(null);
-
-  const [marker, setMarker] = useState('');
-
-
-
-  function savelocation(locationData) {
-    setLocation({
-      latitude: locationData.coords.latitude,
-      longitude: locationData.coords.longitude
-    })
-    console.log("location received: ", locationData);
-    Alert.alert(
-      'שים לב! ',
-      'האם לקבוע משחק במיקום הנבחר?',
-      [
-        {
-          text: 'ביטול',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        { text: '         ' },
-        { text: 'בחר מיקום למשחק', onPress: () => setGameLocation(locationData.coords) },
-      ],
-      { cancelable: false },
-    );
-  }
-
-
-  function setGameLocation(locationData) {
-    console.log("location received: ", locationData);
-    if (!locationData) {
-      setLocation({
-        latitude: locationData.coords.latitude,
-        longitude: locationData.coords.longitude,
-      })
-    }
-    console.log("tell papa===", location);
-    setMatchData(prevState => ({ ...prevState, match_location: location }))
-    console.log("print context = ", matchData);
-  }
 
 
   let text = "Waiting..";
@@ -72,7 +29,7 @@ export default function GameLocMap(props) {
       <MapView
         style={styles.map}
         region={location}
-        provider='google'
+        //provider='google'
       >
         <Marker coordinate={location}  image={locationLogo} title="מיקום המשחק" description="   " />
       </MapView>
@@ -88,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
+    flex: 1,
     width: Dimensions.get("window").width - 20,
     height: Dimensions.get("window").height - 20,
   },
@@ -98,43 +56,3 @@ const styles = StyleSheet.create({
   },
 });
 
-let ruppin = "32.343190083930146, 34.91241507999918";
-
-{
-  /* <MapView style={styles.map} region={this.state.region}
-onPress={(e) => this.setState({ markers: [...this.state.markers, { latlng: e.nativeEvent.coordinate }] })}>
-{
-    // loop through markers array & render all markers
-    this.state.markers.map((marker, i) => (
-        <MapView.Marker coordinate={marker.latlng} key={i} />
-    ))
-}
-</MapView> */
-}
-
-// cusom marker logo - fantasy league logo
-{
-  /* <Marker
-  coordinate={{ latitude : latitude , longitude : longitude }}
-  image={{uri: 'custom_pin'}}
-/> */
-}
-
-//markers on map
-
-{
-  /* <MapView
-  region={this.state.region}
-  onRegionChange={this.onRegionChange}
->
-  {this.state.markers.map((marker, index) => (
-    <Marker
-      key={index}
-      coordinate={marker.latlng}
-      title={marker.title}
-      description={marker.description}
-    />
-  ))}
-</MapView>
- */
-}
